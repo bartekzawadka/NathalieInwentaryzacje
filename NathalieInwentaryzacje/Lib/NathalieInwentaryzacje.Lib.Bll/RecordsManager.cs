@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using NathalieInwentaryzacje.Lib.Contracts.Dto;
 using NathalieInwentaryzacje.Lib.Contracts.Interfaces;
 
@@ -9,37 +8,46 @@ namespace NathalieInwentaryzacje.Lib.Bll
 {
     public class RecordsManager : IRecordsManager
     {
-        public Dictionary<string, List<RecordInfo>> GetRecords()
+        private readonly string _recordsPath = Path.Combine(Path.GetFullPath("."), "Data", "Inwentaryzacje");
+
+        public IEnumerable<RecordInfo> GetRecords()
         {
-            var path = Path.GetFullPath(".");
-            path = Path.Combine(path, "Data", "Inwentaryzacje");
+            if (!Directory.Exists(_recordsPath))
+                Directory.CreateDirectory(_recordsPath);
 
-            if (!Directory.Exists(path))
-                return null;
-
-            var years = Directory.GetDirectories(path);
-            var results = new Dictionary<string, List<RecordInfo>>();
+            var years = Directory.GetDirectories(_recordsPath);
 
             foreach (var year in years)
             {
-                var files = Directory.GetFiles(year, "*.xml");
-                var list = new List<RecordInfo>();
-                foreach (var file in files)
-                {
-                    var info = new FileInfo(file);
-                    list.Add(new RecordInfo
-                    {
-                        CreationDate = info.CreationTime,
-                        ModificationDate = info.LastWriteTime,
-                        Year = info.CreationTime.Year,
-                        Name = info.Name
-                    });
-                }
+                var list = GetFiles(year);
 
-                results.Add(year.Substring(year.LastIndexOf("\\", StringComparison.Ordinal)+1), list);
+                yield return new RecordInfo
+                {
+                    RecordDate = year.Substring(year.LastIndexOf("\\", StringComparison.Ordinal)+1),
+                    RecordsInfo = list
+                };
+            }
+        }
+
+        public IEnumerable<RecordItemInfo> GetRecordItems(string subDir)
+        {
+            return GetFiles(Path.Combine(_recordsPath, subDir));
+        }
+
+        private IEnumerable<RecordItemInfo> GetFiles(string path)
+        {
+            var files = Directory.GetFiles(path, "*.xml");
+            foreach (var file in files)
+            {
+                var info = new FileInfo(file);
+                yield return new RecordItemInfo
+                {
+                    CreationDate = info.CreationTime,
+                    ModificationDate = info.LastWriteTime,
+                    Name = info.Name.Substring(0, info.Name.LastIndexOf(".", StringComparison.Ordinal))
+                };
             }
 
-            return results;
         }
     }
 }

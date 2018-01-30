@@ -20,6 +20,7 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.DataGrid.xaml" />
 
                 <ResourceDictionary Source="Resources/Main.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="Resources/ConstantResource.xaml"></ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

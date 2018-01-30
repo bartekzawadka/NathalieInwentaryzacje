@@ -1,12 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace NathalieInwentaryzacje.Lib.Contracts.Dto
 {
     public class RecordInfo
     {
-        public int Year { get; set; }
-        public DateTime ModificationDate { get; set; }
-        public DateTime CreationDate{ get; set; }
-        public string Name { get; set; }
+        public string RecordDate { get; set; }
+
+        public string RecordTitle => "Stan na dzień: " + RecordDate;
+
+        public IEnumerable<RecordItemInfo> RecordsInfo { get; set; }
     }
 }

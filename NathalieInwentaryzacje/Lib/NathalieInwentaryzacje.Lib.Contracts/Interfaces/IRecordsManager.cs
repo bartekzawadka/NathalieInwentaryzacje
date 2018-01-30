@@ -7,6 +7,6 @@ namespace NathalieInwentaryzacje.Lib.Contracts.Interfaces
 {
     public interface IRecordsManager
     {
-        Dictionary<string, List<RecordInfo>> GetRecords();
+        IEnumerable<RecordInfo> GetRecords();
     }
 }

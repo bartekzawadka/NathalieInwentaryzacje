@@ -1,41 +1,41 @@
-﻿using System;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Runtime.InteropServices.ComTypes;
 using System.Windows;
+using System.Windows.Controls;
 using Caliburn.Micro;
+using NathalieInwentaryzacje.Lib.Contracts.Dto;
 using NathalieInwentaryzacje.Lib.Contracts.Interfaces;
 using NathalieInwentaryzacje.Main.Interfaces;
 using NathalieInwentaryzacje.ViewModels.Common;
+using NathalieInwentaryzacje.ViewModels.Records;
 
 namespace NathalieInwentaryzacje.ViewModels
 {
-    public class MainViewModel : ListScreen, IMain
+    public class MainViewModel : ListScreen<RecordInfo>, IMain
     {
-        private string _name;
-
-        public string Name
-        {
-            get => _name;
-            set
-            {
-                if (value == _name) return;
-                _name = value;
-                NotifyOfPropertyChange();
-            }
-        }
-
         public MainViewModel()
         {
             LoadData();
         }
 
-        public void ShowName()
-        {
-            Name = "Hello! :)";
-        }
-
-        protected override void LoadData()
+        public override void LoadData()
         {
             var records = IoC.Get<IRecordsManager>().GetRecords();
-            Console.WriteLine(records);
+
+            var context = new ObservableCollection<RecordInfo>();
+
+            foreach (var record in records)
+            {
+                context.Add(record);
+            }
+
+            Context = context;
+        }
+
+        public void NewRecord()
+        {
+            WindowManager.ShowDialog(new NewRecordViewModel());
         }
 
         public void CloseApp()

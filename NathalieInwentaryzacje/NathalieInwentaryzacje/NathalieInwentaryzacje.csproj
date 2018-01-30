@@ -81,12 +81,14 @@
     <Compile Include="Main\AppBootstrapper.cs" />
     <Compile Include="Main\Interfaces\IMain.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\Records\NewRecordViewModel.cs" />
     <Compile Include="Views\Controls\MainMenuItem.xaml.cs">
       <DependentUpon>MainMenuItem.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Records\RecordsList.xaml.cs">
-      <DependentUpon>RecordsList.xaml</DependentUpon>
-    </Compile>
+    <Page Include="Resources\ConstantResource.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Controls\MainMenuItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -100,7 +102,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Resources\Main.xaml" />
-    <Page Include="Views\Records\RecordsList.xaml">
+    <Page Include="Views\Records\NewRecordView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
