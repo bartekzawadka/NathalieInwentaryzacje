@@ -1,51 +1,52 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Runtime.InteropServices.ComTypes;
+﻿using System.Collections.ObjectModel;
 using System.Windows;
-using System.Windows.Controls;
 using Caliburn.Micro;
-using MahApps.Metro.Controls;
-using MahApps.Metro.Controls.Dialogs;
-using MahApps.Metro.SimpleChildWindow;
 using NathalieInwentaryzacje.Lib.Contracts.Dto;
-using NathalieInwentaryzacje.Lib.Contracts.Dto.Templates;
 using NathalieInwentaryzacje.Lib.Contracts.Interfaces;
 using NathalieInwentaryzacje.Main.Interfaces;
 using NathalieInwentaryzacje.ViewModels.Common;
 using NathalieInwentaryzacje.ViewModels.Records;
-using NathalieInwentaryzacje.Views.Records;
+using NathalieInwentaryzacje.ViewModels.Templates;
 
 namespace NathalieInwentaryzacje.ViewModels
 {
     public class MainViewModel : ListScreen<RecordInfo>, IMain
     {
+        private ScreenBase _mainContent;
+
+        public ScreenBase MainContent
+        {
+            get => _mainContent;
+            set
+            {
+                if (Equals(value, _mainContent)) return;
+                _mainContent = value;
+                NotifyOfPropertyChange();
+            }
+        }
+
         public MainViewModel()
         {
-            LoadData();
+            ShowRecords();
         }
 
-        public override void LoadData()
+        public void ShowRecords()
         {
-            var records = IoC.Get<IRecordsManager>().GetRecords();
-
-            var context = new ObservableCollection<RecordInfo>();
-
-            foreach (var record in records)
-            {
-                context.Add(record);
-            }
-
-            Context = context;
+            MainContent = new RecordsListViewModel();
         }
 
-        public void NewRecord()
+        public void ShowTemplates()
         {
-            if (WindowManager.ShowDialog(new NewRecordViewModel()) == true)
-            {
-                LoadData();
-            }
+            MainContent = new TemplatesListViewModel();
         }
+
+//        public void NewRecord()
+//        {
+//            if (WindowManager.ShowDialog(new NewRecordViewModel()) == true)
+//            {
+//                LoadData();
+//            }
+//        }
 
         public void CloseApp()
         {

@@ -7,6 +7,6 @@ namespace NathalieInwentaryzacje.Lib.Contracts.Interfaces
     {
         IEnumerable<TemplateInfo> GetTemplates();
 
-        void SaveTemplate(TemplateInfo tInfo);
+        void CreateOrUpdateTemplate(TemplateInfo tInfo);
     }
 }

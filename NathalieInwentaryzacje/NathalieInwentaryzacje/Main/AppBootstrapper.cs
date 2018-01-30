@@ -2,7 +2,6 @@
 using Autofac;
 using Caliburn.Micro;
 using Caliburn.Micro.Autofac;
-using MahApps.Metro.SimpleChildWindow;
 using NathalieInwentaryzacje.Lib.Bll;
 using NathalieInwentaryzacje.Lib.Contracts.Interfaces;
 using NathalieInwentaryzacje.ViewModels;

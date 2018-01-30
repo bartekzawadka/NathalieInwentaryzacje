@@ -55,9 +55,6 @@
     <Reference Include="MahApps.Metro.IconPacks, Version=2.0.0.31, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.IconPacks.2.0.0\lib\net46\MahApps.Metro.IconPacks.dll</HintPath>
     </Reference>
-    <Reference Include="MahApps.Metro.SimpleChildWindow, Version=1.4.1.6, Culture=neutral, PublicKeyToken=bbbfdff7f500a992, processorArchitecture=MSIL">
-      <HintPath>..\packages\MahApps.Metro.SimpleChildWindow.1.4.1\lib\net45\MahApps.Metro.SimpleChildWindow.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
@@ -92,6 +89,8 @@
     <Compile Include="Main\Interfaces\IMain.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\Records\NewRecordViewModel.cs" />
+    <Compile Include="ViewModels\Records\RecordsListViewModel.cs" />
+    <Compile Include="ViewModels\Templates\TemplatesListViewModel.cs" />
     <Compile Include="Views\Controls\MainMenuItem.xaml.cs">
       <DependentUpon>MainMenuItem.xaml</DependentUpon>
     </Compile>
@@ -113,6 +112,14 @@
     </Compile>
     <Page Include="Resources\Main.xaml" />
     <Page Include="Views\Records\NewRecordView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Records\RecordsListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Templates\TemplatesListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

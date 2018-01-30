@@ -6,7 +6,7 @@ namespace NathalieInwentaryzacje.Lib.Contracts.Dto.Templates
     [Serializable]
     public class TemplateColumn
     {
-        [XmlElement("Name")]
+        [XmlAttribute("Name")]
         public string Name { get; set; }
     }
 }
