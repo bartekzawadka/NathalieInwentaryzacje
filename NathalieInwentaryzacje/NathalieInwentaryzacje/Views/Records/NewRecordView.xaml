@@ -4,10 +4,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:dialogs="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
              xmlns:local="clr-namespace:NathalieInwentaryzacje.Views.Records"
-             mc:Ignorable="d" Style="{StaticResource NWindow}" Width="300" ShowCloseButton="False" ShowMinButton="False" ShowMaxRestoreButton="False"
+             mc:Ignorable="d" Width="300" SizeToContent="WidthAndHeight" Style="{StaticResource NWindow}"
+                      ShowCloseButton="False" ShowMinButton="False" 
+                      ShowMaxRestoreButton="False" WindowStartupLocation="CenterScreen"
                       Title="Nowa inwentaryzacja">
-    <Grid>
+    <Grid Margin="20">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
@@ -15,26 +18,27 @@
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" Margin="15">
             <TextBlock Text="Stan na dzień: " VerticalAlignment="Center" Margin="5"></TextBlock>
-            <DatePicker Width="150"></DatePicker>
+            <DatePicker Width="150" SelectedDate="{Binding RecordDate}" SelectedDateFormat="Short"></DatePicker>
         </StackPanel>
-        <ListBox Grid.Row="1" ItemsSource="{Binding Entries}">
+        <ListBox Grid.Row="1" ItemsSource="{Binding RecordTypes}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                         <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}" VerticalAlignment="Center" VerticalContentAlignment="Center"></CheckBox>
-                        <TextBlock Text="{Binding RecordTypeName}" VerticalAlignment="Center" Margin="7"></TextBlock>
+                        <TextBlock Text="{Binding TemplateInfo.Name}" VerticalAlignment="Center" Margin="7"></TextBlock>
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Grid Grid.Row="2">
+        <Grid Grid.Row="2" VerticalAlignment="Center">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
                 <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Button Content="Anuluj" Style="{StaticResource SquareButtonStyle}"></Button>
-            <Button Grid.Column="2" Content="Utwórz" Style="{StaticResource AccentedSquareButtonStyle}"></Button>
+            <Button x:Name="Cancel" Grid.Column="2" Content="Anuluj" Style="{StaticResource SquareButtonStyle}" Margin="5"></Button>
+            <Button x:Name="Create"  Grid.Column="1" Content="Utwórz" Style="{StaticResource AccentedSquareButtonStyle}" Margin="5"></Button>
         </Grid>
     </Grid>
 </controls:MetroWindow>
+

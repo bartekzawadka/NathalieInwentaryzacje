@@ -1,6 +1,8 @@
 ﻿using System.Windows;
 using Autofac;
+using Caliburn.Micro;
 using Caliburn.Micro.Autofac;
+using MahApps.Metro.SimpleChildWindow;
 using NathalieInwentaryzacje.Lib.Bll;
 using NathalieInwentaryzacje.Lib.Contracts.Interfaces;
 using NathalieInwentaryzacje.ViewModels;
@@ -23,7 +25,9 @@ namespace NathalieInwentaryzacje.Main
         {
             base.ConfigureContainer(builder);
 
+            builder.RegisterInstance(new CustomWindowsManager()).As<IWindowManager>();
             builder.RegisterType<RecordsManager>().As<IRecordsManager>();
+            builder.RegisterType<TemplatesManager>().As<ITemplatesManager>();
         }
     }
 }

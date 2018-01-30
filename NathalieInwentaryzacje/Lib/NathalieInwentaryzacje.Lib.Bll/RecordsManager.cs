@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using NathalieInwentaryzacje.Lib.Bll.Serializers;
 using NathalieInwentaryzacje.Lib.Contracts.Dto;
+using NathalieInwentaryzacje.Lib.Contracts.Dto.Records;
+using NathalieInwentaryzacje.Lib.Contracts.Dto.Templates;
 using NathalieInwentaryzacje.Lib.Contracts.Interfaces;
 
 namespace NathalieInwentaryzacje.Lib.Bll
@@ -29,9 +32,49 @@ namespace NathalieInwentaryzacje.Lib.Bll
             }
         }
 
+        public void CreateRecord(DateTime recordDate, IEnumerable<TemplateInfo> templates)
+        {
+            var recordsPath = Path.Combine(_recordsPath, recordDate.ToString("yyyy-MM-dd"));
+            if (Directory.Exists(recordsPath))
+            {
+                throw new Exception("Inwentaryzacje na dzień " + recordDate.ToString("yyyy-MM-dd") +
+                                    " już istnieją! Proszę wybrać inną datę lub zmodyfikować istniejące zestawienia");
+            }
+
+            try
+            {
+                Directory.CreateDirectory(recordsPath);
+
+                foreach (var templateInfo in templates)
+                {
+                    var record = CreateRecordFromTemplate(templateInfo, recordDate);
+                    XmlFileSerializer.Serialize(record, Path.Combine(recordsPath, templateInfo.Name + ".xml"));
+                }
+            }
+            catch
+            {
+                Directory.Delete(recordsPath, true);
+                throw;
+            }
+        }
+
         public IEnumerable<RecordItemInfo> GetRecordItems(string subDir)
         {
             return GetFiles(Path.Combine(_recordsPath, subDir));
+        }
+
+        private Record CreateRecordFromTemplate(TemplateInfo info, DateTime recordDate)
+        {
+            if (!info.IsEnabled)
+            {
+                throw new Exception("Ten szablon jest już niedostępny!");
+            }
+
+            return new Record
+            {
+                Name = info.Name,
+                RecordDate = recordDate
+            };
         }
 
         private IEnumerable<RecordItemInfo> GetFiles(string path)
