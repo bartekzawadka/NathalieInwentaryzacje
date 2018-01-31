@@ -36,6 +36,11 @@ namespace NathalieInwentaryzacje.ViewModels.Templates
             Context = templateInfo ?? new TemplateInfo();
         }
 
+        public void UpdateColumns()
+        {
+
+        }
+
         public void Save()
         {
         }
