@@ -10,12 +10,23 @@ namespace NathalieInwentaryzacje.ViewModels.Common
         /// <value>
         /// The context.
         /// </value>
-        public IEnumerable<T> Context { get; set; }
+        public IEnumerable<T> Context
+        {
+            get => _context;
+            set
+            {
+                if (Equals(value, _context)) return;
+                _context = value;
+                NotifyOfPropertyChange();
+            }
+        }
 
         /// <summary>
         /// The _selected context item
         /// </summary>
         private T _selectedContextItem;
+
+        private IEnumerable<T> _context;
 
         public T SelectedContextItem
         {
@@ -30,6 +41,11 @@ namespace NathalieInwentaryzacje.ViewModels.Common
         public virtual void LoadData()
         {
 
+        }
+
+        public virtual void RefreshList()
+        {
+            LoadData();
         }
     }
 }

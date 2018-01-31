@@ -1,6 +1,9 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:converters="clr-namespace:NathalieInwentaryzacje.Common.Converters"
                     xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro">
+
+    <converters:ToUpperConverter x:Key="ToUpperConverter"></converters:ToUpperConverter>
 
     <Style x:Key="NWindow" TargetType="Controls:MetroWindow">
         <Setter Property="Icon" Value="pack://application:,,,/NathalieInwentaryzacje;component/Resources/Img/logo.ico"></Setter>

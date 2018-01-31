@@ -82,7 +82,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Common\Converters\ToUpperConverter.cs" />
     <Compile Include="Main\CustomWindowsManager.cs" />
+    <Compile Include="ViewModels\Common\DetailsScreen.cs" />
     <Compile Include="ViewModels\Common\ListScreen.cs" />
     <Compile Include="ViewModels\Common\ScreenBase.cs" />
     <Compile Include="Main\AppBootstrapper.cs" />
@@ -91,14 +93,22 @@
     <Compile Include="ViewModels\Records\NewRecordViewModel.cs" />
     <Compile Include="ViewModels\Records\RecordsListViewModel.cs" />
     <Compile Include="ViewModels\Templates\TemplatesListViewModel.cs" />
+    <Compile Include="ViewModels\Templates\TemplateViewModel.cs" />
     <Compile Include="Views\Controls\MainMenuItem.xaml.cs">
       <DependentUpon>MainMenuItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Controls\NButton.xaml.cs">
+      <DependentUpon>NButton.xaml</DependentUpon>
     </Compile>
     <Page Include="Resources\ConstantResource.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Controls\MainMenuItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Controls\NButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -120,6 +130,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Templates\TemplatesListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Templates\TemplateView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

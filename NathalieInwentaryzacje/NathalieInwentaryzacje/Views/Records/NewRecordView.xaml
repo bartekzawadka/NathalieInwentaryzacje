@@ -6,7 +6,7 @@
              xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              xmlns:dialogs="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
              xmlns:local="clr-namespace:NathalieInwentaryzacje.Views.Records"
-             mc:Ignorable="d" Width="300" SizeToContent="WidthAndHeight" Style="{StaticResource NWindow}"
+             mc:Ignorable="d" SizeToContent="WidthAndHeight" Style="{StaticResource NWindow}"
                       ShowCloseButton="False" ShowMinButton="False" 
                       ShowMaxRestoreButton="False" WindowStartupLocation="CenterScreen"
                       Title="Nowa inwentaryzacja">

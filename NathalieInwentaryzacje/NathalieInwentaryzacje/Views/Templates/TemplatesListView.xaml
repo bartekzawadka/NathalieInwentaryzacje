@@ -4,15 +4,28 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:NathalieInwentaryzacje.Views.Templates"
-             mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
-        <DataGrid AutoGenerateColumns="False" AlternatingRowBackground="AntiqueWhite" ItemsSource="{Binding Context}" SelectedItem="{Binding SelectedContextItem}">
+             xmlns:controls="clr-namespace:NathalieInwentaryzacje.Views.Controls"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             mc:Ignorable="d">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal" Margin="5,7">
+            <controls:NButton x:Name="NewTemplate" Text="Nowy szablon" IsAccented="True" Icon="Add"></controls:NButton>
+            <controls:NButton x:Name="RefreshList" Text="Odśwież" IsAccented="False" Icon="Refresh"></controls:NButton>
+        </StackPanel>
+
+        <DataGrid Grid.Row="1" AutoGenerateColumns="False" AlternatingRowBackground="AntiqueWhite" ItemsSource="{Binding Context, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" SelectedItem="{Binding SelectedContextItem, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" CanUserAddRows="False" CanUserDeleteRows="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Nazwa szablonu" Binding="{Binding Name}" Width="*" IsReadOnly="True"></DataGridTextColumn>
-                <DataGridCheckBoxColumn Header="Aktywny?" IsThreeState="False" Binding="{Binding IsEnabled}" IsReadOnly="True"></DataGridCheckBoxColumn>
+                <DataGridCheckBoxColumn Header="Czy aktywny" IsThreeState="False" Binding="{Binding IsEnabled}" IsReadOnly="True"></DataGridCheckBoxColumn>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
 </UserControl>
+
+
 

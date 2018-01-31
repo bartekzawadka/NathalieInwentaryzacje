@@ -23,5 +23,13 @@ namespace NathalieInwentaryzacje.ViewModels.Templates
         {
             Context = _templatesManager.GetTemplates();
         }
+
+        public void NewTemplate()
+        {
+            if (WindowManager.ShowDialog(new TemplateViewModel()) == true)
+            {
+                LoadData();
+            }
+        }
     }
 }
