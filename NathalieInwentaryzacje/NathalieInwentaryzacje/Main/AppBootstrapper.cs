@@ -1,10 +1,13 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
+using System.Windows.Threading;
 using Autofac;
 using Caliburn.Micro;
 using Caliburn.Micro.Autofac;
 using NathalieInwentaryzacje.Lib.Bll;
 using NathalieInwentaryzacje.Lib.Contracts.Interfaces;
 using NathalieInwentaryzacje.ViewModels;
+using NathalieInwentaryzacje.ViewModels.Main;
 
 namespace NathalieInwentaryzacje.Main
 {
@@ -27,6 +30,25 @@ namespace NathalieInwentaryzacje.Main
             builder.RegisterInstance(new CustomWindowsManager()).As<IWindowManager>();
             builder.RegisterType<RecordsManager>().As<IRecordsManager>();
             builder.RegisterType<TemplatesManager>().As<ITemplatesManager>();
+        }
+
+        protected override void OnUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
+        {
+            ShowException(e.Exception);
+            e.Handled = true;
+        }
+
+        public static void ShowException(Exception ex)
+        {
+            Execute.OnUIThread(() =>
+            {
+                var e = ex;
+                if (!string.IsNullOrEmpty(ex.InnerException?.Message))
+                {
+                    e = ex.InnerException;
+                }
+                IoC.Get<IWindowManager>().ShowDialog(new ErrorViewModel(e));
+            });
         }
     }
 }

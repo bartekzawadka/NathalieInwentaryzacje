@@ -26,5 +26,13 @@ namespace NathalieInwentaryzacje.ViewModels.Records
 
             Context = context;
         }
+
+        public void NewRecord()
+        {
+            if (ShowDialog(new NewRecordViewModel()) == true)
+            {
+                LoadData();
+            }
+        }
     }
 }

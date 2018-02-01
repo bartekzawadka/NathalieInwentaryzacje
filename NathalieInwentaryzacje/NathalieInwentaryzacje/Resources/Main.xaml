@@ -4,6 +4,8 @@
                     xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro">
 
     <converters:ToUpperConverter x:Key="ToUpperConverter"></converters:ToUpperConverter>
+    <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"></converters:BooleanToVisibilityConverter>
+    <converters:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter"></converters:InverseBooleanToVisibilityConverter>
 
     <Style x:Key="NWindow" TargetType="Controls:MetroWindow">
         <Setter Property="Icon" Value="pack://application:,,,/NathalieInwentaryzacje;component/Resources/Img/logo.ico"></Setter>

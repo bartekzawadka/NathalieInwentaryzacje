@@ -4,6 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"          
+             xmlns:cal="http://www.caliburnproject.org"
              xmlns:local="clr-namespace:NathalieInwentaryzacje.Views.Templates"
              xmlns:controls1="clr-namespace:NathalieInwentaryzacje.Views.Controls"
              mc:Ignorable="d" WindowTransitionsEnabled="True" Style="{StaticResource NWindow}"
@@ -41,7 +43,8 @@
             <GroupBox Header="Kolumny">
                 <DataGrid AutoGenerateColumns="False" AlternatingRowBackground="AntiqueWhite" 
                           ItemsSource="{Binding TemplateColumns, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
-                          CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False" CanUserResizeRows="False">
+                          CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False" CanUserResizeRows="False"
+                          cal:Message.Attach="[Event CellEditEnding]=[Action UpdateColumns($eventArgs)]">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Nazwa kolumny" Width="*" Binding="{Binding Name}"></DataGridTextColumn>
                     </DataGrid.Columns>

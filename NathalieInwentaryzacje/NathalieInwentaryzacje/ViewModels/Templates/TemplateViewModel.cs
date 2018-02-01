@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows.Controls;
+using Caliburn.Micro;
 using NathalieInwentaryzacje.Lib.Contracts.Dto.Templates;
+using NathalieInwentaryzacje.Lib.Contracts.Interfaces;
 using NathalieInwentaryzacje.ViewModels.Common;
 
 namespace NathalieInwentaryzacje.ViewModels.Templates
@@ -36,13 +38,34 @@ namespace NathalieInwentaryzacje.ViewModels.Templates
             Context = templateInfo ?? new TemplateInfo();
         }
 
-        public void UpdateColumns()
+        public void UpdateColumns(DataGridCellEditEndingEventArgs args)
         {
+            var value = (args.EditingElement as TextBox)?.Text;
+            if (string.IsNullOrEmpty(value))
+                return;
 
+            var templateColumns = TemplateColumns;
+
+            if (args.Row.IsNewItem)
+            {
+                templateColumns.Add(new TemplateColumn
+                {
+                    Name = value
+                });
+            }
+            else
+            {
+                var index = args.Row.GetIndex();
+                templateColumns[index].Name = value;
+            }
+
+            TemplateColumns = templateColumns;
         }
 
         public void Save()
         {
+            IoC.Get<ITemplatesManager>().CreateOrUpdateTemplate(Context);
+            TryClose(true);
         }
 
         public void Cancel()

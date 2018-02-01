@@ -53,24 +53,11 @@
             </Grid>
         </Grid>
         <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch" Background="{DynamicResource AccentColorBrush}" Width="1"></GridSplitter>
-        <Grid Grid.Column="2">
-            <ContentControl x:Name="MainContent"></ContentControl>
-<!--            <ItemsControl ItemsSource="{Binding Context}">-->
-<!--                <ItemsControl.ItemTemplate>-->
-<!--                    <DataTemplate>-->
-<!--                        <GroupBox Header="{Binding RecordTitle}">-->
-<!--                            <DataGrid ItemsSource="{Binding RecordsInfo}" AlternatingRowBackground="AntiqueWhite" AutoGenerateColumns="False">-->
-<!--                                <DataGrid.Columns>-->
-<!--                                    <DataGridTextColumn Width="*" Header="Nazwa" Binding="{Binding Name}"></DataGridTextColumn>-->
-<!--~1~                                    <DataGridTextColumn Width="*" Header="Data utworzenia" Binding="{Binding CreationDate, StringFormat={StaticResource DateFormat}}"></DataGridTextColumn>@1@-->
-<!--~1~                                    <DataGridTextColumn Width="*" Header="Data modyfikacji" Binding="{Binding ModificationDate, StringFormat={StaticResource DateFormat}}"></DataGridTextColumn>@1@-->
-<!--                                </DataGrid.Columns>-->
-<!--                            </DataGrid>-->
-<!--                        </GroupBox>-->
-<!--                    </DataTemplate>-->
-<!--                </ItemsControl.ItemTemplate>-->
-<!--            </ItemsControl>-->
-        </Grid>
+        <ScrollViewer Grid.Column="2">
+            <Grid>
+                <ContentControl x:Name="MainContent"></ContentControl>
+            </Grid>
+        </ScrollViewer>
     </Grid>
 </controls:MetroWindow>
 

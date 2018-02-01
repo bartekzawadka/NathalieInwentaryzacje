@@ -6,6 +6,7 @@
              xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              xmlns:dialogs="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
              xmlns:local="clr-namespace:NathalieInwentaryzacje.Views.Records"
+             xmlns:controls1="clr-namespace:NathalieInwentaryzacje.Views.Controls"
              mc:Ignorable="d" SizeToContent="WidthAndHeight" Style="{StaticResource NWindow}"
                       ShowCloseButton="False" ShowMinButton="False" 
                       ShowMaxRestoreButton="False" WindowStartupLocation="CenterScreen"
@@ -36,9 +37,13 @@
                 <ColumnDefinition Width="Auto"></ColumnDefinition>
                 <ColumnDefinition Width="Auto"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Button x:Name="Cancel" Grid.Column="2" Content="Anuluj" Style="{StaticResource SquareButtonStyle}" Margin="5"></Button>
-            <Button x:Name="Create"  Grid.Column="1" Content="Utwórz" Style="{StaticResource AccentedSquareButtonStyle}" Margin="5"></Button>
+            <controls1:NButton Grid.Column="2" x:Name="Cancel" Icon="Cancel" Text="Anuluj"></controls1:NButton>
+            <controls1:NButton Grid.Column="1" x:Name="Create" Icon="ListCreate" Text="Utwórz" IsAccented="True"></controls1:NButton>
+<!--            <Button x:Name="Cancel" Grid.Column="2" Content="Anuluj" Style="{StaticResource SquareButtonStyle}" Margin="5"></Button>-->
+<!--            <Button x:Name="Create"  Grid.Column="1" Content="Utwórz" Style="{StaticResource AccentedSquareButtonStyle}" Margin="5"></Button>-->
         </Grid>
     </Grid>
 </controls:MetroWindow>
+
+
 

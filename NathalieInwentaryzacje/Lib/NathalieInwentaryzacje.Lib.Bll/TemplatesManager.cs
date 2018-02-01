@@ -18,9 +18,26 @@ namespace NathalieInwentaryzacje.Lib.Bll
                 Directory.CreateDirectory(_templatesPath);
         }
 
-        public IEnumerable<TemplateInfo> GetTemplates()
+        public IEnumerable<TemplateInfo> GetTemplates(bool includeDisabled = false)
         {
-            return GetTemplates(false);
+            var files = Directory.GetFiles(_templatesPath);
+
+            var templates = new List<TemplateInfo>();
+
+            foreach (var file in files)
+            {
+                var template = XmlFileSerializer.Deserialize<TemplateInfo>(file);
+                if (!includeDisabled && !template.IsEnabled)
+                    continue;
+                templates.Add(template);
+            }
+
+            return templates;
+        }
+
+        public TemplateInfo GetTemplate(string id)
+        {
+            return GetTemplates(true).Single(x => string.Equals(x.Id, id));
         }
 
         public void CreateOrUpdateTemplate(TemplateInfo tInfo)
@@ -45,23 +62,6 @@ namespace NathalieInwentaryzacje.Lib.Bll
             }
 
             XmlFileSerializer.Serialize(tInfo, path);
-        }
-
-        private IEnumerable<TemplateInfo> GetTemplates(bool includeDisabled = false)
-        {
-            var files = Directory.GetFiles(_templatesPath);
-
-            var templates = new List<TemplateInfo>();
-
-            foreach (var file in files)
-            {
-                var template = XmlFileSerializer.Deserialize<TemplateInfo>(file);
-                if(!includeDisabled && !template.IsEnabled)
-                    continue;
-                templates.Add(template);
-            }
-
-            return templates;
         }
     }
 }

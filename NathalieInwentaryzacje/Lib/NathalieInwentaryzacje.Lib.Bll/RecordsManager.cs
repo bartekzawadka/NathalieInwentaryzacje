@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 using NathalieInwentaryzacje.Lib.Bll.Serializers;
 using NathalieInwentaryzacje.Lib.Contracts.Dto;
 using NathalieInwentaryzacje.Lib.Contracts.Dto.Records;
@@ -15,21 +16,50 @@ namespace NathalieInwentaryzacje.Lib.Bll
 
         public IEnumerable<RecordInfo> GetRecords()
         {
+            //            if (!Directory.Exists(_recordsPath))
+            //                Directory.CreateDirectory(_recordsPath);
+            //
+            //            var years = Directory.GetDirectories(_recordsPath);
+            //
+            //            foreach (var year in years)
+            //            {
+            //                var list = GetFiles(year);
+            //
+            //                yield return new RecordInfo
+            //                {
+            //                    RecordDate = year.Substring(year.LastIndexOf("\\", StringComparison.Ordinal)+1),
+            //                    RecordsInfo = list
+            //                };
+            //            }
+
             if (!Directory.Exists(_recordsPath))
                 Directory.CreateDirectory(_recordsPath);
 
-            var years = Directory.GetDirectories(_recordsPath);
+            var dirs = Directory.GetDirectories(_recordsPath);
+            var records = new List<RecordInfo>();
 
-            foreach (var year in years)
+            Parallel.ForEach(dirs, s =>
             {
-                var list = GetFiles(year);
-
-                yield return new RecordInfo
+                var files = Directory.GetFiles(s, "*.xml");
+                var recordInfo = new RecordInfo();
+                var recordItems = new List<RecordItemInfo>();
+                foreach (var file in files)
                 {
-                    RecordDate = year.Substring(year.LastIndexOf("\\", StringComparison.Ordinal)+1),
-                    RecordsInfo = list
-                };
-            }
+                    var record = XmlFileSerializer.Deserialize<Record>(file);
+                    recordItems.Add(new RecordItemInfo
+                    {
+                        IsFilledIn = record.Entries != null && record.Entries.Length > 0,
+                        Name = record.Name
+                    });
+                }
+
+                recordInfo.RecordDate = s.Substring(s.LastIndexOf("\\", StringComparison.Ordinal) + 1);
+                recordInfo.RecordsInfo = recordItems;
+
+                records.Add(recordInfo);
+            });
+
+            return records;
         }
 
         public void CreateRecord(DateTime recordDate, IEnumerable<TemplateInfo> templates)
@@ -58,10 +88,10 @@ namespace NathalieInwentaryzacje.Lib.Bll
             }
         }
 
-        public IEnumerable<RecordItemInfo> GetRecordItems(string subDir)
-        {
-            return GetFiles(Path.Combine(_recordsPath, subDir));
-        }
+//        public IEnumerable<RecordItemInfo> GetRecordItems(string subDir)
+//        {
+//            return GetFiles(Path.Combine(_recordsPath, subDir));
+//        }
 
         private Record CreateRecordFromTemplate(TemplateInfo info, DateTime recordDate)
         {
@@ -76,21 +106,26 @@ namespace NathalieInwentaryzacje.Lib.Bll
                 RecordDate = recordDate
             };
         }
-
-        private IEnumerable<RecordItemInfo> GetFiles(string path)
-        {
-            var files = Directory.GetFiles(path, "*.xml");
-            foreach (var file in files)
-            {
-                var info = new FileInfo(file);
-                yield return new RecordItemInfo
-                {
-                    CreationDate = info.CreationTime,
-                    ModificationDate = info.LastWriteTime,
-                    Name = info.Name.Substring(0, info.Name.LastIndexOf(".", StringComparison.Ordinal))
-                };
-            }
-
-        }
+//
+//        private IEnumerable<RecordItemInfo> GetFiles(string path)
+//        {
+//            var files = Directory.GetFiles(path, "*.xml");
+////            var recordInfo = new RecordInfo();
+//            var recordItems = new List<RecordItemInfo>();
+//            foreach (var file in files)
+//            {
+//                var record = XmlFileSerializer.Deserialize<Record>(file);
+//                recordItems.Add(new RecordItemInfo
+//                {
+//                    IsFilledIn = record.Entries != null && record.Entries.Length > 0,
+//                    Name = record.Name
+//                });
+//            }
+//
+////            recordInfo.RecordDate = path.Substring(path.LastIndexOf("\\", StringComparison.Ordinal) + 1);
+////            recordInfo.RecordsInfo = recordItems;
+////
+////            return reco
+//        }
     }
 }

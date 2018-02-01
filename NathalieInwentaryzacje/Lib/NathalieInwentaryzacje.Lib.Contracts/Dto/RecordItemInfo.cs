@@ -6,8 +6,8 @@ namespace NathalieInwentaryzacje.Lib.Contracts.Dto
 {
     public class RecordItemInfo
     {
-        public DateTime ModificationDate { get; set; }
-        public DateTime CreationDate { get; set; }
         public string Name { get; set; }
+
+        public bool IsFilledIn { get; set; }
     }
 }

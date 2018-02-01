@@ -5,7 +5,9 @@ namespace NathalieInwentaryzacje.Lib.Contracts.Interfaces
 {
     public interface ITemplatesManager
     {
-        IEnumerable<TemplateInfo> GetTemplates();
+        IEnumerable<TemplateInfo> GetTemplates(bool includeDisabled = false);
+
+        TemplateInfo GetTemplate(string id);
 
         void CreateOrUpdateTemplate(TemplateInfo tInfo);
     }

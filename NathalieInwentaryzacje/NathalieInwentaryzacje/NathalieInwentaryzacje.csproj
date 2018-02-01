@@ -82,6 +82,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Common\Converters\BooleanToVisibilityConverter.cs" />
+    <Compile Include="Common\Converters\InverseBooleanToVisibilityConverter.cs" />
     <Compile Include="Common\Converters\ToUpperConverter.cs" />
     <Compile Include="Main\CustomWindowsManager.cs" />
     <Compile Include="ViewModels\Common\DetailsScreen.cs" />
@@ -90,6 +92,7 @@
     <Compile Include="Main\AppBootstrapper.cs" />
     <Compile Include="Main\Interfaces\IMain.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\Main\ErrorViewModel.cs" />
     <Compile Include="ViewModels\Records\NewRecordViewModel.cs" />
     <Compile Include="ViewModels\Records\RecordsListViewModel.cs" />
     <Compile Include="ViewModels\Templates\TemplatesListViewModel.cs" />
@@ -100,7 +103,14 @@
     <Compile Include="Views\Controls\NButton.xaml.cs">
       <DependentUpon>NButton.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Controls\NDataGrid.xaml.cs">
+      <DependentUpon>NDataGrid.xaml</DependentUpon>
+    </Compile>
     <Page Include="Resources\ConstantResource.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\DataGrid.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -109,6 +119,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Controls\NButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Controls\NDataGrid.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -121,6 +135,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Resources\Main.xaml" />
+    <Page Include="Views\Main\ErrorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Records\NewRecordView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -167,6 +185,10 @@
     <Folder Include="Resources\Img\Icons\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common\NathalieInwentaryzacje.Common.Utils\NathalieInwentaryzacje.Common.Utils.csproj">
+      <Project>{9bc16fc0-0f01-459b-a58c-56f327af1a49}</Project>
+      <Name>NathalieInwentaryzacje.Common.Utils</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Lib\NathalieInwentaryzacje.Lib.Bll\NathalieInwentaryzacje.Lib.Bll.csproj">
       <Project>{d36adf63-f3c8-4734-bf2b-6053941759ea}</Project>
       <Name>NathalieInwentaryzacje.Lib.Bll</Name>

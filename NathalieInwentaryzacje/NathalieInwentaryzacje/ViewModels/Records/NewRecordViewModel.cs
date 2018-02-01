@@ -57,7 +57,7 @@ namespace NathalieInwentaryzacje.ViewModels.Records
 
         private void LoadTypes()
         {
-            RecordTypes = IoC.Get<ITemplatesManager>().GetTemplates().Select(x=>new NewRecordTypeInfo
+            RecordTypes = IoC.Get<ITemplatesManager>().GetTemplates().Where(x=>x.IsEnabled).Select(x=>new NewRecordTypeInfo
             {
                 TemplateInfo= x,
                 IsSelected = false

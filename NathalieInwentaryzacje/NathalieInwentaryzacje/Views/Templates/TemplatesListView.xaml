@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:NathalieInwentaryzacje.Views.Templates"
+             xmlns:cal="http://www.caliburnproject.org"
              xmlns:controls="clr-namespace:NathalieInwentaryzacje.Views.Controls"
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              mc:Ignorable="d">
@@ -18,12 +19,12 @@
             <controls:NButton x:Name="RefreshList" Text="Odśwież" IsAccented="False" Icon="Refresh"></controls:NButton>
         </StackPanel>
 
-        <DataGrid Grid.Row="1" AutoGenerateColumns="False" AlternatingRowBackground="AntiqueWhite" ItemsSource="{Binding Context, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" SelectedItem="{Binding SelectedContextItem, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" CanUserAddRows="False" CanUserDeleteRows="False">
+        <controls:NDataGrid Grid.Row="1" AutoGenerateColumns="False" AlternatingRowBackground="AntiqueWhite" ItemsSource="{Binding Context, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" SelectedItem="{Binding SelectedContextItem, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" CanUserAddRows="False" CanUserDeleteRows="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Nazwa szablonu" Binding="{Binding Name}" Width="*" IsReadOnly="True"></DataGridTextColumn>
                 <DataGridCheckBoxColumn Header="Czy aktywny" IsThreeState="False" Binding="{Binding IsEnabled}" IsReadOnly="True"></DataGridCheckBoxColumn>
             </DataGrid.Columns>
-        </DataGrid>
+        </controls:NDataGrid>
     </Grid>
 </UserControl>
 

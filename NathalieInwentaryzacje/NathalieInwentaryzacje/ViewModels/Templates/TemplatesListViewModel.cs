@@ -21,12 +21,33 @@ namespace NathalieInwentaryzacje.ViewModels.Templates
 
         public override void LoadData()
         {
-            Context = _templatesManager.GetTemplates();
+            Context = _templatesManager.GetTemplates(true);
         }
 
         public void NewTemplate()
         {
-            if (WindowManager.ShowDialog(new TemplateViewModel()) == true)
+            if (ShowDialog(new TemplateViewModel()) == true)
+            {
+                LoadData();
+            }
+        }
+
+        public void OpenTemplate(object item)
+        {
+
+        }
+
+        public override async void SelectedContextItemDoubleClick(object context)
+        {
+            var tInfo = context as TemplateInfo;
+
+            if (string.IsNullOrEmpty(tInfo?.Id))
+            {
+                await ShowMessage("Błąd", "Wskazany szablon jest nieprawidłowy (brak identyfikatora)");
+                return;
+            }
+
+            if (ShowDialog(new TemplateViewModel(_templatesManager.GetTemplate(tInfo.Id))) == true)
             {
                 LoadData();
             }
