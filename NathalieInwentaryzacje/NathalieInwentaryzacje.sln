@@ -5,19 +5,19 @@ VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NathalieInwentaryzacje", "NathalieInwentaryzacje\NathalieInwentaryzacje.csproj", "{4C55777D-1AF6-41F6-8A47-46F2C9BA5A91}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lib", "Lib", "{6B9FB255-902F-4B36-8DE7-22F254766A94}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NathalieInwentaryzacje.Lib.Contracts", "Lib\NathalieInwentaryzacje.Lib.Contracts\NathalieInwentaryzacje.Lib.Contracts.csproj", "{9CF32899-0E5A-4D84-953C-9490A1C2CF57}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NathalieInwentaryzacje.Lib.Bll", "Lib\NathalieInwentaryzacje.Lib.Bll\NathalieInwentaryzacje.Lib.Bll.csproj", "{D36ADF63-F3C8-4734-BF2B-6053941759EA}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{0648E1CB-1408-48A5-B9A8-5CE4447E6484}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NathalieInwentaryzacje.Common.Utils", "Common\NathalieInwentaryzacje.Common.Utils\NathalieInwentaryzacje.Common.Utils.csproj", "{9BC16FC0-0F01-459B-A58C-56F327AF1A49}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{022C2836-8C4F-43E1-977F-BA2878152F0D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bll", "Tests\Bll\Bll.csproj", "{11955706-F032-434D-AFAE-481D1C80D8C7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NathalieInwentaryzacje.Common.Utils", "Common\NathalieInwentaryzacje.Common.Utils\NathalieInwentaryzacje.Common.Utils.csproj", "{2E62AC5E-7CDB-448B-827D-920ED462FC9D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lib", "Lib", "{64DAF9AA-88F3-4018-83C0-D4F021364E4D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NathalieInwentaryzacje.Lib.Contracts", "Lib\NathalieInwentaryzacje.Lib.Contracts\NathalieInwentaryzacje.Lib.Contracts.csproj", "{67971374-8C34-4B57-A9C1-6F4623D43D46}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NathalieInwentaryzacje.Lib.Bll", "Lib\NathalieInwentaryzacje.Lib.Bll\NathalieInwentaryzacje.Lib.Bll.csproj", "{D4D1A69C-37BC-4995-A648-7F706C7FDAF1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,31 +29,31 @@ Global
 		{4C55777D-1AF6-41F6-8A47-46F2C9BA5A91}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4C55777D-1AF6-41F6-8A47-46F2C9BA5A91}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4C55777D-1AF6-41F6-8A47-46F2C9BA5A91}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9CF32899-0E5A-4D84-953C-9490A1C2CF57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9CF32899-0E5A-4D84-953C-9490A1C2CF57}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9CF32899-0E5A-4D84-953C-9490A1C2CF57}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9CF32899-0E5A-4D84-953C-9490A1C2CF57}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D36ADF63-F3C8-4734-BF2B-6053941759EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D36ADF63-F3C8-4734-BF2B-6053941759EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D36ADF63-F3C8-4734-BF2B-6053941759EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D36ADF63-F3C8-4734-BF2B-6053941759EA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9BC16FC0-0F01-459B-A58C-56F327AF1A49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9BC16FC0-0F01-459B-A58C-56F327AF1A49}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9BC16FC0-0F01-459B-A58C-56F327AF1A49}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9BC16FC0-0F01-459B-A58C-56F327AF1A49}.Release|Any CPU.Build.0 = Release|Any CPU
 		{11955706-F032-434D-AFAE-481D1C80D8C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{11955706-F032-434D-AFAE-481D1C80D8C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{11955706-F032-434D-AFAE-481D1C80D8C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{11955706-F032-434D-AFAE-481D1C80D8C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E62AC5E-7CDB-448B-827D-920ED462FC9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E62AC5E-7CDB-448B-827D-920ED462FC9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E62AC5E-7CDB-448B-827D-920ED462FC9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E62AC5E-7CDB-448B-827D-920ED462FC9D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67971374-8C34-4B57-A9C1-6F4623D43D46}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67971374-8C34-4B57-A9C1-6F4623D43D46}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67971374-8C34-4B57-A9C1-6F4623D43D46}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67971374-8C34-4B57-A9C1-6F4623D43D46}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4D1A69C-37BC-4995-A648-7F706C7FDAF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4D1A69C-37BC-4995-A648-7F706C7FDAF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4D1A69C-37BC-4995-A648-7F706C7FDAF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4D1A69C-37BC-4995-A648-7F706C7FDAF1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{9CF32899-0E5A-4D84-953C-9490A1C2CF57} = {6B9FB255-902F-4B36-8DE7-22F254766A94}
-		{D36ADF63-F3C8-4734-BF2B-6053941759EA} = {6B9FB255-902F-4B36-8DE7-22F254766A94}
-		{9BC16FC0-0F01-459B-A58C-56F327AF1A49} = {0648E1CB-1408-48A5-B9A8-5CE4447E6484}
 		{11955706-F032-434D-AFAE-481D1C80D8C7} = {022C2836-8C4F-43E1-977F-BA2878152F0D}
+		{2E62AC5E-7CDB-448B-827D-920ED462FC9D} = {0648E1CB-1408-48A5-B9A8-5CE4447E6484}
+		{67971374-8C34-4B57-A9C1-6F4623D43D46} = {64DAF9AA-88F3-4018-83C0-D4F021364E4D}
+		{D4D1A69C-37BC-4995-A648-7F706C7FDAF1} = {64DAF9AA-88F3-4018-83C0-D4F021364E4D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0BC06E10-A7A5-466A-A7AE-DDFBF9455C96}

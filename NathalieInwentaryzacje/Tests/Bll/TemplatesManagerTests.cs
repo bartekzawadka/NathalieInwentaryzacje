@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NathalieInwentaryzacje.Lib.Bll;
+using NathalieInwentaryzacje.Lib.Bll.Managers;
+using NathalieInwentaryzacje.Lib.Contracts.Dto;
 using NathalieInwentaryzacje.Lib.Contracts.Dto.Templates;
 using NathalieInwentaryzacje.Lib.Contracts.Interfaces;
 

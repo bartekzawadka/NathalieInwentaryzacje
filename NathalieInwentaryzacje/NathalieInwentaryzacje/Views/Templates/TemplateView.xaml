@@ -10,7 +10,7 @@
              xmlns:controls1="clr-namespace:NathalieInwentaryzacje.Views.Controls"
              mc:Ignorable="d" WindowTransitionsEnabled="True" Style="{StaticResource NWindow}"
                       SizeToContent="Height" Title="Nowy szablon" WindowStartupLocation="CenterScreen"
-                      Width="600">
+                      Width="600" Height="400" MinWidth="600" MinHeight="400">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
@@ -29,7 +29,7 @@
                      Margin="10 0"
                      MinWidth="250"
                      BorderThickness="0 0 0 1"
-                     Text="{Binding Context.Name, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                     Text="{Binding Context.Name, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnDataErrors=True}"
                      SnapsToDevicePixels="True"></TextBox>
             <controls:ToggleSwitch Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" ContentDirection="RightToLeft" IsChecked="{Binding Context.IsEnabled}">
                 <controls:ToggleSwitch.ContentTemplate>
@@ -44,7 +44,7 @@
                 <DataGrid AutoGenerateColumns="False" AlternatingRowBackground="AntiqueWhite" 
                           ItemsSource="{Binding TemplateColumns, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
                           CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False" CanUserResizeRows="False"
-                          cal:Message.Attach="[Event CellEditEnding]=[Action UpdateColumns($eventArgs)]">
+                          cal:Message.Attach="[Event CellEditEnding]=[Action UpdateColumns($eventArgs)]" IsReadOnly="{Binding Context.IsBlockedForEdit}">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Nazwa kolumny" Width="*" Binding="{Binding Name}"></DataGridTextColumn>
                     </DataGrid.Columns>
@@ -58,7 +58,7 @@
                 <ColumnDefinition Width="Auto"></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <controls1:NButton x:Name="Save"  Text="Zapisz" Icon="Save" IsAccented="True" Grid.Column="1"></controls1:NButton>
+            <controls1:NButton x:Name="Save"  Text="Zapisz" Icon="Save" IsAccented="True" Grid.Column="1" IsEnabled="{Binding Context.IsValid}"></controls1:NButton>
             <controls1:NButton x:Name="Cancel" Text="Anuluj" Icon="Cancel" IsAccented="False" Grid.Column="2"></controls1:NButton>
         </Grid>
     </Grid>

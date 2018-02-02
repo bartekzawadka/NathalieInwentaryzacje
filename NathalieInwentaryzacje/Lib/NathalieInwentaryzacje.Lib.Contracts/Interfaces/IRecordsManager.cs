@@ -9,6 +9,6 @@ namespace NathalieInwentaryzacje.Lib.Contracts.Interfaces
     {
         IEnumerable<RecordInfo> GetRecords();
 
-        void CreateRecord(DateTime recordDate, IEnumerable<TemplateInfo> templates);
+        void CreateRecord(NewRecordInfo recordInfo);
     }
 }

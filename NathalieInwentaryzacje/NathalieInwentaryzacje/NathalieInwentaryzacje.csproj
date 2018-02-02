@@ -58,6 +58,7 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
@@ -86,6 +87,7 @@
     <Compile Include="Common\Converters\InverseBooleanToVisibilityConverter.cs" />
     <Compile Include="Common\Converters\ToUpperConverter.cs" />
     <Compile Include="Main\CustomWindowsManager.cs" />
+    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="ViewModels\Common\DetailsScreen.cs" />
     <Compile Include="ViewModels\Common\ListScreen.cs" />
     <Compile Include="ViewModels\Common\ScreenBase.cs" />
@@ -111,6 +113,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Resources\DataGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\ValidationResource.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -186,15 +192,15 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\NathalieInwentaryzacje.Common.Utils\NathalieInwentaryzacje.Common.Utils.csproj">
-      <Project>{9bc16fc0-0f01-459b-a58c-56f327af1a49}</Project>
+      <Project>{2e62ac5e-7cdb-448b-827d-920ed462fc9d}</Project>
       <Name>NathalieInwentaryzacje.Common.Utils</Name>
     </ProjectReference>
     <ProjectReference Include="..\Lib\NathalieInwentaryzacje.Lib.Bll\NathalieInwentaryzacje.Lib.Bll.csproj">
-      <Project>{d36adf63-f3c8-4734-bf2b-6053941759ea}</Project>
+      <Project>{d4d1a69c-37bc-4995-a648-7f706c7fdaf1}</Project>
       <Name>NathalieInwentaryzacje.Lib.Bll</Name>
     </ProjectReference>
     <ProjectReference Include="..\Lib\NathalieInwentaryzacje.Lib.Contracts\NathalieInwentaryzacje.Lib.Contracts.csproj">
-      <Project>{9cf32899-0e5a-4d84-953c-9490a1c2cf57}</Project>
+      <Project>{67971374-8c34-4b57-a9c1-6f4623d43d46}</Project>
       <Name>NathalieInwentaryzacje.Lib.Contracts</Name>
     </ProjectReference>
   </ItemGroup>

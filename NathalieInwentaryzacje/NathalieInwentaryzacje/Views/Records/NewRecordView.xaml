@@ -9,19 +9,19 @@
              xmlns:controls1="clr-namespace:NathalieInwentaryzacje.Views.Controls"
              mc:Ignorable="d" SizeToContent="WidthAndHeight" Style="{StaticResource NWindow}"
                       ShowCloseButton="False" ShowMinButton="False" 
-                      ShowMaxRestoreButton="False" WindowStartupLocation="CenterScreen"
+                      ShowMaxRestoreButton="False" WindowStartupLocation="CenterScreen" MinWidth="400" MinHeight="300" Width="400" Height="300"
                       Title="Nowa inwentaryzacja">
     <Grid Margin="20">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" Margin="15">
             <TextBlock Text="Stan na dzień: " VerticalAlignment="Center" Margin="5"></TextBlock>
-            <DatePicker Width="150" SelectedDate="{Binding RecordDate}" SelectedDateFormat="Short"></DatePicker>
+            <DatePicker Width="150" SelectedDate="{Binding Context.RecordsDate, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" SelectedDateFormat="Short"></DatePicker>
         </StackPanel>
-        <ListBox Grid.Row="1" ItemsSource="{Binding RecordTypes}">
+        <ListBox Grid.Row="1" ItemsSource="{Binding Context.RecordTypes}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
@@ -38,7 +38,7 @@
                 <ColumnDefinition Width="Auto"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <controls1:NButton Grid.Column="2" x:Name="Cancel" Icon="Cancel" Text="Anuluj"></controls1:NButton>
-            <controls1:NButton Grid.Column="1" x:Name="Create" Icon="ListCreate" Text="Utwórz" IsAccented="True"></controls1:NButton>
+            <controls1:NButton Grid.Column="1" x:Name="Create" Icon="ListCreate" Text="Utwórz" IsAccented="True" IsEnabled="{Binding Context.IsValid}"></controls1:NButton>
 <!--            <Button x:Name="Cancel" Grid.Column="2" Content="Anuluj" Style="{StaticResource SquareButtonStyle}" Margin="5"></Button>-->
 <!--            <Button x:Name="Create"  Grid.Column="1" Content="Utwórz" Style="{StaticResource AccentedSquareButtonStyle}" Margin="5"></Button>-->
         </Grid>

@@ -4,7 +4,7 @@ using System.Windows.Threading;
 using Autofac;
 using Caliburn.Micro;
 using Caliburn.Micro.Autofac;
-using NathalieInwentaryzacje.Lib.Bll;
+using NathalieInwentaryzacje.Lib.Bll.Managers;
 using NathalieInwentaryzacje.Lib.Contracts.Interfaces;
 using NathalieInwentaryzacje.ViewModels;
 using NathalieInwentaryzacje.ViewModels.Main;

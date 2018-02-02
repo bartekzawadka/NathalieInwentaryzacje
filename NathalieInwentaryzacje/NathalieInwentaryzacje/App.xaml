@@ -22,6 +22,8 @@
                 <ResourceDictionary Source="Resources/Main.xaml"></ResourceDictionary>
                 <ResourceDictionary Source="Resources/ConstantResource.xaml"></ResourceDictionary>
                 <ResourceDictionary Source="Resources/DataGrid.xaml"></ResourceDictionary>
+                
+                <ResourceDictionary Source="Resources/ValidationResource.xaml"></ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

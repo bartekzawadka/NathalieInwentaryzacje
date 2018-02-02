@@ -1,7 +1,11 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Controls;
 using Caliburn.Micro;
+using NathalieInwentaryzacje.Common.Utils.Extensions;
+using NathalieInwentaryzacje.Lib.Bll.Mappers;
+using NathalieInwentaryzacje.Lib.Contracts.Dto;
 using NathalieInwentaryzacje.Lib.Contracts.Dto.Templates;
 using NathalieInwentaryzacje.Lib.Contracts.Interfaces;
 using NathalieInwentaryzacje.ViewModels.Common;
@@ -33,9 +37,9 @@ namespace NathalieInwentaryzacje.ViewModels.Templates
 
         }
 
-        public TemplateViewModel(TemplateInfo templateInfo)
+        public TemplateViewModel(TemplateInfo template)
         {
-            Context = templateInfo ?? new TemplateInfo();
+            Context = template ?? new TemplateInfo();
         }
 
         public void UpdateColumns(DataGridCellEditEndingEventArgs args)
@@ -59,11 +63,17 @@ namespace NathalieInwentaryzacje.ViewModels.Templates
                 templateColumns[index].Name = value;
             }
 
-            TemplateColumns = templateColumns;
+            TemplateColumns = templateColumns.Where(x => !string.IsNullOrEmpty(x.Name)).ToObservableCollection();
         }
 
-        public void Save()
+        public async void Save()
         {
+            if (TemplateColumns.Count == 0)
+            {
+                await ShowMessage("Brak kolumn", "Nie określono kolumn szablonu");
+                return;
+            }
+
             IoC.Get<ITemplatesManager>().CreateOrUpdateTemplate(Context);
             TryClose(true);
         }

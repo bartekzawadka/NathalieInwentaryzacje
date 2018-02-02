@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Caliburn.Micro;
+﻿using Caliburn.Micro;
+using NathalieInwentaryzacje.Lib.Contracts.Dto;
 using NathalieInwentaryzacje.Lib.Contracts.Dto.Templates;
 using NathalieInwentaryzacje.Lib.Contracts.Interfaces;
 using NathalieInwentaryzacje.ViewModels.Common;
@@ -30,11 +26,6 @@ namespace NathalieInwentaryzacje.ViewModels.Templates
             {
                 LoadData();
             }
-        }
-
-        public void OpenTemplate(object item)
-        {
-
         }
 
         public override async void SelectedContextItemDoubleClick(object context)

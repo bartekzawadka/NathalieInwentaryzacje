@@ -1,45 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Caliburn.Micro;
 using NathalieInwentaryzacje.Lib.Contracts.Dto;
-using NathalieInwentaryzacje.Lib.Contracts.Dto.Templates;
-using NathalieInwentaryzacje.Lib.Contracts.Enums;
 using NathalieInwentaryzacje.Lib.Contracts.Interfaces;
 using NathalieInwentaryzacje.ViewModels.Common;
 
 namespace NathalieInwentaryzacje.ViewModels.Records
 {
-    public class NewRecordViewModel : ScreenBase
+    public class NewRecordViewModel : DetailsScreen<NewRecordInfo>
     {
-        private List<NewRecordTypeInfo> _recordTypes;
-        private DateTime _recordDate;
-
-        public List<NewRecordTypeInfo> RecordTypes
-        {
-            get => _recordTypes;
-            set
-            {
-                if (Equals(value, _recordTypes)) return;
-                _recordTypes = value;
-                NotifyOfPropertyChange();
-            }
-        }
-
-        public DateTime RecordDate
-        {
-            get => _recordDate;
-            set
-            {
-                if (value.Equals(_recordDate)) return;
-                _recordDate = value;
-                NotifyOfPropertyChange();
-            }
-        }
-
+        private readonly ITemplatesManager _templatesManager = IoC.Get<ITemplatesManager>();
+        private readonly IRecordsManager _recordsManager = IoC.Get<IRecordsManager>();
 
         public NewRecordViewModel()
         {
+            Context = new NewRecordInfo();
             LoadTypes();
         }
 
@@ -48,33 +22,27 @@ namespace NathalieInwentaryzacje.ViewModels.Records
             TryClose();
         }
 
-        public void Create()
+        public async void Create()
         {
-            IoC.Get<IRecordsManager>()
-                .CreateRecord(RecordDate, RecordTypes.Where(x => x.IsSelected).Select(x => x.TemplateInfo));
+            if (!Context.IsRecordTypeSelected)
+            {
+                await ShowMessage("Formularz niekompletny",
+                    "Nie wskazano szablonów inwentaryzacji!");
+                return;
+            }
+
+            _recordsManager
+                .CreateRecord(Context);
             TryClose(true);
         }
 
         private void LoadTypes()
         {
-            RecordTypes = IoC.Get<ITemplatesManager>().GetTemplates().Where(x=>x.IsEnabled).Select(x=>new NewRecordTypeInfo
+            Context.RecordTypes = _templatesManager.GetTemplates().Where(x=>x.IsEnabled).Select(x=>new NewRecordTypeInfo
             {
                 TemplateInfo= x,
                 IsSelected = false
             }).ToList();
-//            var types = Enum.GetValues(typeof(RecordType));
-//
-//            var entries = new List<NewRecordTypeInfo>();
-//
-//            foreach (var type in types)
-//            {
-//                entries.Add(new NewRecordTypeInfo
-//                {
-//                    RecordType = (RecordType)type
-//                });
-//            }
-//
-//            RecordTypes = entries;
         }
     }
 }
