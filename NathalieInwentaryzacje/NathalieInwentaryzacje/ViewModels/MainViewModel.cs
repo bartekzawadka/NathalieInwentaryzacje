@@ -1,8 +1,5 @@
-﻿using System.Collections.ObjectModel;
-using System.Windows;
-using Caliburn.Micro;
+﻿using System.Windows;
 using NathalieInwentaryzacje.Lib.Contracts.Dto;
-using NathalieInwentaryzacje.Lib.Contracts.Interfaces;
 using NathalieInwentaryzacje.Main.Interfaces;
 using NathalieInwentaryzacje.ViewModels.Common;
 using NathalieInwentaryzacje.ViewModels.Records;
@@ -10,7 +7,7 @@ using NathalieInwentaryzacje.ViewModels.Templates;
 
 namespace NathalieInwentaryzacje.ViewModels
 {
-    public class MainViewModel : ListScreen<RecordInfo>, IMain
+    public class MainViewModel : ListScreen<RecordListInfo>, IMain
     {
         private ScreenBase _mainContent;
 
@@ -39,14 +36,6 @@ namespace NathalieInwentaryzacje.ViewModels
         {
             MainContent = new TemplatesListViewModel();
         }
-
-//        public void NewRecord()
-//        {
-//            if (WindowManager.ShowDialog(new NewRecordViewModel()) == true)
-//            {
-//                LoadData();
-//            }
-//        }
 
         public void CloseApp()
         {

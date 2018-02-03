@@ -43,8 +43,9 @@
   <ItemGroup>
     <Compile Include="Dto\NewRecordInfo.cs" />
     <Compile Include="Dto\NewRecordTypeInfo.cs" />
-    <Compile Include="Dto\RecordInfo.cs" />
-    <Compile Include="Dto\RecordItemInfo.cs" />
+    <Compile Include="Dto\RecordEntryInfo.cs" />
+    <Compile Include="Dto\RecordListInfo.cs" />
+    <Compile Include="Dto\RecordListItemInfo.cs" />
     <Compile Include="Dto\Records\Record.cs" />
     <Compile Include="Dto\Records\RecordEntry.cs" />
     <Compile Include="Dto\Records\RecordEntryColumn.cs" />

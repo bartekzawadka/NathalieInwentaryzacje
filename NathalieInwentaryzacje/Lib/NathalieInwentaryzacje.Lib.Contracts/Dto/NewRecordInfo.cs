@@ -15,7 +15,6 @@ namespace NathalieInwentaryzacje.Lib.Contracts.Dto
 
         public List<NewRecordTypeInfo> RecordTypes { get; set; }
 
-
         public bool IsRecordTypeSelected
         {
             get

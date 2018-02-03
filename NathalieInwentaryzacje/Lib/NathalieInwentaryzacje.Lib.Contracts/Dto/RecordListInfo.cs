@@ -3,12 +3,12 @@ using System.Collections.Generic;
 
 namespace NathalieInwentaryzacje.Lib.Contracts.Dto
 {
-    public class RecordInfo
+    public class RecordListInfo
     {
-        public string RecordDate { get; set; }
+        public DateTime RecordDate { get; set; }
 
         public string RecordTitle => "Stan na dzień: " + RecordDate;
 
-        public IEnumerable<RecordItemInfo> RecordsInfo { get; set; }
+        public IEnumerable<RecordListItemInfo> RecordsInfo { get; set; }
     }
 }

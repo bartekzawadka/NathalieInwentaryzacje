@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="Managers\RecordsManager.cs" />
     <Compile Include="Managers\TemplatesManager.cs" />
+    <Compile Include="Mappers\RecordMapper.cs" />
     <Compile Include="Mappers\TemplateMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Serializers\XmlFileSerializer.cs" />

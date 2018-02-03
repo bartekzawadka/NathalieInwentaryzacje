@@ -7,8 +7,12 @@ namespace NathalieInwentaryzacje.Lib.Contracts.Interfaces
 {
     public interface IRecordsManager
     {
-        IEnumerable<RecordInfo> GetRecords();
+        IEnumerable<RecordListInfo> GetRecords();
 
         void CreateRecord(NewRecordInfo recordInfo);
+
+        RecordEntryInfo GetRecordEntry(DateTime recordDate, string recordEntryName);
+
+        void SaveRecord(string recordEntryName, RecordEntryInfo recordEntryInfo);
     }
 }
