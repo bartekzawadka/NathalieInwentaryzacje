@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NathalieInwentaryzacje.Lib.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NathalieInwentaryzacje.Lib.Bll", "Lib\NathalieInwentaryzacje.Lib.Bll\NathalieInwentaryzacje.Lib.Bll.csproj", "{D4D1A69C-37BC-4995-A648-7F706C7FDAF1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NathalieInwentaryzacje.Lib.Reporting", "Lib\NathalieInwentaryzacje.Lib.Reporting\NathalieInwentaryzacje.Lib.Reporting.csproj", "{991DDA27-8D71-4127-8389-BF16384AFE7F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{D4D1A69C-37BC-4995-A648-7F706C7FDAF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D4D1A69C-37BC-4995-A648-7F706C7FDAF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D4D1A69C-37BC-4995-A648-7F706C7FDAF1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{991DDA27-8D71-4127-8389-BF16384AFE7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{991DDA27-8D71-4127-8389-BF16384AFE7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{991DDA27-8D71-4127-8389-BF16384AFE7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{991DDA27-8D71-4127-8389-BF16384AFE7F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -54,6 +60,7 @@ Global
 		{2E62AC5E-7CDB-448B-827D-920ED462FC9D} = {0648E1CB-1408-48A5-B9A8-5CE4447E6484}
 		{67971374-8C34-4B57-A9C1-6F4623D43D46} = {64DAF9AA-88F3-4018-83C0-D4F021364E4D}
 		{D4D1A69C-37BC-4995-A648-7F706C7FDAF1} = {64DAF9AA-88F3-4018-83C0-D4F021364E4D}
+		{991DDA27-8D71-4127-8389-BF16384AFE7F} = {64DAF9AA-88F3-4018-83C0-D4F021364E4D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0BC06E10-A7A5-466A-A7AE-DDFBF9455C96}

@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{67971374-8C34-4B57-A9C1-6F4623D43D46}</ProjectGuid>
+    <ProjectGuid>{991DDA27-8D71-4127-8389-BF16384AFE7F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NathalieInwentaryzacje.Lib.Contracts</RootNamespace>
-    <AssemblyName>NathalieInwentaryzacje.Lib.Contracts</AssemblyName>
+    <RootNamespace>NathalieInwentaryzacje.Lib.Reporting</RootNamespace>
+    <AssemblyName>NathalieInwentaryzacje.Lib.Reporting</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,7 +31,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -41,28 +40,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Dto\NewRecordInfo.cs" />
-    <Compile Include="Dto\NewRecordTypeInfo.cs" />
-    <Compile Include="Dto\RecordEntryInfo.cs" />
-    <Compile Include="Dto\RecordListInfo.cs" />
-    <Compile Include="Dto\RecordListItemInfo.cs" />
-    <Compile Include="Dto\Records\Record.cs" />
-    <Compile Include="Dto\Records\RecordEntry.cs" />
-    <Compile Include="Dto\Records\RecordEntryColumn.cs" />
-    <Compile Include="Dto\Reports\RecordEntryReportInfo.cs" />
-    <Compile Include="Dto\TemplateInfo.cs" />
-    <Compile Include="Dto\Templates\TemplateColumn.cs" />
-    <Compile Include="Dto\Templates\Template.cs" />
-    <Compile Include="Enums\RecordType.cs" />
-    <Compile Include="Interfaces\IRecordsManager.cs" />
-    <Compile Include="Interfaces\ITemplatesManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Common\NathalieInwentaryzacje.Common.Utils\NathalieInwentaryzacje.Common.Utils.csproj">
-      <Project>{2e62ac5e-7cdb-448b-827d-920ed462fc9d}</Project>
-      <Name>NathalieInwentaryzacje.Common.Utils</Name>
+    <EmbeddedResource Include="RAP03.rdlc" />
+    <EmbeddedResource Include="RecordEntryReport.rdlc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NathalieInwentaryzacje.Lib.Contracts\NathalieInwentaryzacje.Lib.Contracts.csproj">
+      <Project>{67971374-8c34-4b57-a9c1-6f4623d43d46}</Project>
+      <Name>NathalieInwentaryzacje.Lib.Contracts</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\DataSources\NathalieInwentaryzacje.Lib.Contracts.Dto.Reports.RecordEntryReportInfo.datasource" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
