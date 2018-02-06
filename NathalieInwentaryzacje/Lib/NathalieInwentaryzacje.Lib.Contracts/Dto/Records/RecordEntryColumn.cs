@@ -11,5 +11,8 @@ namespace NathalieInwentaryzacje.Lib.Contracts.Dto.Records
 
         [XmlAttribute("Value")]
         public string ColumnValue { get; set; }
+
+        [XmlAttribute("ReadOnly")]
+        public bool IsReadOnly { get; set; }
     }
 }

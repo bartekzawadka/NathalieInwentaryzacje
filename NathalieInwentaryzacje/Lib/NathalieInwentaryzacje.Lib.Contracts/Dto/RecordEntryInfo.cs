@@ -26,5 +26,7 @@ namespace NathalieInwentaryzacje.Lib.Contracts.Dto
         public string TemplateId { get; set; }
 
         public string RecordId { get; set; }
+
+        public string SumUpColumnName { get; set; }
     }
 }

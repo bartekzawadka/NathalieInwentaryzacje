@@ -16,7 +16,8 @@ namespace NathalieInwentaryzacje.Lib.Bll.Mappers
                 RecordDate = record.RecordDate,
                 RecordName = record.Name,
                 RecordDisplayName = record.RecordTitle,
-                RecordId = record.RecordId
+                RecordId = record.RecordId,
+                SumUpColumnName = record.SumUpColumnName
             };
 
             var dataSet = new DataTable();
@@ -56,7 +57,8 @@ namespace NathalieInwentaryzacje.Lib.Bll.Mappers
                 RecordDate = info.RecordDate,
                 RecordId = info.RecordId,
                 RecordTitle = info.RecordDisplayName,
-                TemplateId = info.TemplateId
+                TemplateId = info.TemplateId,
+                SumUpColumnName = info.SumUpColumnName
             };
 
             if (info.RecordEntryTable != null)
@@ -71,7 +73,8 @@ namespace NathalieInwentaryzacje.Lib.Bll.Mappers
                         columns.Add(new RecordEntryColumn
                         {
                             ColumnName = dataColumn.ColumnName,
-                            ColumnValue = dataRow[dataColumn.ColumnName]?.ToString()
+                            ColumnValue = dataRow[dataColumn.ColumnName]?.ToString(),
+                            IsReadOnly = string.Equals(dataColumn.ColumnName, info.SumUpColumnName)
                         });
                     }
 

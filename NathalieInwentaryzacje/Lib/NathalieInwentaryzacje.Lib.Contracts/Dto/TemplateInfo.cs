@@ -15,6 +15,8 @@ namespace NathalieInwentaryzacje.Lib.Contracts.Dto
 
         public TemplateColumn[] Columns { get; set; }
 
+        public string SumUpColumnName { get; set; }
+
         public bool IsBlockedForEdit => !string.IsNullOrEmpty(Id);
     }
 }

@@ -145,7 +145,8 @@ namespace NathalieInwentaryzacje.Lib.Bll.Managers
                 TemplateId = info.Id,
                 Name = info.Name,
                 RecordDate = recordDate.Value,
-                RecordId = Guid.NewGuid().ToString()
+                RecordId = Guid.NewGuid().ToString(),
+                SumUpColumnName = info.SumUpColumnName
             };
         }
     }

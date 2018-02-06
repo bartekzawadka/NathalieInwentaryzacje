@@ -21,6 +21,9 @@ namespace NathalieInwentaryzacje.Lib.Contracts.Dto.Records
         [XmlAttribute("Name")]
         public string Name { get; set; }
 
+        [XmlAttribute("SumUpColumnName")]
+        public string SumUpColumnName { get; set; }
+
         [XmlArray("Entries")]
         [XmlArrayItem("Entry", typeof(RecordEntry))]
         public RecordEntry[] Entries { get; set; }
