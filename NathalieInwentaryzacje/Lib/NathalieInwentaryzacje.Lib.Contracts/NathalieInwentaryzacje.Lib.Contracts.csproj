@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.ReportViewer.WinForms">
+      <HintPath>..\..\packages\Microsoft.ReportViewer.11.0.3366.16\lib\Microsoft.ReportViewer.WinForms.DLL</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -50,11 +53,13 @@
     <Compile Include="Dto\Records\RecordEntry.cs" />
     <Compile Include="Dto\Records\RecordEntryColumn.cs" />
     <Compile Include="Dto\Reports\RecordEntryReportInfo.cs" />
+    <Compile Include="Dto\Reports\Tables\ReportDataSetInfo.cs" />
     <Compile Include="Dto\TemplateInfo.cs" />
     <Compile Include="Dto\Templates\TemplateColumn.cs" />
     <Compile Include="Dto\Templates\Template.cs" />
     <Compile Include="Enums\RecordType.cs" />
     <Compile Include="Interfaces\IRecordsManager.cs" />
+    <Compile Include="Interfaces\IReportManager.cs" />
     <Compile Include="Interfaces\ITemplatesManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

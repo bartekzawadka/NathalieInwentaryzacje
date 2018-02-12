@@ -6,6 +6,7 @@ using Caliburn.Micro;
 using Caliburn.Micro.Autofac;
 using NathalieInwentaryzacje.Lib.Bll.Managers;
 using NathalieInwentaryzacje.Lib.Contracts.Interfaces;
+using NathalieInwentaryzacje.Lib.Reporting;
 using NathalieInwentaryzacje.ViewModels;
 using NathalieInwentaryzacje.ViewModels.Main;
 
@@ -30,6 +31,7 @@ namespace NathalieInwentaryzacje.Main
             builder.RegisterInstance(new CustomWindowsManager()).As<IWindowManager>();
             builder.RegisterType<RecordsManager>().As<IRecordsManager>();
             builder.RegisterType<TemplatesManager>().As<ITemplatesManager>();
+            builder.RegisterType<ReportManager>().As<IReportManager>();
         }
 
         protected override void OnUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)

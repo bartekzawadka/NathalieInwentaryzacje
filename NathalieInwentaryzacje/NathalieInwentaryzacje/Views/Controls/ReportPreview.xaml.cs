@@ -1,18 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using Caliburn.Micro;
 using Microsoft.Reporting.WinForms;
+using NathalieInwentaryzacje.Lib.Contracts.Dto.Reports;
+using NathalieInwentaryzacje.Lib.Contracts.Interfaces;
 
 namespace NathalieInwentaryzacje.Views.Controls
 {
@@ -25,6 +17,15 @@ namespace NathalieInwentaryzacje.Views.Controls
         {
             InitializeComponent();
             Loaded += ReportPreviewControl_Loaded;
+        }
+
+        public static DependencyProperty DataProperty =
+            DependencyProperty.Register("Data", typeof(RecordEntryReportInfo), typeof(ReportPreview));
+
+        public RecordEntryReportInfo Data
+        {
+            get => (RecordEntryReportInfo) GetValue(DataProperty);
+            set => SetValue(DataProperty, value);
         }
 
         void ReportPreviewControl_Loaded(object sender, RoutedEventArgs e)
@@ -41,10 +42,28 @@ namespace NathalieInwentaryzacje.Views.Controls
             //_printerManager.PreviewReport(reportViewer.LocalReport, DataToView, ReportSettings.ReportType);
             reportViewer.ProcessingMode = ProcessingMode.Local;
 
-            //Tryb widoku
             reportViewer.SetDisplayMode(DisplayMode.PrintLayout);
 
-            reportViewer.ZoomMode = ZoomMode.FullPage;
+            //TODO: IMPLEMENT!
+            IoC.Get<IReportManager>().BuildReport(Data);
+           
+//            reportViewer.LocalReport.DataSources.Clear();
+//            reportViewer.LocalReport.ReportPath =
+//                "RecordEntryReport.rdlc";
+//
+//            var list = new List<RecordEntryReportInfo>
+//            {
+//                new RecordEntryReportInfo(Data.RecordDate, Data.RecordDisplayName, Data.RecordEntryTable)
+//            };
+//
+//            var dataset = new ReportDataSource("DataSet1",list);
+//            reportViewer.LocalReport.DataSources.Add(dataset);
+//            dataset.Value = list;
+//            //Tryb widoku
+//            
+//            reportViewer.LocalReport.Refresh();
+
+            //DataSet dataset = new DataSet("Sales Order Detail");
 
             //reportViewer.LocalReport.
 

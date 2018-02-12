@@ -30,8 +30,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="itextsharp, Version=5.5.13.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\iTextSharp.5.5.13\lib\itextsharp.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -40,20 +46,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PdfFooter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="RAP03.rdlc" />
-    <EmbeddedResource Include="RecordEntryReport.rdlc" />
+    <Compile Include="ReportManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NathalieInwentaryzacje.Lib.Contracts\NathalieInwentaryzacje.Lib.Contracts.csproj">
       <Project>{67971374-8c34-4b57-a9c1-6f4623d43d46}</Project>
       <Name>NathalieInwentaryzacje.Lib.Contracts</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Properties\DataSources\NathalieInwentaryzacje.Lib.Contracts.Dto.Reports.RecordEntryReportInfo.datasource" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -49,6 +49,9 @@
     <Reference Include="Caliburn.Micro.Platform.Core, Version=3.2.0.0, Culture=neutral, PublicKeyToken=8e5891231f2ed21f, processorArchitecture=MSIL">
       <HintPath>..\packages\Caliburn.Micro.3.2.0\lib\net45\Caliburn.Micro.Platform.Core.dll</HintPath>
     </Reference>
+    <Reference Include="itextsharp, Version=5.5.13.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.13\lib\itextsharp.dll</HintPath>
+    </Reference>
     <Reference Include="MahApps.Metro, Version=1.5.0.23, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.1.5.0\lib\net45\MahApps.Metro.dll</HintPath>
     </Reference>
@@ -126,6 +129,7 @@
     <Compile Include="ViewModels\Records\NewRecordViewModel.cs" />
     <Compile Include="ViewModels\Records\RecordsListViewModel.cs" />
     <Compile Include="ViewModels\Records\RecordViewModel.cs" />
+    <Compile Include="ViewModels\Reports\ReportViewModel.cs" />
     <Compile Include="ViewModels\Templates\TemplatesListViewModel.cs" />
     <Compile Include="ViewModels\Templates\TemplateViewModel.cs" />
     <Compile Include="Views\Controls\MainMenuItem.xaml.cs">
@@ -139,9 +143,6 @@
     </Compile>
     <Compile Include="Views\Controls\ReportPreview.xaml.cs">
       <DependentUpon>ReportPreview.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Reports\ReportView.xaml.cs">
-      <DependentUpon>ReportView.xaml</DependentUpon>
     </Compile>
     <Page Include="Resources\ConstantResource.xaml">
       <SubType>Designer</SubType>
@@ -266,6 +267,10 @@
     <ProjectReference Include="..\Lib\NathalieInwentaryzacje.Lib.Contracts\NathalieInwentaryzacje.Lib.Contracts.csproj">
       <Project>{67971374-8c34-4b57-a9c1-6f4623d43d46}</Project>
       <Name>NathalieInwentaryzacje.Lib.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Lib\NathalieInwentaryzacje.Lib.Reporting\NathalieInwentaryzacje.Lib.Reporting.csproj">
+      <Project>{991dda27-8d71-4127-8389-bf16384afe7f}</Project>
+      <Name>NathalieInwentaryzacje.Lib.Reporting</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

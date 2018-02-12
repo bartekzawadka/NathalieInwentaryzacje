@@ -1,8 +1,10 @@
 ﻿using System;
 using Caliburn.Micro;
 using NathalieInwentaryzacje.Lib.Contracts.Dto;
+using NathalieInwentaryzacje.Lib.Contracts.Dto.Reports;
 using NathalieInwentaryzacje.Lib.Contracts.Interfaces;
 using NathalieInwentaryzacje.ViewModels.Common;
+using NathalieInwentaryzacje.ViewModels.Reports;
 
 namespace NathalieInwentaryzacje.ViewModels.Records
 {
@@ -29,6 +31,12 @@ namespace NathalieInwentaryzacje.ViewModels.Records
         {
             _recordsManager.SaveRecord(_recordEntryName, Context);
             TryClose(true);
+        }
+
+        public void PrintReport()
+        {
+            ShowDialog(new ReportViewModel(new RecordEntryReportInfo(Context.RecordDateText, Context.RecordDisplayName,
+                Context.RecordEntryTable)));
         }
 
     }
