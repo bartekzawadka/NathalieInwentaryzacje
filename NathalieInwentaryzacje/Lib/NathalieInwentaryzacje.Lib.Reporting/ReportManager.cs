@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using System.IO;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
@@ -9,6 +10,8 @@ namespace NathalieInwentaryzacje.Lib.Reporting
 {
     public class ReportManager : IReportManager
     {
+        private readonly string _arialuniTff = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Fonts), "ARIALUNI.TTF");
+
         public byte[] BuildReport(RecordEntryReportInfo reportInfo)
         {
             byte[] data;
@@ -20,22 +23,30 @@ namespace NathalieInwentaryzacje.Lib.Reporting
                 writer.PageEvent = new PdfFooter();
                 document.Open();
 
+                document.NewPage();
+
                 CreateHeader(reportInfo.RecordDisplayName, reportInfo.RecordDate, document);
 
-                var table = new PdfPTable(reportInfo.RecordEntryTable.Columns.Count);
-                var widths = new float[reportInfo.RecordEntryTable.Columns.Count];
-                for (var i = 0; i < widths.Length; i++)
+                var table = new PdfPTable(reportInfo.RecordEntryTable.Columns.Count+1);
+                var widths = new float[reportInfo.RecordEntryTable.Columns.Count+1];
+                widths[0] = 1f;
+                for (var i = 1; i < widths.Length; i++)
                 {
                     widths[i] = 4f;
                 }
 
-                table.SetWidths(widths);
-                table.WidthPercentage = 100;
+                var lpCell = new PdfPCell(new Phrase("Lp", FontFactory.GetFont(_arialuniTff, 12, Font.BOLD)))
+                {
+                    HorizontalAlignment = 1,
+                    BackgroundColor = BaseColor.LIGHT_GRAY
+                };
+
+                table.AddCell(lpCell);
 
                 foreach (DataColumn dataColumn in reportInfo.RecordEntryTable.Columns)
                 {
                     var cell = new PdfPCell(new Phrase(dataColumn.ColumnName,
-                        FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12)))
+                        FontFactory.GetFont(_arialuniTff, 12, Font.BOLD)))
                     {
                         HorizontalAlignment = 1,
                         BackgroundColor = BaseColor.LIGHT_GRAY
@@ -43,8 +54,18 @@ namespace NathalieInwentaryzacje.Lib.Reporting
                     table.AddCell(cell);
                 }
 
+                var rowCount = 1;
+
                 foreach (DataRow dataRow in reportInfo.RecordEntryTable.Rows)
                 {
+                    var lpValue = new PdfPCell(new Phrase(rowCount.ToString(),
+                        FontFactory.GetFont(_arialuniTff, 12, Font.NORMAL)))
+                    {
+                        HorizontalAlignment = 1
+                    };
+
+                    table.AddCell(lpValue);
+
                     for (var i = 0; i < reportInfo.RecordEntryTable.Columns.Count; i++)
                     {
                         PdfPCell cell;
@@ -52,7 +73,7 @@ namespace NathalieInwentaryzacje.Lib.Reporting
                         {
                             cell = new PdfPCell(new Phrase(
                                 dataRow[reportInfo.RecordEntryTable.Columns[i].ColumnName].ToString(),
-                                FontFactory.GetFont(FontFactory.HELVETICA, 12)))
+                                FontFactory.GetFont(_arialuniTff, 12, Font.NORMAL)))
                             {
                                 HorizontalAlignment = 0
                             };
@@ -61,7 +82,7 @@ namespace NathalieInwentaryzacje.Lib.Reporting
                         {
                             cell = new PdfPCell(new Phrase(
                                 dataRow[reportInfo.RecordEntryTable.Columns[i].ColumnName].ToString(),
-                                FontFactory.GetFont(FontFactory.HELVETICA, 12)))
+                                FontFactory.GetFont(_arialuniTff, 12, Font.NORMAL)))
                             {
                                 HorizontalAlignment = 1
                             };
@@ -69,8 +90,33 @@ namespace NathalieInwentaryzacje.Lib.Reporting
 
                         table.AddCell(cell);
                     }
+
+                    rowCount++;
                 }
+
+                var summaryCell = new PdfPCell(new Phrase("SUMA", FontFactory.GetFont(_arialuniTff, 12, Font.BOLD)))
+                {
+                    HorizontalAlignment = 0,
+                    Colspan = table.NumberOfColumns - 1
+                };
+                table.AddCell(summaryCell);
+
+                var summaryValueCell = new PdfPCell(new Phrase("WARTOŚĆ", FontFactory.GetFont(_arialuniTff, 12, Font.BOLD)))
+                {
+                    HorizontalAlignment = 1
+                };
+
+                table.AddCell(summaryValueCell);
+
+                table.SetWidths(widths);
+                table.WidthPercentage = 100;
+
                 document.Add(table);
+
+                document.NewPage();
+
+                document.Add(table);
+
                 document.Close();
 
                 data = ms.ToArray();
@@ -96,7 +142,7 @@ namespace NathalieInwentaryzacje.Lib.Reporting
             };
             table.AddCell(para1);
 
-            var para2 = new PdfPCell(new Phrase(date, FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 13)))
+            var para2 = new PdfPCell(new Phrase("Stan na dzień: " + date, FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 13)))
             {
                 HorizontalAlignment = 2,
                 BorderWidth = 0

@@ -53,7 +53,6 @@
     <Compile Include="Dto\Records\RecordEntry.cs" />
     <Compile Include="Dto\Records\RecordEntryColumn.cs" />
     <Compile Include="Dto\Reports\RecordEntryReportInfo.cs" />
-    <Compile Include="Dto\Reports\Tables\ReportDataSetInfo.cs" />
     <Compile Include="Dto\TemplateInfo.cs" />
     <Compile Include="Dto\Templates\TemplateColumn.cs" />
     <Compile Include="Dto\Templates\Template.cs" />

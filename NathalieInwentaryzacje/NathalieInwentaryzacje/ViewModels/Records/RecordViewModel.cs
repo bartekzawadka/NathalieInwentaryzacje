@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using Caliburn.Micro;
 using NathalieInwentaryzacje.Lib.Contracts.Dto;
 using NathalieInwentaryzacje.Lib.Contracts.Dto.Reports;
@@ -35,8 +36,17 @@ namespace NathalieInwentaryzacje.ViewModels.Records
 
         public void PrintReport()
         {
-            ShowDialog(new ReportViewModel(new RecordEntryReportInfo(Context.RecordDateText, Context.RecordDisplayName,
-                Context.RecordEntryTable)));
+//            ShowDialog(new ReportViewModel(new RecordEntryReportInfo(Context.RecordDateText, Context.RecordDisplayName,
+//                Context.RecordEntryTable)));
+            var buff = IoC.Get<IReportManager>().BuildReport(new RecordEntryReportInfo(Context.RecordDateText,
+                Context.RecordDisplayName, Context.RecordEntryTable));
+            if (buff != null)
+            {
+                using (var fs = File.Open(@"D:\itext.pdf", FileMode.OpenOrCreate, FileAccess.Write))
+                {
+                    fs.Write(buff, 0, buff.Length);
+                }
+            }
         }
 
     }
