@@ -12,7 +12,7 @@ using NathalieInwentaryzacje.ViewModels.Common;
 
 namespace NathalieInwentaryzacje.ViewModels.Templates
 {
-    public class TemplateViewModel : DetailsScreen<TemplateInfo>
+    public sealed class TemplateViewModel : DetailsScreen<TemplateInfo>
     {
         private TemplateColumn _columnForSumUp;
         private const string EmptySumColumnValue = "(Nie sumuj)";
@@ -73,6 +73,8 @@ namespace NathalieInwentaryzacje.ViewModels.Templates
         public TemplateViewModel(TemplateInfo template)
         {
             Context = template ?? new TemplateInfo();
+            ColumnForSumUp =
+                ColumnForSumUpCollection.FirstOrDefault(x => string.Equals(x.Name, Context.SumUpColumnName));
         }
 
         public void UpdateColumns(DataGridCellEditEndingEventArgs args)
