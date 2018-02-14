@@ -19,10 +19,10 @@ namespace NathalieInwentaryzacje.Tests.Reporting
 
             var data = rManager.BuildReport(new RecordEntryReportInfo("2017-12-31", "No siemka! :)", dt));
 
-            using (var fs = File.Open(@"D:\itext.pdf", FileMode.OpenOrCreate, FileAccess.Write))
-            {
-                fs.Write(data, 0, data.Length);
-            }
+//            using (var fs = File.Open(@"D:\itext.pdf", FileMode.OpenOrCreate, FileAccess.Write))
+//            {
+//                fs.Write(data, 0, data.Length);
+//            }
 
             Assert.AreNotEqual(data, null);
         }
