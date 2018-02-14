@@ -141,9 +141,6 @@
     <Compile Include="Views\Controls\NDataGrid.xaml.cs">
       <DependentUpon>NDataGrid.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Controls\ReportPreview.xaml.cs">
-      <DependentUpon>ReportPreview.xaml</DependentUpon>
-    </Compile>
     <Page Include="Resources\ConstantResource.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -165,10 +162,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Controls\NDataGrid.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Controls\ReportPreview.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

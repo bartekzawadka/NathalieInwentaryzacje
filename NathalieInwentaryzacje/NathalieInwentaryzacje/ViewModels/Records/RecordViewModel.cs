@@ -36,16 +36,14 @@ namespace NathalieInwentaryzacje.ViewModels.Records
 
         public void PrintReport()
         {
-//            ShowDialog(new ReportViewModel(new RecordEntryReportInfo(Context.RecordDateText, Context.RecordDisplayName,
-//                Context.RecordEntryTable)));
             var buff = IoC.Get<IReportManager>().BuildReport(new RecordEntryReportInfo(Context.RecordDateText,
-                Context.RecordDisplayName, Context.RecordEntryTable));
-            if (buff != null)
+                Context.RecordDisplayName, Context.RecordEntryTable), 2);
+
+            if (buff == null) return;
+
+            using (var fs = File.Open(@"D:\itext.pdf", FileMode.OpenOrCreate, FileAccess.Write))
             {
-                using (var fs = File.Open(@"D:\itext.pdf", FileMode.OpenOrCreate, FileAccess.Write))
-                {
-                    fs.Write(buff, 0, buff.Length);
-                }
+                fs.Write(buff, 0, buff.Length);
             }
         }
 

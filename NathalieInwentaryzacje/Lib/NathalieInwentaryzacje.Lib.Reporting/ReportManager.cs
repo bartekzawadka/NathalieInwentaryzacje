@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.IO;
+using System.Linq;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using NathalieInwentaryzacje.Lib.Contracts.Dto.Reports;
@@ -10,9 +12,9 @@ namespace NathalieInwentaryzacje.Lib.Reporting
 {
     public class ReportManager : IReportManager
     {
-        private readonly string _arialuniTff = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Fonts), "ARIALUNI.TTF");
+        private static readonly string ArialuniTff = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Fonts), "ARIALUNI.TTF");
 
-        public byte[] BuildReport(RecordEntryReportInfo reportInfo)
+        public byte[] BuildReport(RecordEntryReportInfo reportInfo, int numberOfItemsPerPage = 40)
         {
             byte[] data;
 
@@ -23,99 +25,21 @@ namespace NathalieInwentaryzacje.Lib.Reporting
                 writer.PageEvent = new PdfFooter();
                 document.Open();
 
-                document.NewPage();
-
-                CreateHeader(reportInfo.RecordDisplayName, reportInfo.RecordDate, document);
-
-                var table = new PdfPTable(reportInfo.RecordEntryTable.Columns.Count+1);
-                var widths = new float[reportInfo.RecordEntryTable.Columns.Count+1];
-                widths[0] = 1f;
-                for (var i = 1; i < widths.Length; i++)
-                {
-                    widths[i] = 4f;
-                }
-
-                var lpCell = new PdfPCell(new Phrase("Lp", FontFactory.GetFont(_arialuniTff, 12, Font.BOLD)))
-                {
-                    HorizontalAlignment = 1,
-                    BackgroundColor = BaseColor.LIGHT_GRAY
-                };
-
-                table.AddCell(lpCell);
-
-                foreach (DataColumn dataColumn in reportInfo.RecordEntryTable.Columns)
-                {
-                    var cell = new PdfPCell(new Phrase(dataColumn.ColumnName,
-                        FontFactory.GetFont(_arialuniTff, 12, Font.BOLD)))
-                    {
-                        HorizontalAlignment = 1,
-                        BackgroundColor = BaseColor.LIGHT_GRAY
-                    };
-                    table.AddCell(cell);
-                }
-
+                var partsCount = reportInfo.RecordEntryTable.Rows.Count / numberOfItemsPerPage + 1;
                 var rowCount = 1;
 
-                foreach (DataRow dataRow in reportInfo.RecordEntryTable.Rows)
+                for (var i = 0; i < partsCount; i++)
                 {
-                    var lpValue = new PdfPCell(new Phrase(rowCount.ToString(),
-                        FontFactory.GetFont(_arialuniTff, 12, Font.NORMAL)))
-                    {
-                        HorizontalAlignment = 1
-                    };
+                    var set = reportInfo.RecordEntryTable.Select().Skip(i * numberOfItemsPerPage)
+                        .Take(numberOfItemsPerPage).ToList();
 
-                    table.AddCell(lpValue);
+                    if (set.Count <= 0) continue;
 
-                    for (var i = 0; i < reportInfo.RecordEntryTable.Columns.Count; i++)
-                    {
-                        PdfPCell cell;
-                        if (i == 0)
-                        {
-                            cell = new PdfPCell(new Phrase(
-                                dataRow[reportInfo.RecordEntryTable.Columns[i].ColumnName].ToString(),
-                                FontFactory.GetFont(_arialuniTff, 12, Font.NORMAL)))
-                            {
-                                HorizontalAlignment = 0
-                            };
-                        }
-                        else
-                        {
-                            cell = new PdfPCell(new Phrase(
-                                dataRow[reportInfo.RecordEntryTable.Columns[i].ColumnName].ToString(),
-                                FontFactory.GetFont(_arialuniTff, 12, Font.NORMAL)))
-                            {
-                                HorizontalAlignment = 1
-                            };
-                        }
+                    CreateHeader(reportInfo.RecordDisplayName, reportInfo.RecordDate, document);
 
-                        table.AddCell(cell);
-                    }
-
-                    rowCount++;
+                    rowCount = BuildDataPage(reportInfo.RecordEntryTable.Columns, set, document, rowCount, i>0);
+                    document.NewPage();
                 }
-
-                var summaryCell = new PdfPCell(new Phrase("SUMA", FontFactory.GetFont(_arialuniTff, 12, Font.BOLD)))
-                {
-                    HorizontalAlignment = 0,
-                    Colspan = table.NumberOfColumns - 1
-                };
-                table.AddCell(summaryCell);
-
-                var summaryValueCell = new PdfPCell(new Phrase("WARTOŚĆ", FontFactory.GetFont(_arialuniTff, 12, Font.BOLD)))
-                {
-                    HorizontalAlignment = 1
-                };
-
-                table.AddCell(summaryValueCell);
-
-                table.SetWidths(widths);
-                table.WidthPercentage = 100;
-
-                document.Add(table);
-
-                document.NewPage();
-
-                document.Add(table);
 
                 document.Close();
 
@@ -123,6 +47,130 @@ namespace NathalieInwentaryzacje.Lib.Reporting
             }
 
             return data;
+        }
+
+        private static int BuildDataPage(DataColumnCollection columns, List<DataRow> rows, Document document, int rowCount, bool addPreviousSummaryRow)
+        {
+            var table = new PdfPTable(columns.Count + 1);
+            var widths = new float[columns.Count + 1];
+            widths[0] = 1f;
+            for (var i = 1; i < widths.Length; i++)
+            {
+                if (i == 1)
+                {
+                    widths[i] = 5f;
+                }
+                else
+                {
+                    widths[i] = 3f;
+                }
+            }
+
+            var font = new Font(BaseFont.CreateFont(ArialuniTff, BaseFont.CP1250, true));
+            var fontBold = new Font(BaseFont.CreateFont(ArialuniTff, BaseFont.CP1250, true), 11, Font.BOLD);
+
+            var lpCell = new PdfPCell(new Phrase("Lp", font))
+            {
+                HorizontalAlignment = 1,
+                VerticalAlignment = 2,
+                BackgroundColor = BaseColor.LIGHT_GRAY
+            };
+
+            table.AddCell(lpCell);
+
+            foreach (DataColumn dataColumn in columns)
+            {
+                var cell = new PdfPCell(new Phrase(dataColumn.ColumnName,
+                    font))
+                {
+                    HorizontalAlignment = 1,
+                    VerticalAlignment = 5,
+                    BackgroundColor = BaseColor.LIGHT_GRAY
+                };
+                table.AddCell(cell);
+            }
+
+            if (addPreviousSummaryRow)
+            {
+                var preSumTitle = new PdfPCell(new Phrase("Z PRZENIESIENIA", fontBold))
+                {
+                    HorizontalAlignment = 0,
+                    VerticalAlignment = 5,
+                    Colspan = table.NumberOfColumns - 1
+                };
+                table.AddCell(preSumTitle);
+
+                var preSumValue = new PdfPCell(new Phrase("WARTOŚĆ", fontBold))
+                {
+                    HorizontalAlignment = 1,
+                    VerticalAlignment = 5
+                };
+                table.AddCell(preSumValue);
+            }
+
+            foreach (DataRow dataRow in rows)
+            {
+                var lpValue = new PdfPCell(new Phrase(rowCount.ToString(),
+                    font))
+                {
+                    HorizontalAlignment = 1,
+                    VerticalAlignment = 5
+                };
+
+                table.AddCell(lpValue);
+
+                for (var i = 0; i < columns.Count; i++)
+                {
+                    PdfPCell cell;
+                    if (i == 0)
+                    {
+                        cell = new PdfPCell(new Phrase(
+                            dataRow[columns[i].ColumnName].ToString(),
+                            font))
+                        {
+                            HorizontalAlignment = 0,
+                            VerticalAlignment = 5
+                        };
+                    }
+                    else
+                    {
+                        cell = new PdfPCell(new Phrase(
+                            dataRow[columns[i].ColumnName].ToString(),
+                            font))
+                        {
+                            HorizontalAlignment = 1,
+                            VerticalAlignment = 5
+                        };
+                    }
+
+                    table.AddCell(cell);
+                }
+
+                rowCount++;
+            }
+
+            var summaryCell = new PdfPCell(new Phrase("SUMA", fontBold))
+            {
+                HorizontalAlignment = 0,
+                VerticalAlignment = 5,
+                Colspan = table.NumberOfColumns - 1
+            };
+            table.AddCell(summaryCell);
+
+            var summaryValueCell = new PdfPCell(new Phrase("WARTOŚĆ", fontBold))
+            {
+                HorizontalAlignment = 1,
+                VerticalAlignment = 5
+            };
+
+            table.AddCell(summaryValueCell);
+
+            table.SetWidths(widths);
+            table.WidthPercentage = 100;
+
+            document.Add(table);
+
+            return rowCount;
         }
 
         private static void CreateHeader(string title, string date, Document doc)
@@ -134,7 +182,9 @@ namespace NathalieInwentaryzacje.Lib.Reporting
                 HorizontalAlignment = Element.ALIGN_CENTER
             };
 
-            var para1 = new PdfPCell(new Phrase(title, FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 13)))
+            var font = new Font(BaseFont.CreateFont(ArialuniTff, BaseFont.CP1250, true), 13, Font.BOLD);
+
+            var para1 = new PdfPCell(new Phrase(title, font))
             {
                 HorizontalAlignment = 0,
                 FixedHeight = 22f,
@@ -142,7 +192,7 @@ namespace NathalieInwentaryzacje.Lib.Reporting
             };
             table.AddCell(para1);
 
-            var para2 = new PdfPCell(new Phrase("Stan na dzień: " + date, FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 13)))
+            var para2 = new PdfPCell(new Phrase("Stan na dzień: " + date, font))
             {
                 HorizontalAlignment = 2,
                 BorderWidth = 0
