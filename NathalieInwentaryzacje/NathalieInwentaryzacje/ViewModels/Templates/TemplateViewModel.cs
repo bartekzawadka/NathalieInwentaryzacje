@@ -1,10 +1,10 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using Caliburn.Micro;
 using NathalieInwentaryzacje.Common.Utils.Extensions;
-using NathalieInwentaryzacje.Lib.Bll.Mappers;
 using NathalieInwentaryzacje.Lib.Contracts.Dto;
 using NathalieInwentaryzacje.Lib.Contracts.Dto.Templates;
 using NathalieInwentaryzacje.Lib.Contracts.Interfaces;
@@ -12,8 +12,11 @@ using NathalieInwentaryzacje.ViewModels.Common;
 
 namespace NathalieInwentaryzacje.ViewModels.Templates
 {
-    public class TemplateViewModel : DetailsScreen<TemplateInfo>
+    public sealed class TemplateViewModel : DetailsScreen<TemplateInfo>
     {
+        private TemplateColumn _columnForSumUp;
+        private const string EmptySumColumnValue = "(Nie sumuj)";
+
         public ObservableCollection<TemplateColumn> TemplateColumns
         {
             get
@@ -28,7 +31,37 @@ namespace NathalieInwentaryzacje.ViewModels.Templates
                 {
                     Context.Columns = value.ToArray();
                     NotifyOfPropertyChange();
+                    NotifyOfPropertyChange(nameof(ColumnForSumUpCollection));
                 }
+            }
+        }
+
+        public ObservableCollection<TemplateColumn> ColumnForSumUpCollection
+        {
+            get
+            {
+                var list = new List<TemplateColumn>
+                {
+                    new TemplateColumn
+                    {
+                        Name = EmptySumColumnValue
+                    }
+                };
+                list.AddRange(TemplateColumns);
+                return new ObservableCollection<TemplateColumn>(list);
+            }
+        }
+
+        public TemplateColumn ColumnForSumUp
+        {
+            get => _columnForSumUp;
+            set
+            {
+                if (Equals(value, _columnForSumUp)) return;
+                _columnForSumUp = value;
+                if (Context != null)
+                    Context.SumUpColumnName = value?.Name;
+                NotifyOfPropertyChange();
             }
         }
 
@@ -40,6 +73,8 @@ namespace NathalieInwentaryzacje.ViewModels.Templates
         public TemplateViewModel(TemplateInfo template)
         {
             Context = template ?? new TemplateInfo();
+            ColumnForSumUp =
+                ColumnForSumUpCollection.FirstOrDefault(x => string.Equals(x.Name, Context.SumUpColumnName));
         }
 
         public void UpdateColumns(DataGridCellEditEndingEventArgs args)

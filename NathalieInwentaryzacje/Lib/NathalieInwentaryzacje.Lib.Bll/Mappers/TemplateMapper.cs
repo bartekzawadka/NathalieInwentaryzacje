@@ -12,7 +12,8 @@ namespace NathalieInwentaryzacje.Lib.Bll.Mappers
                 Columns = value.Columns,
                 Id = value.Id,
                 Name = value.Name,
-                IsEnabled = value.IsEnabled
+                IsEnabled = value.IsEnabled,
+                SumUpColumnName = value.SumUpColumnName
             };
         }
 
@@ -23,7 +24,8 @@ namespace NathalieInwentaryzacje.Lib.Bll.Mappers
                 Columns = value.Columns,
                 Id = value.Id,
                 Name = value.Name,
-                IsEnabled = value.IsEnabled
+                IsEnabled = value.IsEnabled,
+                SumUpColumnName = value.SumUpColumnName
             };
         }
     }
