@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using Caliburn.Micro;
+using Microsoft.Win32;
 using NathalieInwentaryzacje.Common.Utils.Extensions;
 using NathalieInwentaryzacje.Lib.Contracts.Dto;
 using NathalieInwentaryzacje.Lib.Contracts.Dto.Templates;
@@ -15,7 +16,19 @@ namespace NathalieInwentaryzacje.ViewModels.Templates
     public sealed class TemplateViewModel : DetailsScreen<TemplateInfo>
     {
         private TemplateColumn _columnForSumUp;
+        private string _templateFilePath;
         private const string EmptySumColumnValue = "(Nie sumuj)";
+
+        public string TemplateFilePath
+        {
+            get => _templateFilePath;
+            set
+            {
+                if (value == _templateFilePath) return;
+                _templateFilePath = value;
+                NotifyOfPropertyChange();
+            }
+        }
 
         public ObservableCollection<TemplateColumn> TemplateColumns
         {
@@ -100,6 +113,21 @@ namespace NathalieInwentaryzacje.ViewModels.Templates
 
             TemplateColumns = templateColumns.Where(x => !string.IsNullOrEmpty(x.Name)).ToObservableCollection();
         }
+
+        public void ChooseTemplate()
+        {
+            var fDialog = new OpenFileDialog
+            {
+                Multiselect = false,
+                Filter = "Microsoft Excel (*.xlsx)|*.xlsx",
+                FilterIndex = 1
+            };
+            if (fDialog.ShowDialog() == true)
+            {
+                TemplateFilePath = fDialog.FileName;
+            }
+        }
+
 
         public async void Save()
         {
