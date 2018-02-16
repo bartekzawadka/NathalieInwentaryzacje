@@ -1,4 +1,5 @@
-﻿using NathalieInwentaryzacje.Lib.Contracts.Dto;
+﻿using System.IO;
+using NathalieInwentaryzacje.Lib.Contracts.Dto;
 using NathalieInwentaryzacje.Lib.Contracts.Dto.Templates;
 
 namespace NathalieInwentaryzacje.Lib.Bll.Mappers
@@ -9,11 +10,10 @@ namespace NathalieInwentaryzacje.Lib.Bll.Mappers
         {
             return new Template
             {
-                Columns = value.Columns,
                 Id = value.Id,
                 Name = value.Name,
                 IsEnabled = value.IsEnabled,
-                SumUpColumnName = value.SumUpColumnName
+                TemplateFileName = value.TemplateFilePath
             };
         }
 
@@ -21,11 +21,10 @@ namespace NathalieInwentaryzacje.Lib.Bll.Mappers
         {
             return new TemplateInfo
             {
-                Columns = value.Columns,
                 Id = value.Id,
                 Name = value.Name,
                 IsEnabled = value.IsEnabled,
-                SumUpColumnName = value.SumUpColumnName
+                TemplateFilePath = value.TemplateFileName
             };
         }
     }

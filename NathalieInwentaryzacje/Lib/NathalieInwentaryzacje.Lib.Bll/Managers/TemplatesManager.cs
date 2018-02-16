@@ -22,7 +22,7 @@ namespace NathalieInwentaryzacje.Lib.Bll.Managers
 
         public IEnumerable<TemplateInfo> GetTemplates(bool includeDisabled = false)
         {
-            var files = Directory.GetFiles(_templatesPath);
+            var files = Directory.GetFiles(_templatesPath, "*.xml");
 
             var templates = new List<TemplateInfo>();
 
@@ -53,6 +53,9 @@ namespace NathalieInwentaryzacje.Lib.Bll.Managers
                     throw new Exception("Szablon o takiej nazwie już istnieje");
 
                 t.Id = Guid.NewGuid().ToString();
+                var fName = t.Name + Path.GetExtension(t.TemplateFilePath);
+                File.Copy(t.TemplateFilePath, Path.Combine(_templatesPath, fName));
+                t.TemplateFilePath = fName;
             }
             else
             {

@@ -13,10 +13,9 @@ namespace NathalieInwentaryzacje.Lib.Contracts.Dto
 
         public bool IsEnabled { get; set; } = true;
 
-        public TemplateColumn[] Columns { get; set; }
+        [Required(ErrorMessage = "Ścieżka do pliku szablonu musi być zdefiniowana")]
+        public string TemplateFilePath { get; set; }
 
-        public string SumUpColumnName { get; set; }
-
-        public bool IsBlockedForEdit => !string.IsNullOrEmpty(Id);
+        public bool IsNew => string.IsNullOrEmpty(Id);
     }
 }

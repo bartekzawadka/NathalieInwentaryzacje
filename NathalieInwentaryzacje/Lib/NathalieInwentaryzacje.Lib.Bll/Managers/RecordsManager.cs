@@ -74,7 +74,7 @@ namespace NathalieInwentaryzacje.Lib.Bll.Managers
             var record = XmlFileSerializer.Deserialize<Record>(file);
             var template = _templatesManager.GetTemplate(record.TemplateId);
 
-            return RecordMapper.ToRecordEntryInfo(record, template.Columns);
+            return RecordMapper.ToRecordEntryInfo(record);
         }
 
         public void CreateRecord(NewRecordInfo recordInfo)
@@ -145,8 +145,7 @@ namespace NathalieInwentaryzacje.Lib.Bll.Managers
                 TemplateId = info.Id,
                 Name = info.Name,
                 RecordDate = recordDate.Value,
-                RecordId = Guid.NewGuid().ToString(),
-                SumUpColumnName = info.SumUpColumnName
+                RecordId = Guid.NewGuid().ToString()
             };
         }
     }

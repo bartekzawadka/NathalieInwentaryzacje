@@ -16,11 +16,7 @@ namespace NathalieInwentaryzacje.Lib.Contracts.Dto.Templates
         [XmlAttribute("Enabled")]
         public bool IsEnabled { get; set; } = true;
 
-        [XmlAttribute("SumUpColumnName")]
-        public string SumUpColumnName { get; set; }
-
-        [XmlArray("Columns")]
-        [XmlArrayItem("Column", typeof(TemplateColumn))]
-        public TemplateColumn[] Columns { get; set; }
+        [XmlAttribute("FileName")]
+        public string TemplateFileName { get; set; }
     }
 }

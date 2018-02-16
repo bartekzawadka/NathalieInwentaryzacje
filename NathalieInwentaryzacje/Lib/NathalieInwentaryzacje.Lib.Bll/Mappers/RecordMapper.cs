@@ -8,7 +8,7 @@ namespace NathalieInwentaryzacje.Lib.Bll.Mappers
 {
     public class RecordMapper
     {
-        public static RecordEntryInfo ToRecordEntryInfo(Record record, TemplateColumn[] columns)
+        public static RecordEntryInfo ToRecordEntryInfo(Record record)
         {
             var recordInfo =  new RecordEntryInfo
             {
@@ -22,10 +22,6 @@ namespace NathalieInwentaryzacje.Lib.Bll.Mappers
 
             var dataSet = new DataTable();
 
-            foreach (var column in columns)
-            {
-                dataSet.Columns.Add(column.Name);
-            }
             dataSet.AcceptChanges();
 
             if (record.Entries != null)
