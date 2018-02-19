@@ -46,17 +46,14 @@
   <ItemGroup>
     <Compile Include="Dto\NewRecordInfo.cs" />
     <Compile Include="Dto\NewRecordTypeInfo.cs" />
-    <Compile Include="Dto\RecordEntryInfo.cs" />
     <Compile Include="Dto\RecordListInfo.cs" />
     <Compile Include="Dto\RecordListItemInfo.cs" />
     <Compile Include="Dto\Records\Record.cs" />
     <Compile Include="Dto\Records\RecordEntry.cs" />
-    <Compile Include="Dto\Records\RecordEntryColumn.cs" />
     <Compile Include="Dto\Reports\RecordEntryReportInfo.cs" />
     <Compile Include="Dto\TemplateInfo.cs" />
     <Compile Include="Dto\Templates\TemplateColumn.cs" />
     <Compile Include="Dto\Templates\Template.cs" />
-    <Compile Include="Enums\RecordType.cs" />
     <Compile Include="Interfaces\IRecordsManager.cs" />
     <Compile Include="Interfaces\IReportManager.cs" />
     <Compile Include="Interfaces\ITemplatesManager.cs" />

@@ -128,7 +128,6 @@
     <Compile Include="ViewModels\Main\ErrorViewModel.cs" />
     <Compile Include="ViewModels\Records\NewRecordViewModel.cs" />
     <Compile Include="ViewModels\Records\RecordsListViewModel.cs" />
-    <Compile Include="ViewModels\Records\RecordViewModel.cs" />
     <Compile Include="ViewModels\Templates\TemplatesListViewModel.cs" />
     <Compile Include="ViewModels\Templates\TemplateViewModel.cs" />
     <Compile Include="Views\Controls\MainMenuItem.xaml.cs">
@@ -182,10 +181,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Records\RecordsListView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Records\RecordView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

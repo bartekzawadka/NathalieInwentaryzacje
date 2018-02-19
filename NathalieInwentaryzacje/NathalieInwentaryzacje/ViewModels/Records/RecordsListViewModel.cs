@@ -41,10 +41,8 @@ namespace NathalieInwentaryzacje.ViewModels.Records
             if (!(context is RecordListItemInfo model))
                 throw new Exception("Błąd rzutowania typu wiersza");
 
-            if (ShowDialog(new RecordViewModel(model.RecordDate, model.Name)) == true)
-            {
-                LoadData();
-            }
+            IoC.Get<IRecordsManager>().EditRecordFile(model.RecordDate, model.FilePath);
+            LoadData();
         }
     }
 }

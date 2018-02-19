@@ -25,7 +25,7 @@
             </Grid.ColumnDefinitions>
             <TextBox controls:TextBoxHelper.ClearTextButton="False"
                      controls:TextBoxHelper.UseFloatingWatermark="True"
-                     controls:TextBoxHelper.Watermark="Nazwa szablonu"
+                     controls:TextBoxHelper.Watermark="Nazwa wyświetlana"
                      VerticalContentAlignment="Center" VerticalAlignment="Center"
                      Margin="10 0"
                      MinWidth="250"

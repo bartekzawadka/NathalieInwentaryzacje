@@ -44,16 +44,22 @@ namespace NathalieInwentaryzacje.Lib.Bll.Managers
 
         public void CreateOrUpdateTemplate(TemplateInfo t)
         {
-            var path = Path.Combine(_templatesPath, t.Name + ".xml");
+            var path = Path.Combine(_templatesPath, Path.GetFileNameWithoutExtension(t.TemplateFilePath) + ".xml");
             var templates = GetTemplates(true);
 
             if (string.IsNullOrEmpty(t.Id))
             {
-                if (templates.Any(x => string.Equals(x.Name.Trim().ToLower(), t.Name.Trim().ToLower())))
+                //                if (templates.Any(x => string.Equals(x.Name.Trim().ToLower(), t.Name.Trim().ToLower())))
+                //                    throw new Exception("Szablon o takiej nazwie już istnieje");
+
+                if (File.Exists(path) || File.Exists(Path.Combine(_templatesPath,
+                        Path.GetFileName(t.TemplateFilePath) ?? throw new InvalidOperationException())))
+                {
                     throw new Exception("Szablon o takiej nazwie już istnieje");
+                }
 
                 t.Id = Guid.NewGuid().ToString();
-                var fName = t.Name + Path.GetExtension(t.TemplateFilePath);
+                var fName = Path.GetFileName(t.TemplateFilePath);
                 File.Copy(t.TemplateFilePath, Path.Combine(_templatesPath, fName));
                 t.TemplateFilePath = fName;
             }

@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Enumerations.cs" />
     <Compile Include="Extensions\CollectionsExtensions.cs" />
+    <Compile Include="Extensions\DateTimeExtensions.cs" />
     <Compile Include="Interfaces\IValidationBase.cs" />
     <Compile Include="Interfaces\IValidationCollection.cs" />
     <Compile Include="NotifyBase.cs" />

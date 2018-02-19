@@ -42,7 +42,7 @@
                                 </Style>
                             </DataGrid.CellStyle>
                             <DataGrid.Columns>
-                                <DataGridTextColumn Width="*" Header="Nazwa" Binding="{Binding Name}" IsReadOnly="True"></DataGridTextColumn>
+                                <DataGridTextColumn Width="*" Header="Nazwa" Binding="{Binding DisplayName}" IsReadOnly="True"></DataGridTextColumn>
                                 <DataGridTemplateColumn Width="Auto" Header="Wypełniony" IsReadOnly="True">
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>

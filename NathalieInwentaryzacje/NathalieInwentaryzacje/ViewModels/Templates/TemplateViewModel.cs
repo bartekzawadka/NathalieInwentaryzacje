@@ -24,18 +24,13 @@ namespace NathalieInwentaryzacje.ViewModels.Templates
             var fDialog = new OpenFileDialog
             {
                 Multiselect = false,
-                Filter = "Microsoft Excel (*.xlsx)|*.xlsx|OpenOffice Spreadsheet (*.ods)|*.ods",
+                Filter = "Microsoft Excel (*.xlsx)|*.xlsx",
                 FilterIndex = 1
             };
             if (fDialog.ShowDialog() == true)
             {
                 Context.TemplateFilePath = fDialog.FileName;
                 NotifyOfPropertyChange(nameof(Context));
-                //                if (string.IsNullOrEmpty(Context.Name))
-                //                {
-                //                    Context.Name = Path.GetFileNameWithoutExtension(Context.TemplateFilePath);
-                //                    NotifyOfPropertyChange(nameof(Context));
-                //                }
             }
         }
 

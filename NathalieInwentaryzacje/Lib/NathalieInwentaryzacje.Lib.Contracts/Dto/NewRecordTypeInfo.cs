@@ -1,6 +1,4 @@
-﻿using NathalieInwentaryzacje.Lib.Contracts.Dto.Templates;
-
-namespace NathalieInwentaryzacje.Lib.Contracts.Dto
+﻿namespace NathalieInwentaryzacje.Lib.Contracts.Dto
 {
     public class NewRecordTypeInfo
     {

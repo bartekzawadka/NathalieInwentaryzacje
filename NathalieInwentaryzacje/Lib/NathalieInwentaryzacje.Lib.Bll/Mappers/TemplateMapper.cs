@@ -1,5 +1,4 @@
-﻿using System.IO;
-using NathalieInwentaryzacje.Lib.Contracts.Dto;
+﻿using NathalieInwentaryzacje.Lib.Contracts.Dto;
 using NathalieInwentaryzacje.Lib.Contracts.Dto.Templates;
 
 namespace NathalieInwentaryzacje.Lib.Bll.Mappers
