@@ -36,6 +36,11 @@ namespace NathalieInwentaryzacje.ViewModels.Records
             }
         }
 
+        public void GenerateReport(RecordListInfo context)
+        {
+            ShowDialog(new GenerateReportViewModel(context));
+        }
+
         public override void SelectedContextItemDoubleClick(object context)
         {
             if (!(context is RecordListItemInfo model))

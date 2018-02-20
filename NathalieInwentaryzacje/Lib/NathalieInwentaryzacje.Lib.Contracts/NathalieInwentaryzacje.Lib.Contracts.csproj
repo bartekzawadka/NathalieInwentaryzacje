@@ -50,6 +50,7 @@
     <Compile Include="Dto\RecordListItemInfo.cs" />
     <Compile Include="Dto\Records\Record.cs" />
     <Compile Include="Dto\Records\RecordEntry.cs" />
+    <Compile Include="Dto\Reports\GenerateReportEntryInfo.cs" />
     <Compile Include="Dto\Reports\RecordEntryReportInfo.cs" />
     <Compile Include="Dto\TemplateInfo.cs" />
     <Compile Include="Dto\Templates\TemplateColumn.cs" />

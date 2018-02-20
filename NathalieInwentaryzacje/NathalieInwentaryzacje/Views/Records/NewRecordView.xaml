@@ -39,8 +39,6 @@
             </Grid.ColumnDefinitions>
             <controls1:NButton Grid.Column="2" x:Name="Cancel" Icon="Cancel" Text="Anuluj"></controls1:NButton>
             <controls1:NButton Grid.Column="1" x:Name="Create" Icon="ListCreate" Text="Utwórz" IsAccented="True" IsEnabled="{Binding Context.IsValid}"></controls1:NButton>
-<!--            <Button x:Name="Cancel" Grid.Column="2" Content="Anuluj" Style="{StaticResource SquareButtonStyle}" Margin="5"></Button>-->
-<!--            <Button x:Name="Create"  Grid.Column="1" Content="Utwórz" Style="{StaticResource AccentedSquareButtonStyle}" Margin="5"></Button>-->
         </Grid>
     </Grid>
 </controls:MetroWindow>

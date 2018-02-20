@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:NathalieInwentaryzacje.Views.Records"
              xmlns:controls="clr-namespace:NathalieInwentaryzacje.Views.Controls"
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:cal="http://www.caliburnproject.org"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
@@ -22,7 +23,19 @@
         <ItemsControl Grid.Row="1" ItemsSource="{Binding Context}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <GroupBox Header="{Binding RecordTitle}">
+                    <GroupBox Header="{Binding}">
+                        <GroupBox.HeaderTemplate>
+                            <DataTemplate>
+                                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="0, -5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="{Binding Path=RecordTitle, Converter={StaticResource ToUpperConverter}}" VerticalAlignment="Center"></TextBlock>
+                                    <controls:NButton cal:Message.Attach="[Event Click] = [Action GenerateReport($dataContext)]"  Grid.Column="1" Text="Generuj raport" Icon="PagePdf"></controls:NButton>
+                                </Grid>
+                            </DataTemplate>
+                        </GroupBox.HeaderTemplate>
                         <controls:NDataGrid ItemsSource="{Binding RecordsInfo}" AutoGenerateColumns="False"
                                             CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserSortColumns="False">
 
@@ -61,4 +74,6 @@
         </ItemsControl>
     </Grid>
 </UserControl>
+
+
 

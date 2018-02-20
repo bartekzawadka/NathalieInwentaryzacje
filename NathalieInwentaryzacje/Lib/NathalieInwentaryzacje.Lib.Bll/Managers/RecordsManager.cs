@@ -195,7 +195,7 @@ namespace NathalieInwentaryzacje.Lib.Bll.Managers
                 dt.Columns.Add(firstRowCell.Text);
             }
 
-            for (var i = startRow; i < totalRows; i++)
+            for (var i = startRow; i <= totalRows; i++)
             {
                 var wsRow = ws.Cells[i, 1, i, totalCols];
                 var dr = dt.NewRow();
