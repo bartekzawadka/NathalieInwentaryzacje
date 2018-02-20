@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using NathalieInwentaryzacje.Lib.Contracts.Dto;
+using NathalieInwentaryzacje.Lib.Contracts.Dto.Reports;
 
 namespace NathalieInwentaryzacje.Lib.Contracts.Interfaces
 {
@@ -10,6 +11,8 @@ namespace NathalieInwentaryzacje.Lib.Contracts.Interfaces
 
         void CreateRecord(NewRecordInfo recordInfo);
 
-        void EditRecordFile(DateTime recordDate, string fileName);
+        void OpenRecordFileEdit(DateTime recordDate, string fileName);
+
+        RecordEntryReportInfo GetRecordReportInfo(DateTime recordDate, string fileName);
     }
 }
