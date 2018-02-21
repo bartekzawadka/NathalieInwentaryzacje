@@ -5,16 +5,45 @@ using System.IO;
 using System.Linq;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
+using NathalieInwentaryzacje.Common.Utils.Extensions;
+using NathalieInwentaryzacje.Lib.Bll.Reporting;
 using NathalieInwentaryzacje.Lib.Contracts.Dto.Reports;
 using NathalieInwentaryzacje.Lib.Contracts.Interfaces;
 
-namespace NathalieInwentaryzacje.Lib.Reporting
+namespace NathalieInwentaryzacje.Lib.Bll.Managers
 {
     public class ReportManager : IReportManager
     {
         private static readonly string ArialuniTff = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Fonts), "ARIALUNI.TTF");
+        private readonly RecordsManager _recordsManager = new RecordsManager();
 
-        public byte[] BuildReport(RecordEntryReportInfo reportInfo, int numberOfItemsPerPage = 40)
+        public void GenerateReports(IEnumerable<GenerateReportEntryInfo> reportEntryInfos, string saveDir, int numberOfItemsPerPage = 40)
+        {
+            if (!Directory.Exists(saveDir))
+                throw new DirectoryNotFoundException("Nie można odnaleźć folderu '" + saveDir + "'");
+
+            foreach (var generateReportEntryInfo in reportEntryInfos)
+            {
+                var dt = _recordsManager.RecordToDataTable(generateReportEntryInfo.RecordListInfo.RecordDate,
+                    generateReportEntryInfo.RecordListInfo.FilePath);
+
+                var buff = BuildReport(new RecordEntryReportInfo(
+                    generateReportEntryInfo.RecordListInfo.RecordDate.ToRecordDateString(),
+                    generateReportEntryInfo.RecordListInfo.DisplayName?.ToUpper(), dt), numberOfItemsPerPage);
+
+                var fileName = Path.GetFileNameWithoutExtension(generateReportEntryInfo.RecordListInfo.FilePath) +
+                               ".pdf";
+                var path = Path.Combine(saveDir, fileName);
+                File.Delete(path);
+
+                using (var fs = File.Open(path, FileMode.OpenOrCreate, FileAccess.Write))
+                {
+                    fs.Write(buff, 0, buff.Length);
+                }
+            }
+        }
+
+        private static byte[] BuildReport(RecordEntryReportInfo reportInfo, int numberOfItemsPerPage = 40)
         {
             byte[] data;
 
@@ -27,6 +56,7 @@ namespace NathalieInwentaryzacje.Lib.Reporting
 
                 var partsCount = reportInfo.RecordEntryTable.Rows.Count / numberOfItemsPerPage + 1;
                 var rowCount = 1;
+                var transferedValue = 0.0;
 
                 for (var i = 0; i < partsCount; i++)
                 {
@@ -37,7 +67,8 @@ namespace NathalieInwentaryzacje.Lib.Reporting
 
                     CreateHeader(reportInfo.RecordDisplayName, reportInfo.RecordDate, document);
 
-                    rowCount = BuildDataPage(reportInfo.RecordEntryTable.Columns, set, document, rowCount, i>0);
+                    rowCount = BuildDataPage(reportInfo.RecordEntryTable.Columns, set, document, rowCount, i > 0,
+                        ref transferedValue);
                     document.NewPage();
                 }
 
@@ -49,14 +80,17 @@ namespace NathalieInwentaryzacje.Lib.Reporting
             return data;
         }
 
-        private static int BuildDataPage(DataColumnCollection columns, List<DataRow> rows, Document document, int rowCount, bool addPreviousSummaryRow)
+        private static int BuildDataPage(DataColumnCollection columns, List<DataRow> rows, Document document, int rowCount, bool addPreviousSummaryRow, ref double transferedValue)
         {
-            var table = new PdfPTable(columns.Count + 1);
-            var widths = new float[columns.Count + 1];
-            widths[0] = 1f;
-            for (var i = 1; i < widths.Length; i++)
+            var table = new PdfPTable(columns.Count);
+            var widths = new float[columns.Count];
+            for (var i = 0; i < widths.Length; i++)
             {
-                if (i == 1)
+                if (i == 0)
+                {
+                    widths[i] = 1f;
+                }
+                else if (i == 1)
                 {
                     widths[i] = 5f;
                 }
@@ -68,15 +102,6 @@ namespace NathalieInwentaryzacje.Lib.Reporting
 
             var font = new Font(BaseFont.CreateFont(ArialuniTff, BaseFont.CP1250, true));
             var fontBold = new Font(BaseFont.CreateFont(ArialuniTff, BaseFont.CP1250, true), 11, Font.BOLD);
-
-            var lpCell = new PdfPCell(new Phrase("Lp", font))
-            {
-                HorizontalAlignment = 1,
-                VerticalAlignment = 2,
-                BackgroundColor = BaseColor.LIGHT_GRAY
-            };
-
-            table.AddCell(lpCell);
 
             foreach (DataColumn dataColumn in columns)
             {
@@ -100,7 +125,7 @@ namespace NathalieInwentaryzacje.Lib.Reporting
                 };
                 table.AddCell(preSumTitle);
 
-                var preSumValue = new PdfPCell(new Phrase("WARTOŚĆ", fontBold))
+                var preSumValue = new PdfPCell(new Phrase(transferedValue.ToString("C"), fontBold))
                 {
                     HorizontalAlignment = 1,
                     VerticalAlignment = 5
@@ -108,27 +133,28 @@ namespace NathalieInwentaryzacje.Lib.Reporting
                 table.AddCell(preSumValue);
             }
 
-            foreach (DataRow dataRow in rows)
+            foreach (var dataRow in rows)
             {
-                var lpValue = new PdfPCell(new Phrase(rowCount.ToString(),
-                    font))
-                {
-                    HorizontalAlignment = 1,
-                    VerticalAlignment = 5
-                };
-
-                table.AddCell(lpValue);
-
                 for (var i = 0; i < columns.Count; i++)
                 {
                     PdfPCell cell;
-                    if (i == 0)
+                    if (i == 1)
                     {
                         cell = new PdfPCell(new Phrase(
                             dataRow[columns[i].ColumnName].ToString(),
                             font))
                         {
                             HorizontalAlignment = 0,
+                            VerticalAlignment = 5
+                        };
+                    }
+                    else if (i == columns.Count - 1)
+                    {
+                        cell = new PdfPCell(new Phrase(
+                            dataRow[columns[i].ColumnName].ToString(),
+                            font))
+                        {
+                            HorizontalAlignment = 2,
                             VerticalAlignment = 5
                         };
                     }
@@ -157,7 +183,20 @@ namespace NathalieInwentaryzacje.Lib.Reporting
             };
             table.AddCell(summaryCell);
 
-            var summaryValueCell = new PdfPCell(new Phrase("WARTOŚĆ", fontBold))
+            var sum = transferedValue;
+
+            foreach (var dataRow in rows)
+            {
+                var cell = dataRow[columns.Count - 1]?.ToString().Replace("zł", "");
+                if (double.TryParse(cell, out var val))
+                {
+                    sum += val;
+                }
+            }
+
+            transferedValue = sum;
+
+            var summaryValueCell = new PdfPCell(new Phrase(sum.ToString("C"), fontBold))
             {
                 HorizontalAlignment = 1,
                 VerticalAlignment = 5

@@ -1,7 +1,7 @@
 ﻿using iTextSharp.text;
 using iTextSharp.text.pdf;
 
-namespace NathalieInwentaryzacje.Lib.Reporting
+namespace NathalieInwentaryzacje.Lib.Bll.Reporting
 {
     public class PdfFooter : PdfPageEventHelper
     {

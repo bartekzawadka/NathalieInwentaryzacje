@@ -6,7 +6,6 @@ using Caliburn.Micro;
 using Caliburn.Micro.Autofac;
 using NathalieInwentaryzacje.Lib.Bll.Managers;
 using NathalieInwentaryzacje.Lib.Contracts.Interfaces;
-using NathalieInwentaryzacje.Lib.Reporting;
 using NathalieInwentaryzacje.ViewModels;
 using NathalieInwentaryzacje.ViewModels.Main;
 

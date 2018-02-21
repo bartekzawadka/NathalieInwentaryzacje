@@ -9,7 +9,6 @@ using NathalieInwentaryzacje.Common.Utils.Extensions;
 using NathalieInwentaryzacje.Lib.Bll.Serializers;
 using NathalieInwentaryzacje.Lib.Contracts.Dto;
 using NathalieInwentaryzacje.Lib.Contracts.Dto.Records;
-using NathalieInwentaryzacje.Lib.Contracts.Dto.Reports;
 using NathalieInwentaryzacje.Lib.Contracts.Interfaces;
 using OfficeOpenXml;
 
@@ -146,20 +145,8 @@ namespace NathalieInwentaryzacje.Lib.Bll.Managers
             UpdateRecordFile(recordDate, fileName, path);
         }
 
-        //TODO: Change to async
-        public IEnumerable<RecordEntryReportInfo> GetRecordsReportInfo(DateTime recordDate,
-            IEnumerable<string> fileNames)
-        {
-            var reportInfoList = new List<RecordEntryReportInfo>();
-            Parallel.ForEach(fileNames, s =>
-            {
-                reportInfoList.Add(GetRecordReportInfo(recordDate, s));
-            });
 
-            return reportInfoList;
-        }
-
-        private RecordEntryReportInfo GetRecordReportInfo(DateTime recordDate, string fileName)
+        public DataTable RecordToDataTable(DateTime recordDate, string fileName)
         {
             if (string.IsNullOrEmpty(fileName))
                 throw new ArgumentNullException(nameof(fileName), "Nazwa pliku inwentaryzacji nie może być pusta");
@@ -172,10 +159,6 @@ namespace NathalieInwentaryzacje.Lib.Bll.Managers
                 throw new FileNotFoundException("Nie odnaleziono pliku '" + fileName +
                                                 "' dla inwentaryzacji na dzień " + recordDate.ToRecordDateString());
             }
-
-            var recordXmlPath = Path.Combine(basePath, "record.xml");
-            var record = XmlFileSerializer.Deserialize<Record>(recordXmlPath);
-            var recordEntry = record.Entries.Single(x => string.Equals(x.FilePath?.ToLower(), fileName.ToLower()));
 
             DataTable dt;
 
@@ -193,7 +176,7 @@ namespace NathalieInwentaryzacje.Lib.Bll.Managers
                 dt = WorksheetToDataTable(sheet);
             }
 
-            return new RecordEntryReportInfo(recordDate.ToRecordDateString(), recordEntry.DisplayName, dt);
+            return dt;
         }
 
         private static DataTable WorksheetToDataTable(ExcelWorksheet ws)

@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Windows.Forms;
 using Caliburn.Micro;
 using NathalieInwentaryzacje.Lib.Contracts.Dto;
 using NathalieInwentaryzacje.Lib.Contracts.Dto.Reports;
@@ -40,8 +42,15 @@ namespace NathalieInwentaryzacje.ViewModels.Records
         {
             Context = context;
 
-            Items = new ObservableCollection<GenerateReportEntryInfo>(Context.RecordsInfo.Select(recordListItemInfo =>
-                new GenerateReportEntryInfo {RecordListInfo = recordListItemInfo}).ToList());
+            var list = new ObservableCollection<GenerateReportEntryInfo>(Context.RecordsInfo.Where(x => x.IsFilledIn)
+                .Select(recordListItemInfo =>
+                    new GenerateReportEntryInfo { RecordListInfo = recordListItemInfo }).ToList());
+            foreach (var generateReportEntryInfo in list)
+            {
+                generateReportEntryInfo.IsSelected = true;
+            }
+
+            Items = list;
         }
 
         public void UpdateItems()
@@ -49,23 +58,29 @@ namespace NathalieInwentaryzacje.ViewModels.Records
             NotifyOfPropertyChange(nameof(IsAnySelected));
         }
 
+        public void ChooseReportsDir()
+        {
+            var dirDialog = new FolderBrowserDialog
+            {
+                ShowNewFolderButton = true
+            };
+
+            if (dirDialog.ShowDialog() == DialogResult.OK)
+            {
+                Context.ReportsSaveDir = dirDialog.SelectedPath;
+                NotifyOfPropertyChange(nameof(Context));
+                NotifyOfPropertyChange(nameof(IsAnySelected));
+            }
+        }
+
         public void Generate()
         {
             var selectedItems = Items.Where(x => x.IsSelected).ToList();
 
-            var reportInfos = _recordsManager.GetRecordsReportInfo(Context.RecordDate,
-                selectedItems.Select(x => x.RecordListInfo.FilePath));
+            _reportManager.GenerateReports(selectedItems, Context.ReportsSaveDir);
+            Process.Start(Context.ReportsSaveDir);
 
-            foreach (var recordEntryReportInfo in reportInfos)
-            {
-                var item = selectedItems.First(x =>
-                    string.Equals(x.RecordListInfo.DisplayName, recordEntryReportInfo.RecordDisplayName));
-
-                using (var ms = new MemoryStream(_reportManager.BuildReport(recordEntryReportInfo)))
-                {
-
-                }
-            }
+            TryClose();
         }
     }
 }

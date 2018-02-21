@@ -1,9 +1,10 @@
-﻿using NathalieInwentaryzacje.Lib.Contracts.Dto.Reports;
+﻿using System.Collections.Generic;
+using NathalieInwentaryzacje.Lib.Contracts.Dto.Reports;
 
 namespace NathalieInwentaryzacje.Lib.Contracts.Interfaces
 {
     public interface IReportManager
     {
-        byte[] BuildReport(RecordEntryReportInfo reportInfo, int numberOfItemsPerPage = 40);
+        void GenerateReports(IEnumerable<GenerateReportEntryInfo> reportEntryInfos, string saveDir, int numberOfItemsPerPage = 40);
     }
 }

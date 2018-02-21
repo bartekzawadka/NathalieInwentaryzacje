@@ -60,10 +60,6 @@
       <Project>{67971374-8C34-4B57-A9C1-6F4623D43D46}</Project>
       <Name>NathalieInwentaryzacje.Lib.Contracts</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Lib\NathalieInwentaryzacje.Lib.Reporting\NathalieInwentaryzacje.Lib.Reporting.csproj">
-      <Project>{991dda27-8d71-4127-8389-bf16384afe7f}</Project>
-      <Name>NathalieInwentaryzacje.Lib.Reporting</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -32,7 +32,7 @@
                                         <ColumnDefinition Width="Auto"></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
                                     <TextBlock Text="{Binding Path=RecordTitle, Converter={StaticResource ToUpperConverter}}" VerticalAlignment="Center"></TextBlock>
-                                    <controls:NButton cal:Message.Attach="[Event Click] = [Action GenerateReport($dataContext)]"  Grid.Column="1" Text="Generuj raport" Icon="PagePdf"></controls:NButton>
+                                    <controls:NButton IsEnabled="{Binding CanGenerateReport, UpdateSourceTrigger=PropertyChanged}" cal:Message.Attach="[Event Click] = [Action GenerateReport($dataContext)]"  Grid.Column="1" Text="Generuj raport" Icon="PagePdf"></controls:NButton>
                                 </Grid>
                             </DataTemplate>
                         </GroupBox.HeaderTemplate>
@@ -55,7 +55,7 @@
                                 </Style>
                             </DataGrid.CellStyle>
                             <DataGrid.Columns>
-                                <DataGridTextColumn Width="*" Header="Nazwa" Binding="{Binding DisplayName}" IsReadOnly="True"></DataGridTextColumn>
+                                <DataGridTextColumn Width="*" Header="Nazwa" Binding="{Binding DisplayName, Converter={StaticResource ToUpperConverter}}" IsReadOnly="True"></DataGridTextColumn>
                                 <DataGridTemplateColumn Width="Auto" Header="Wypełniony" IsReadOnly="True">
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>

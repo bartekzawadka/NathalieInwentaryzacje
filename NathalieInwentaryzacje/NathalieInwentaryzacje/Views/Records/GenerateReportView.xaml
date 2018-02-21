@@ -52,7 +52,7 @@
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
                                 <CheckBox IsChecked="{Binding IsSelected, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" cal:Message.Attach="[Event Checked] = [Action UpdateItems()]; [Event Unchecked] = [Action UpdateItems()]"></CheckBox>
-                                <Label Content="{Binding Path=RecordListInfo.DisplayName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></Label>
+                                <Label Content="{Binding Path=RecordListInfo.DisplayName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, Converter={StaticResource ToUpperConverter}}"></Label>
                             </StackPanel>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
