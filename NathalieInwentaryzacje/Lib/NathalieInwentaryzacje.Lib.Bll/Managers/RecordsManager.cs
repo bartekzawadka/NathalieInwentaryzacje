@@ -146,7 +146,20 @@ namespace NathalieInwentaryzacje.Lib.Bll.Managers
             UpdateRecordFile(recordDate, fileName, path);
         }
 
-        public RecordEntryReportInfo GetRecordReportInfo(DateTime recordDate, string fileName)
+        //TODO: Change to async
+        public IEnumerable<RecordEntryReportInfo> GetRecordsReportInfo(DateTime recordDate,
+            IEnumerable<string> fileNames)
+        {
+            var reportInfoList = new List<RecordEntryReportInfo>();
+            Parallel.ForEach(fileNames, s =>
+            {
+                reportInfoList.Add(GetRecordReportInfo(recordDate, s));
+            });
+
+            return reportInfoList;
+        }
+
+        private RecordEntryReportInfo GetRecordReportInfo(DateTime recordDate, string fileName)
         {
             if (string.IsNullOrEmpty(fileName))
                 throw new ArgumentNullException(nameof(fileName), "Nazwa pliku inwentaryzacji nie może być pusta");

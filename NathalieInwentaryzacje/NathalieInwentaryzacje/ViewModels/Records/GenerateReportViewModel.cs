@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using Caliburn.Micro;
 using NathalieInwentaryzacje.Lib.Contracts.Dto;
@@ -9,9 +10,10 @@ using NathalieInwentaryzacje.ViewModels.Common;
 
 namespace NathalieInwentaryzacje.ViewModels.Records
 {
-    public class GenerateReportViewModel : DetailsScreen<RecordListInfo>
+    public class GenerateReportViewModel : DetailsScreen<GenerateReportsInfo>
     {
         private readonly IRecordsManager _recordsManager = IoC.Get<IRecordsManager>();
+        private readonly IReportManager _reportManager = IoC.Get<IReportManager>();
         private ObservableCollection<GenerateReportEntryInfo> _items;
 
         public ObservableCollection<GenerateReportEntryInfo> Items
@@ -30,11 +32,11 @@ namespace NathalieInwentaryzacje.ViewModels.Records
         {
             get
             {
-                return Items != null && Items.Any(x => x.IsSelected);
+                return Items != null && Items.Any(x => x.IsSelected) && Context.IsValid;
             }
         }
 
-        public GenerateReportViewModel(RecordListInfo context)
+        public GenerateReportViewModel(GenerateReportsInfo context)
         {
             Context = context;
 
@@ -49,7 +51,21 @@ namespace NathalieInwentaryzacje.ViewModels.Records
 
         public void Generate()
         {
+            var selectedItems = Items.Where(x => x.IsSelected).ToList();
 
+            var reportInfos = _recordsManager.GetRecordsReportInfo(Context.RecordDate,
+                selectedItems.Select(x => x.RecordListInfo.FilePath));
+
+            foreach (var recordEntryReportInfo in reportInfos)
+            {
+                var item = selectedItems.First(x =>
+                    string.Equals(x.RecordListInfo.DisplayName, recordEntryReportInfo.RecordDisplayName));
+
+                using (var ms = new MemoryStream(_reportManager.BuildReport(recordEntryReportInfo)))
+                {
+
+                }
+            }
         }
     }
 }

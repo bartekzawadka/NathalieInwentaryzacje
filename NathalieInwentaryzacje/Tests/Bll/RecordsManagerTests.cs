@@ -16,7 +16,7 @@ namespace Bll
             var records = _recordsManager.GetRecords();
             try
             {
-                var reportInfo = _recordsManager.GetRecordReportInfo(records.First().RecordDate, "ZŁOTO 2017.xlsx");
+                var reportInfo = _recordsManager.GetRecordsReportInfo(records.First().RecordDate, new []{"ZŁOTO 2017.xlsx"});
             }
             catch { }
 

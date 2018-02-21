@@ -13,6 +13,7 @@ namespace NathalieInwentaryzacje.Lib.Contracts.Interfaces
 
         void OpenRecordFileEdit(DateTime recordDate, string fileName);
 
-        RecordEntryReportInfo GetRecordReportInfo(DateTime recordDate, string fileName);
+        IEnumerable<RecordEntryReportInfo> GetRecordsReportInfo(DateTime recordDate,
+            IEnumerable<string> fileNames);
     }
 }
