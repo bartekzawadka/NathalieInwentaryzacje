@@ -1,5 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using Caliburn.Micro;
+using NathalieInwentaryzacje.Lib.Bll.Managers;
 using NathalieInwentaryzacje.Lib.Contracts.Dto.Settings;
 using NathalieInwentaryzacje.Main;
 using NathalieInwentaryzacje.ViewModels.Common;

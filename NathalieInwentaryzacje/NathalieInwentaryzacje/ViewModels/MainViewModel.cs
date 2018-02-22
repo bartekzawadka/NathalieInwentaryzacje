@@ -1,5 +1,9 @@
 ﻿using System.Windows;
+using Caliburn.Micro;
+using NathalieInwentaryzacje.Lib.Bll.Managers;
 using NathalieInwentaryzacje.Lib.Contracts.Dto;
+using NathalieInwentaryzacje.Lib.Contracts.Interfaces;
+using NathalieInwentaryzacje.Main;
 using NathalieInwentaryzacje.Main.Interfaces;
 using NathalieInwentaryzacje.ViewModels.Common;
 using NathalieInwentaryzacje.ViewModels.Records;
@@ -41,6 +45,12 @@ namespace NathalieInwentaryzacje.ViewModels
         public void ShowSettings()
         {
             MainContent = new SettingsViewModel { ParentScreen = this };
+        }
+
+        public void Synchronize()
+        {
+            var sm = SyncManagerFactory.Get(SettingsManager.GetSettings());
+            sm.Synchronize();
         }
 
         public void CloseApp()

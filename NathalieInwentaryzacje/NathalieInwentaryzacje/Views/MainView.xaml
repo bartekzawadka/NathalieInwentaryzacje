@@ -20,23 +20,25 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
             </Grid.RowDefinitions>
 
             <controls1:MainMenuButton x:Name="ShowRecords" Text="Inwentaryzacje" Icon="Book"></controls1:MainMenuButton>
             <controls1:MainMenuButton Grid.Row="1" x:Name="ShowTemplates" Text="Szablony" Icon="List"></controls1:MainMenuButton>
+            <controls1:MainMenuButton Grid.Row="2" x:Name="Synchronize" Text="Synchronizuj" Icon="Refresh"></controls1:MainMenuButton>
+            <controls1:MainMenuButton Grid.Row="3" x:Name="ShowSettings" Text="Ustawienia" Icon="Settings"></controls1:MainMenuButton>
 
-            <Grid Grid.Row="2"></Grid>
-            <Grid Grid.Row="3" VerticalAlignment="Bottom">
+            <Grid Grid.Row="4"></Grid>
+            <Grid Grid.Row="5" VerticalAlignment="Bottom">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
                 </Grid.RowDefinitions>
                 <Border Grid.Row="0" BorderBrush="{StaticResource AccentColorBrush}" BorderThickness="0,1,0,0"></Border>
-                <controls1:MainMenuButton Grid.Row="1" x:Name="ShowSettings" Text="Ustawienia" Icon="Settings"></controls1:MainMenuButton>
-                <controls1:MainMenuButton Grid.Row="2" x:Name="CloseApp" Text="Zakończ" Icon="Close"></controls1:MainMenuButton>
+                <controls1:MainMenuButton Grid.Row="1" x:Name="CloseApp" Text="Zakończ" Icon="Close"></controls1:MainMenuButton>
             </Grid>
         </Grid>
         <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch" Background="{DynamicResource AccentColorBrush}" Width="1"></GridSplitter>

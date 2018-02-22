@@ -36,6 +36,12 @@
     <Reference Include="itextsharp">
       <HintPath>..\..\packages\iTextSharp.5.5.13\lib\itextsharp.dll</HintPath>
     </Reference>
+    <Reference Include="SharpSvn, Version=1.9007.3987.251, Culture=neutral, PublicKeyToken=d729672594885a28, processorArchitecture=x86">
+      <HintPath>..\..\packages\SharpSvn.1.9-x86.1.9007.3987.251\lib\net40\SharpSvn.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpSvn.UI, Version=1.9007.3987.251, Culture=neutral, PublicKeyToken=33789aa53ca44aa9, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\SharpSvn.1.9-x86.1.9007.3987.251\lib\net40\SharpSvn.UI.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -48,6 +54,8 @@
   <ItemGroup>
     <Compile Include="Managers\RecordsManager.cs" />
     <Compile Include="Managers\ReportManager.cs" />
+    <Compile Include="Managers\SyncManager.cs" />
+    <Compile Include="Managers\SyncManagerFactory.cs" />
     <Compile Include="Managers\TemplatesManager.cs" />
     <Compile Include="Mappers\TemplateMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -63,6 +71,9 @@
       <Project>{67971374-8C34-4B57-A9C1-6F4623D43D46}</Project>
       <Name>NathalieInwentaryzacje.Lib.Contracts</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

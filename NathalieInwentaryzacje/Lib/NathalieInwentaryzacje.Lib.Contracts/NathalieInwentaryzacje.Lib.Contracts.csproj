@@ -58,6 +58,7 @@
     <Compile Include="Dto\Templates\Template.cs" />
     <Compile Include="Interfaces\IRecordsManager.cs" />
     <Compile Include="Interfaces\IReportManager.cs" />
+    <Compile Include="Interfaces\ISyncManager.cs" />
     <Compile Include="Interfaces\ITemplatesManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

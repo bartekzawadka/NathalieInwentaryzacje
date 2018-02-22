@@ -31,6 +31,7 @@ namespace NathalieInwentaryzacje.Main
             builder.RegisterType<RecordsManager>().As<IRecordsManager>();
             builder.RegisterType<TemplatesManager>().As<ITemplatesManager>();
             builder.RegisterType<ReportManager>().As<IReportManager>();
+            builder.RegisterType<SyncManager>().As<ISyncManager>();
         }
 
         protected override void OnUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
