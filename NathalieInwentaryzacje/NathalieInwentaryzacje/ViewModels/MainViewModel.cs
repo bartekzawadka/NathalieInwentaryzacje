@@ -40,7 +40,7 @@ namespace NathalieInwentaryzacje.ViewModels
 
         public void ShowSettings()
         {
-            MainContent = new SettingsViewModel();
+            MainContent = new SettingsViewModel { ParentScreen = this };
         }
 
         public void CloseApp()

@@ -3,8 +3,78 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d">
+        xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:cal="http://www.caliburnproject.org"
+        xmlns:controls1="clr-namespace:NathalieInwentaryzacje.Views.Controls"
+        mc:Ignorable="d">
     <Grid Margin="20">
-        <Label Content="Tutaj niedługo będą ustawienia!"></Label>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <GroupBox Grid.Row="1" Header="Repozytorium">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <TextBox controls:TextBoxHelper.ClearTextButton="True"
+                         controls:TextBoxHelper.UseFloatingWatermark="True"
+                         controls:TextBoxHelper.Watermark="Adres"
+                         VerticalContentAlignment="Center" VerticalAlignment="Center"
+                         Margin="10,10,10,5"
+                         MinWidth="250"
+                         BorderThickness="0 0 0 1"
+                         Text="{Binding Context.RepoAddress, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnDataErrors=True}"
+                         SnapsToDevicePixels="True"></TextBox>
+                <TextBox Grid.Row="1" controls:TextBoxHelper.ClearTextButton="True"
+                         controls:TextBoxHelper.UseFloatingWatermark="True"
+                         controls:TextBoxHelper.Watermark="Nazwa użytkownika"
+                         VerticalContentAlignment="Center" VerticalAlignment="Center"
+                         Margin="10,5,10,5"
+                         MinWidth="250"
+                         BorderThickness="0 0 0 1"
+                         Text="{Binding Context.RepoUser, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnDataErrors=True}"
+                         SnapsToDevicePixels="True"></TextBox>
+                <PasswordBox Grid.Row="2" controls:TextBoxHelper.ClearTextButton="True"
+                         controls:TextBoxHelper.UseFloatingWatermark="True"
+                         controls:TextBoxHelper.Watermark="Hasło"
+                         VerticalContentAlignment="Center" VerticalAlignment="Center"
+                         Margin="10,5,10,10"
+                         MinWidth="250"
+                         BorderThickness="0 0 0 1"
+                         controls:PasswordBoxHelper.CapsLockWarningToolTip="Capslock jest włączony"
+                         cal:Message.Attach="[Event PasswordChanged] = [Action OnPasswordChanged($eventArgs)]"
+                         SnapsToDevicePixels="True"></PasswordBox>
+            </Grid>
+        </GroupBox>
+        <GroupBox Grid.Row="0" Header="Raporty">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <TextBox controls:TextBoxHelper.ClearTextButton="True"
+                         controls:TextBoxHelper.UseFloatingWatermark="True"
+                         controls:TextBoxHelper.Watermark="Liczba wierszy na stronie"
+                         VerticalContentAlignment="Center" VerticalAlignment="Center"
+                         Margin="10"
+                         MinWidth="250"
+                         BorderThickness="0 0 0 1"
+                         Text="{Binding Context.NumberOfReportRows, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnDataErrors=True}"
+                         SnapsToDevicePixels="True"></TextBox>
+            </Grid>
+        </GroupBox>
+        <Grid Grid.Row="2" Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <controls1:NButton x:Name="Save"  Text="Zapisz" Icon="Save" IsAccented="True" Grid.Column="1" IsEnabled="{Binding Context.IsValid, UpdateSourceTrigger=PropertyChanged}"></controls1:NButton>
+        </Grid>
     </Grid>
 </UserControl>
+

@@ -9,17 +9,23 @@ namespace NathalieInwentaryzacje.ViewModels.Common
     {
         protected static CustomWindowsManager WindowManager => IoC.Get<IWindowManager>() as CustomWindowsManager;
 
+        public ScreenBase ParentScreen { get; set; }
+
         public override void TryClose(bool? dialogResult = null)
         {
             base.TryClose(dialogResult);
             WindowManager.RemoveWindow(this);
         }
 
-        public Task<MessageDialogResult> ShowMessage(string title, string message)
+        public Task<MessageDialogResult> ShowMessage(string title, string message, bool showOnParentScreen = false)
         {
-            var view = WindowManager.GetWindowForModel(this);
+            var screen = this;
+            if (showOnParentScreen)
+                screen = ParentScreen;
+            var view = WindowManager.GetWindowForModel(screen);
             return view.ShowMessageAsync(title, message);
         }
+
 
         public bool? ShowDialog(ScreenBase viewModel)
         {

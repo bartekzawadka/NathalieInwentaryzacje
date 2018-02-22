@@ -92,7 +92,13 @@
     <Compile Include="Common\Converters\InverseBooleanToVisibilityConverter.cs" />
     <Compile Include="Common\Converters\ToUpperConverter.cs" />
     <Compile Include="Main\CustomWindowsManager.cs" />
+    <Compile Include="Main\SettingsManager.cs" />
     <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\Common\DetailsScreen.cs" />
     <Compile Include="ViewModels\Common\ListScreen.cs" />
     <Compile Include="ViewModels\Common\ScreenBase.cs" />
@@ -194,6 +200,10 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>PublicSettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Img\logo.ico">

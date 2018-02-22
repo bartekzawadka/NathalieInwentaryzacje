@@ -1,0 +1,18 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="NathalieInwentaryzacje.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="RepoAddress" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://barser.com/svn/nathalie-inwentaryzacje</Value>
+    </Setting>
+    <Setting Name="RepoUser" Type="System.String" Scope="User">
+      <Value Profile="(Default)">nathalie</Value>
+    </Setting>
+    <Setting Name="RepoPassword" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Tymoteusz2017</Value>
+    </Setting>
+    <Setting Name="NumberOfReportRecords" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">40</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
