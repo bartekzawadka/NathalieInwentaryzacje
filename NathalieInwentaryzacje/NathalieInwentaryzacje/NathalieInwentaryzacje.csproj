@@ -103,10 +103,11 @@
     <Compile Include="ViewModels\Records\GenerateReportViewModel.cs" />
     <Compile Include="ViewModels\Records\NewRecordViewModel.cs" />
     <Compile Include="ViewModels\Records\RecordsListViewModel.cs" />
+    <Compile Include="ViewModels\Settings\SettingsViewModel.cs" />
     <Compile Include="ViewModels\Templates\TemplatesListViewModel.cs" />
     <Compile Include="ViewModels\Templates\TemplateViewModel.cs" />
-    <Compile Include="Views\Controls\MainMenuItem.xaml.cs">
-      <DependentUpon>MainMenuItem.xaml</DependentUpon>
+    <Compile Include="Views\Controls\MainMenuButton.xaml.cs">
+      <DependentUpon>MainMenuButton.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Controls\NButton.xaml.cs">
       <DependentUpon>NButton.xaml</DependentUpon>
@@ -126,7 +127,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Controls\MainMenuItem.xaml">
+    <Page Include="Views\Controls\MainMenuButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -160,6 +161,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Records\RecordsListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Settings\SettingsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

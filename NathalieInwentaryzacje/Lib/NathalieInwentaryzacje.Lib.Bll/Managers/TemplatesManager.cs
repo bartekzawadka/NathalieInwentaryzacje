@@ -49,9 +49,6 @@ namespace NathalieInwentaryzacje.Lib.Bll.Managers
 
             if (string.IsNullOrEmpty(t.Id))
             {
-                //                if (templates.Any(x => string.Equals(x.Name.Trim().ToLower(), t.Name.Trim().ToLower())))
-                //                    throw new Exception("Szablon o takiej nazwie już istnieje");
-
                 if (File.Exists(path) || File.Exists(Path.Combine(_templatesPath,
                         Path.GetFileName(t.TemplateFilePath) ?? throw new InvalidOperationException())))
                 {

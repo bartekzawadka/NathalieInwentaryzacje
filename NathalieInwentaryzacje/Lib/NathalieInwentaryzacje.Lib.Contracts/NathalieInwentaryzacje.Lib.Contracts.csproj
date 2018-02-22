@@ -53,8 +53,8 @@
     <Compile Include="Dto\Records\RecordEntry.cs" />
     <Compile Include="Dto\Reports\GenerateReportEntryInfo.cs" />
     <Compile Include="Dto\Reports\RecordEntryReportInfo.cs" />
+    <Compile Include="Dto\Settings\SettingsInfo.cs" />
     <Compile Include="Dto\TemplateInfo.cs" />
-    <Compile Include="Dto\Templates\TemplateColumn.cs" />
     <Compile Include="Dto\Templates\Template.cs" />
     <Compile Include="Interfaces\IRecordsManager.cs" />
     <Compile Include="Interfaces\IReportManager.cs" />

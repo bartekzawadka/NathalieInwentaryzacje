@@ -52,10 +52,10 @@ namespace NathalieInwentaryzacje.Views.Controls
 
         private void LoadStyle()
         {
-            CurrentButton.Style = App.Current.Resources["SquareButtonStyle"] as Style;
+            CurrentButton.Style = Application.Current.Resources["SquareButtonStyle"] as Style;
             if (IsAccented)
             {
-                CurrentButton.Style = App.Current.Resources["AccentedSquareButtonStyle"] as Style;
+                CurrentButton.Style = Application.Current.Resources["AccentedSquareButtonStyle"] as Style;
             }
         }
     }

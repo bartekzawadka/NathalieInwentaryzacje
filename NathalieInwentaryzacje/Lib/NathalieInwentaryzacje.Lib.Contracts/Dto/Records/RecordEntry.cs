@@ -18,8 +18,5 @@ namespace NathalieInwentaryzacje.Lib.Contracts.Dto.Records
 
         [XmlAttribute("IsFilledIn")]
         public bool IsFilledIn { get; set; }
-        //        [XmlArray("Columns")]
-        //        [XmlArrayItem("Column", typeof(RecordEntryColumn))]
-        //        public RecordEntryColumn[] Columns { get; set; }
     }
 }

@@ -3,6 +3,7 @@ using NathalieInwentaryzacje.Lib.Contracts.Dto;
 using NathalieInwentaryzacje.Main.Interfaces;
 using NathalieInwentaryzacje.ViewModels.Common;
 using NathalieInwentaryzacje.ViewModels.Records;
+using NathalieInwentaryzacje.ViewModels.Settings;
 using NathalieInwentaryzacje.ViewModels.Templates;
 
 namespace NathalieInwentaryzacje.ViewModels
@@ -35,6 +36,11 @@ namespace NathalieInwentaryzacje.ViewModels
         public void ShowTemplates()
         {
             MainContent = new TemplatesListViewModel();
+        }
+
+        public void ShowSettings()
+        {
+            MainContent = new SettingsViewModel();
         }
 
         public void CloseApp()
