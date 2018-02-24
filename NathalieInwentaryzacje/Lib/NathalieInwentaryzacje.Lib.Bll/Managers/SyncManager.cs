@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.IO;
 using NathalieInwentaryzacje.Lib.Contracts.Dto.Settings;
 using NathalieInwentaryzacje.Lib.Contracts.Interfaces;
@@ -19,18 +20,43 @@ namespace NathalieInwentaryzacje.Lib.Bll.Managers
 
         public void Synchronize()
         {
-            CheckoutIfNoRepo();
-
-        }
-
-        public void CheckoutIfNoRepo()
-        {
-            if (Directory.Exists(DataFolder) && Directory.Exists(Path.Combine(DataFolder, ".svn"))) return;
-
             using (var client = new SvnClient())
             {
                 client.Authentication.ForceCredentials(SettingsInfo.RepoUser, SettingsInfo.RepoPassword);
-                client.CheckOut(new SvnUriTarget(new Uri(SettingsInfo.RepoAddress)), DataFolder);
+
+                if (!Directory.Exists(DataFolder) || !Directory.Exists(Path.Combine(DataFolder, ".svn")))
+                {
+                    client.CheckOut(new SvnUriTarget(new Uri(SettingsInfo.RepoAddress)), DataFolder);
+                    return;
+                }
+
+                client.GetStatus(DataFolder, out var changedFiles);
+
+                foreach (var svnStatusEventArgse in changedFiles)
+                {
+                    if (svnStatusEventArgse.LocalContentStatus == SvnStatus.Missing)
+                    {
+                        if (File.Exists(svnStatusEventArgse.Path))
+                        {
+                            var delArgs = new SvnDeleteArgs();
+                            delArgs.KeepLocal = true;
+                            client.Delete(svnStatusEventArgse.Path, delArgs);
+                        }
+                        else
+                        {
+                            client.Delete(svnStatusEventArgse.Path);
+                        }
+                    }
+
+                    if (svnStatusEventArgse.LocalContentStatus == SvnStatus.NotVersioned)
+                    {
+                        client.Add(svnStatusEventArgse.Path);
+                    }
+                }
+
+                var ca = new SvnCommitArgs {LogMessage = "Synchronizacja obiektów inwentaryzacji"};
+
+                client.Commit(DataFolder, ca);
             }
         }
     }
