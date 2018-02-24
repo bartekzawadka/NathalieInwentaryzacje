@@ -47,7 +47,7 @@ namespace NathalieInwentaryzacje.Lib.Bll.Managers
             {
                 client.Authentication.ForceCredentials(SettingsInfo.RepoUser, SettingsInfo.RepoPassword);
 
-                if (!Directory.Exists(Paths.MainDirPath) || !Directory.Exists(Path.Combine(Paths.MainDirPath, ".svn")))
+                if (!Directory.Exists(Paths.MainDirPath) || !Directory.Exists(Path.Combine(Paths.MainDirPath, ".svn")) || !Directory.Exists(Paths.RecordsPath) || !Directory.Exists(Paths.TemplatesPath))
                 {
                     client.CheckOut(new SvnUriTarget(new Uri(SettingsInfo.RepoAddress)), Paths.MainDirPath);
                     return;
