@@ -27,11 +27,13 @@ namespace NathalieInwentaryzacje.Main
         {
             base.ConfigureContainer(builder);
 
+            var paths = SettingsManager.GetDataLocationInfo();
+
             builder.RegisterInstance(new CustomWindowsManager()).As<IWindowManager>();
-            builder.RegisterType<RecordsManager>().As<IRecordsManager>();
-            builder.RegisterType<TemplatesManager>().As<ITemplatesManager>();
-            builder.RegisterType<ReportManager>().As<IReportManager>();
-            builder.RegisterType<SyncManager>().As<ISyncManager>();
+            builder.RegisterInstance(new RecordsManager(paths)).As<IRecordsManager>();
+            builder.RegisterInstance(new TemplatesManager(paths)).As<ITemplatesManager>();
+            builder.RegisterInstance(new ReportManager(paths)).As<IReportManager>();
+            builder.RegisterInstance(new SyncManager(SettingsManager.GetSettings(), paths)).As<ISyncManager>();
         }
 
         protected override void OnUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)

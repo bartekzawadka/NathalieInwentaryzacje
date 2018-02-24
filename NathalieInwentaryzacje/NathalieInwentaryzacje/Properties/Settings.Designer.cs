@@ -70,5 +70,32 @@ namespace NathalieInwentaryzacje.Properties {
                 this["NumberOfReportRecords"] = value;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(".\\Data")]
+        public string MainDataPath {
+            get {
+                return ((string)(this["MainDataPath"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Inwentaryzacje")]
+        public string RecordsDirName {
+            get {
+                return ((string)(this["RecordsDirName"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Szablony")]
+        public string TemplatesDirName {
+            get {
+                return ((string)(this["TemplatesDirName"]));
+            }
+        }
     }
 }

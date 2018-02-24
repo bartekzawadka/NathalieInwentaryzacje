@@ -52,10 +52,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Managers\ManagerBase.cs" />
     <Compile Include="Managers\RecordsManager.cs" />
     <Compile Include="Managers\ReportManager.cs" />
     <Compile Include="Managers\SyncManager.cs" />
-    <Compile Include="Managers\SyncManagerFactory.cs" />
     <Compile Include="Managers\TemplatesManager.cs" />
     <Compile Include="Mappers\TemplateMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

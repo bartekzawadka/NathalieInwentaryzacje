@@ -28,7 +28,7 @@
 
             <controls1:MainMenuButton x:Name="ShowRecords" Text="Inwentaryzacje" Icon="Book"></controls1:MainMenuButton>
             <controls1:MainMenuButton Grid.Row="1" x:Name="ShowTemplates" Text="Szablony" Icon="List"></controls1:MainMenuButton>
-            <controls1:MainMenuButton Grid.Row="2" x:Name="Synchronize" Text="Synchronizuj" Icon="Refresh"></controls1:MainMenuButton>
+            <controls1:MainMenuButton Grid.Row="2" x:Name="ShowSynchronize" Text="Synchronizuj" Icon="Refresh"></controls1:MainMenuButton>
             <controls1:MainMenuButton Grid.Row="3" x:Name="ShowSettings" Text="Ustawienia" Icon="Settings"></controls1:MainMenuButton>
 
             <Grid Grid.Row="4"></Grid>
@@ -42,11 +42,27 @@
             </Grid>
         </Grid>
         <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch" Background="{DynamicResource AccentColorBrush}" Width="1"></GridSplitter>
-        <ScrollViewer Grid.Column="2">
-            <Grid>
-                <ContentControl x:Name="MainContent"></ContentControl>
+        <Grid Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <ScrollViewer>
+                <Grid>
+                    <ContentControl x:Name="MainContent"></ContentControl>
+                </Grid>
+            </ScrollViewer>
+            <Grid Grid.Row="1" VerticalAlignment="Center" Background="{Binding SyncStatusBackground, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Margin="0,2" Grid.Column="1" Text="Status synchronizacji: " Foreground="{Binding SyncStatusForeground, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="12"></TextBlock>
+                <TextBlock Margin="5,2,10,2" Grid.Column="2" Text="{Binding SyncStatus, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Foreground="{Binding SyncStatusForeground, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" FontSize="12"></TextBlock>
             </Grid>
-        </ScrollViewer>
+        </Grid>
     </Grid>
 </controls:MetroWindow>
 

@@ -8,14 +8,20 @@ using iTextSharp.text.pdf;
 using NathalieInwentaryzacje.Common.Utils.Extensions;
 using NathalieInwentaryzacje.Lib.Bll.Reporting;
 using NathalieInwentaryzacje.Lib.Contracts.Dto.Reports;
+using NathalieInwentaryzacje.Lib.Contracts.Dto.Settings;
 using NathalieInwentaryzacje.Lib.Contracts.Interfaces;
 
 namespace NathalieInwentaryzacje.Lib.Bll.Managers
 {
-    public class ReportManager : IReportManager
+    public class ReportManager : ManagerBase, IReportManager
     {
         private static readonly string ArialuniTff = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Fonts), "ARIALUNI.TTF");
-        private readonly RecordsManager _recordsManager = new RecordsManager();
+        private readonly RecordsManager _recordsManager;
+
+        public ReportManager(DataLocationInfo pathInfos) : base(pathInfos)
+        {
+            _recordsManager = new RecordsManager(pathInfos);
+        }
 
         public void GenerateReports(IEnumerable<GenerateReportEntryInfo> reportEntryInfos, string saveDir, int numberOfItemsPerPage = 40)
         {

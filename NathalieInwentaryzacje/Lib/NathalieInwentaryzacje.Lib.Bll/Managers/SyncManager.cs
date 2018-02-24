@@ -1,21 +1,44 @@
 ﻿using System;
-using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
 using NathalieInwentaryzacje.Lib.Contracts.Dto.Settings;
+using NathalieInwentaryzacje.Lib.Contracts.Enums;
 using NathalieInwentaryzacje.Lib.Contracts.Interfaces;
 using SharpSvn;
 
 namespace NathalieInwentaryzacje.Lib.Bll.Managers
 {
-    public class SyncManager : ISyncManager
+    public class SyncManager : ManagerBase, ISyncManager
     {
-        private SettingsInfo SettingsInfo { get; set; }
+        private SettingsInfo SettingsInfo { get; }
 
-        private static readonly string DataFolder = Path.Combine(Path.GetFullPath("."), "Data");
-
-        internal SyncManager(SettingsInfo settings)
+        public SyncManager(SettingsInfo settings, DataLocationInfo paths) : base(paths)
         {
             SettingsInfo = settings;
+        }
+
+        public SyncStatus GetStatus()
+        {
+            using (var client = new SvnClient())
+            {
+                client.Authentication.ForceCredentials(SettingsInfo.RepoUser, SettingsInfo.RepoPassword);
+
+                if (!Directory.Exists(Paths.MainDirPath) || !Directory.Exists(Path.Combine(Paths.MainDirPath, ".svn")))
+                {
+                    return SyncStatus.Unknown;
+                }
+
+                try
+                {
+                    client.GetStatus(Paths.MainDirPath, out var changedFiles);
+
+                    return changedFiles.Any() ? SyncStatus.Modified : SyncStatus.UpToDate;
+                }
+                catch (Exception ex)
+                {
+                    return SyncStatus.NotConnected;
+                }
+            }
         }
 
         public void Synchronize()
@@ -24,22 +47,21 @@ namespace NathalieInwentaryzacje.Lib.Bll.Managers
             {
                 client.Authentication.ForceCredentials(SettingsInfo.RepoUser, SettingsInfo.RepoPassword);
 
-                if (!Directory.Exists(DataFolder) || !Directory.Exists(Path.Combine(DataFolder, ".svn")))
+                if (!Directory.Exists(Paths.MainDirPath) || !Directory.Exists(Path.Combine(Paths.MainDirPath, ".svn")))
                 {
-                    client.CheckOut(new SvnUriTarget(new Uri(SettingsInfo.RepoAddress)), DataFolder);
+                    client.CheckOut(new SvnUriTarget(new Uri(SettingsInfo.RepoAddress)), Paths.MainDirPath);
                     return;
                 }
 
-                client.GetStatus(DataFolder, out var changedFiles);
+                client.GetStatus(Paths.MainDirPath, out var changedFiles);
 
                 foreach (var svnStatusEventArgse in changedFiles)
                 {
-                    if (svnStatusEventArgse.LocalContentStatus == SvnStatus.Missing)
+                    if (svnStatusEventArgse.LocalContentStatus == SvnStatus.Missing || svnStatusEventArgse.LocalContentStatus == SvnStatus.Deleted)
                     {
-                        if (File.Exists(svnStatusEventArgse.Path))
+                        if (File.Exists(svnStatusEventArgse.Path) || Directory.Exists(svnStatusEventArgse.Path))
                         {
-                            var delArgs = new SvnDeleteArgs();
-                            delArgs.KeepLocal = true;
+                            var delArgs = new SvnDeleteArgs { KeepLocal = true };
                             client.Delete(svnStatusEventArgse.Path, delArgs);
                         }
                         else
@@ -52,11 +74,16 @@ namespace NathalieInwentaryzacje.Lib.Bll.Managers
                     {
                         client.Add(svnStatusEventArgse.Path);
                     }
+
+                    if (svnStatusEventArgse.LocalContentStatus == SvnStatus.Conflicted)
+                    {
+                        client.Resolve(svnStatusEventArgse.Path, SvnAccept.MineFull);
+                    }
                 }
 
-                var ca = new SvnCommitArgs {LogMessage = "Synchronizacja obiektów inwentaryzacji"};
+                var ca = new SvnCommitArgs { LogMessage = "Synchronizacja obiektów inwentaryzacji" };
 
-                client.Commit(DataFolder, ca);
+                client.Commit(Paths.MainDirPath, ca);
             }
         }
     }

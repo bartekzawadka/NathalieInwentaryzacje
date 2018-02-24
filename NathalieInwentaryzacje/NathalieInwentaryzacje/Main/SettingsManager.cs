@@ -1,4 +1,5 @@
-﻿using NathalieInwentaryzacje.Lib.Contracts.Dto.Settings;
+﻿using System.IO;
+using NathalieInwentaryzacje.Lib.Contracts.Dto.Settings;
 using NathalieInwentaryzacje.Properties;
 
 namespace NathalieInwentaryzacje.Main
@@ -25,6 +26,29 @@ namespace NathalieInwentaryzacje.Main
                 RepoPassword = Settings.Default.RepoPassword,
                 RepoUser = Settings.Default.RepoUser
             };
+        }
+
+        public static DataLocationInfo GetDataLocationInfo()
+        {
+            var dli = new DataLocationInfo
+            {
+                RecordsDirName = Settings.Default.RecordsDirName,
+                TemplatesDirName = Settings.Default.TemplatesDirName
+            };
+
+            if (string.IsNullOrEmpty(Settings.Default.MainDataPath))
+                dli.MainDirPath = Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "Data");
+            else if (!Path.IsPathRooted(Settings.Default.MainDataPath))
+            {
+                dli.MainDirPath = Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory,
+                    Settings.Default.MainDataPath);
+            }
+            else
+            {
+                dli.MainDirPath = Settings.Default.MainDataPath;
+            }
+
+            return dli;
         }
     }
 }
