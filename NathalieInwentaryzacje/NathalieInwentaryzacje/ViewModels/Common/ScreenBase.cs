@@ -32,6 +32,15 @@ namespace NathalieInwentaryzacje.ViewModels.Common
             return WindowManager.ShowDialog(viewModel);
         }
 
+        public Task<ProgressDialogController> ShowProgress(string title, string message, bool showOnParentScreen = false)
+        {
+            var screen = this;
+            if (showOnParentScreen)
+                screen = ParentScreen;
+            var view = WindowManager.GetWindowForModel(screen);
+            return view.ShowProgressAsync(title, message);
+        }
+
         public virtual void SelectedContextItemDoubleClick(object context)
         {
 

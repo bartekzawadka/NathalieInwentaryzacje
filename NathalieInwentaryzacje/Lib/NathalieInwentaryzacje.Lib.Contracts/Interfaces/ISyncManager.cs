@@ -1,10 +1,11 @@
-﻿using NathalieInwentaryzacje.Lib.Contracts.Enums;
+﻿using System.Threading.Tasks;
+using NathalieInwentaryzacje.Lib.Contracts.Enums;
 
 namespace NathalieInwentaryzacje.Lib.Contracts.Interfaces
 {
     public interface ISyncManager
     {
-        void Synchronize();
+        Task Synchronize();
 
         SyncStatus GetStatus();
     }

@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
+using NathalieInwentaryzacje.Main.Interfaces;
 
 namespace NathalieInwentaryzacje.ViewModels.Common
 {
-    public class ListScreen<T> : ScreenBase
+    public class ListScreen<T> : ScreenBase, ILoadable
     {
         /// <summary>
         /// Gets or sets the context.

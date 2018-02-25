@@ -15,8 +15,6 @@ namespace NathalieInwentaryzacje.Lib.Bll.Managers
     {
         public TemplatesManager(DataLocationInfo paths) : base(paths)
         {
-            if (!Directory.Exists(Paths.TemplatesPath))
-                Directory.CreateDirectory(Paths.TemplatesPath);
         }
 
         public IEnumerable<TemplateInfo> GetTemplates(bool includeDisabled = false)

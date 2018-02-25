@@ -8,8 +8,8 @@ using NathalieInwentaryzacje.ViewModels.Common;
 namespace NathalieInwentaryzacje.ViewModels.Records
 {
     public class RecordsListViewModel : ListScreen<RecordListInfo>
-    {
-        public RecordsListViewModel()
+    { 
+        protected override void OnActivate()
         {
             LoadData();
         }

@@ -24,7 +24,7 @@ namespace NathalieInwentaryzacje.ViewModels.Templates
             var fDialog = new OpenFileDialog
             {
                 Multiselect = false,
-                Filter = "Microsoft Excel (*.xlsx)|*.xlsx",
+                Filter = "Microsoft Excel (*.xlsx)|*.xlsx|Microsoft Excel (*.xls)|*.xls",
                 FilterIndex = 1
             };
             if (fDialog.ShowDialog() == true)

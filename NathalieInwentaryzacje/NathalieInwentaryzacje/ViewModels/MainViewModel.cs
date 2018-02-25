@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System.Reflection;
+using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Media;
 using Caliburn.Micro;
 using NathalieInwentaryzacje.Common.Utils;
@@ -28,6 +30,11 @@ namespace NathalieInwentaryzacje.ViewModels
                 if (Equals(value, _mainContent)) return;
                 _mainContent = value;
                 NotifyOfPropertyChange();
+
+                if (_mainContent is ILoadable loadable)
+                {
+                    loadable.LoadData();
+                }
             }
         }
 
@@ -87,11 +94,16 @@ namespace NathalieInwentaryzacje.ViewModels
             MainContent = new SettingsViewModel { ParentScreen = this };
         }
 
-        public void ShowSynchronize()
+        public async void ShowSynchronize()
         {
-            if (Synchronize() == Lib.Contracts.Enums.SyncStatus.UpToDate)
+            var controller = await ShowProgress("Synchronizacja", "Trwa synchronizacja inwentaryzacji i szablonów. Proszę czekać...");
+            controller.SetIndeterminate();
+            var result = await Synchronize();
+
+            await controller.CloseAsync();
+            if (result == Lib.Contracts.Enums.SyncStatus.UpToDate)
             {
-                ShowMessage("Zsynchronizowano", "Dane aplikacji zostały pomyślnie zsynchronizowane z repozytorium plików");
+                await ShowMessage("Zsynchronizowano", "Dane aplikacji zostały pomyślnie zsynchronizowane z repozytorium plików");
             }
         }
 
@@ -100,20 +112,20 @@ namespace NathalieInwentaryzacje.ViewModels
             Application.Current.Shutdown();
         }
 
-        protected override void OnActivate()
+        protected override async void OnActivate()
         {
-            Synchronize();
+            await Synchronize();
         }
 
-        protected override void OnDeactivate(bool close)
+        protected override async void OnDeactivate(bool close)
         {
-            Synchronize();
+            await Synchronize();
         }
 
-        private SyncStatus Synchronize()
+        private async Task<SyncStatus> Synchronize()
         {
             var sm = IoC.Get<ISyncManager>();
-            sm.Synchronize();
+            await sm.Synchronize();
             return UpdateStatus();
         }
 

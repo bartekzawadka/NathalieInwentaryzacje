@@ -216,7 +216,7 @@ namespace NathalieInwentaryzacje.Lib.Bll.Managers
                 }
 
                 var sheet = package.Workbook.Worksheets[1];
-                if(sheet.Dimension.Rows>1)
+                if(sheet.Dimension.Rows>1 && sheet.Cells[2, 1]?.Value != null)
                 {
                     hasBeenUpdated = true;
                 }
