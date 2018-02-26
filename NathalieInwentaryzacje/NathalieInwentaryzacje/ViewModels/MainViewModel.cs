@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
@@ -21,6 +22,7 @@ namespace NathalieInwentaryzacje.ViewModels
         private Brush _syncStatusBackground;
         private Brush _syncStatusForeground;
         private string _syncStatus;
+        private string _version;
 
         public ScreenBase MainContent
         {
@@ -71,11 +73,24 @@ namespace NathalieInwentaryzacje.ViewModels
             }
         }
 
+        public string Version
+        {
+            get => _version;
+            set
+            {
+                if (value == _version) return;
+                _version = value;
+                NotifyOfPropertyChange();
+            }
+        }
+
         public MainViewModel()
         {
             SyncStatus = Enumerations.GetEnumDescription(Lib.Contracts.Enums.SyncStatus.Unknown);
             SyncStatusBackground = Brushes.Transparent;
             SyncStatusForeground = Brushes.Gray;
+
+            Version = Assembly.GetExecutingAssembly().GetName().Version.ToString(3);
         }
 
         public void ShowRecords()

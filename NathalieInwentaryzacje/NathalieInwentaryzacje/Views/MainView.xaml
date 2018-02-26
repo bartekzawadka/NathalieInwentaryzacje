@@ -24,6 +24,7 @@
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
             </Grid.RowDefinitions>
 
             <controls1:MainMenuButton x:Name="ShowRecords" Text="Inwentaryzacje" Icon="Book"></controls1:MainMenuButton>
@@ -39,6 +40,17 @@
                 </Grid.RowDefinitions>
                 <Border Grid.Row="0" BorderBrush="{StaticResource AccentColorBrush}" BorderThickness="0,1,0,0"></Border>
                 <controls1:MainMenuButton Grid.Row="1" x:Name="CloseApp" Text="Zakończ" Icon="Close"></controls1:MainMenuButton>
+            </Grid>
+
+            <Grid Grid.Row="6" VerticalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" Margin="5,2,2,2" Text="Wersja:" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="11"></TextBlock>
+                <TextBlock Grid.Column="1" Margin="0, 2" Text="{Binding Version, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="11"></TextBlock>
             </Grid>
         </Grid>
         <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch" Background="{DynamicResource AccentColorBrush}" Width="1"></GridSplitter>
