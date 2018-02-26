@@ -37,6 +37,11 @@ namespace NathalieInwentaryzacje.ViewModels.Templates
 
         public void Save()
         {
+            if (!string.IsNullOrEmpty(Context.Name))
+            {
+                Context.Name = Context.Name.ToUpper();
+            }
+
             IoC.Get<ITemplatesManager>().CreateOrUpdateTemplate(Context);
             TryClose(true);
         }

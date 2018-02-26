@@ -1,5 +1,4 @@
-﻿using System.Reflection;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 using Caliburn.Micro;
@@ -119,11 +118,6 @@ namespace NathalieInwentaryzacje.ViewModels
         protected override void OnViewLoaded(object view)
         {
             ShowRecords();
-        }
-
-        protected override async void OnDeactivate(bool close)
-        {
-            await Synchronize();
         }
 
         private async Task<SyncStatus> Synchronize()

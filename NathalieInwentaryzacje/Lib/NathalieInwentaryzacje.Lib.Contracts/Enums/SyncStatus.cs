@@ -6,8 +6,10 @@ namespace NathalieInwentaryzacje.Lib.Contracts.Enums
     {
         [Description("Brak informacji")]
         Unknown = 0,
-        [Description("Wymaga odświeżenia")]
+
+        [Description("Wymaga aktualizacji")]
         Modified = 1,
+        
         [Description("Zsynchronizowany")]
         UpToDate = 2,
 

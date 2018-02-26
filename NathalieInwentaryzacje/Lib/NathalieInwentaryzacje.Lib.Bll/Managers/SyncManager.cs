@@ -43,7 +43,7 @@ namespace NathalieInwentaryzacje.Lib.Bll.Managers
 
         public Task Synchronize()
         {
-            return Task.Factory.StartNew(()=>
+            return Task.Factory.StartNew(() =>
             {
                 ExecuteSvnClient(client =>
                 {
@@ -69,7 +69,7 @@ namespace NathalieInwentaryzacje.Lib.Bll.Managers
                         {
                             if (File.Exists(svnStatusEventArgse.Path) || Directory.Exists(svnStatusEventArgse.Path))
                             {
-                                var delArgs = new SvnDeleteArgs {KeepLocal = true};
+                                var delArgs = new SvnDeleteArgs { KeepLocal = true };
                                 client.Delete(svnStatusEventArgse.Path, delArgs);
                             }
                             else
@@ -89,7 +89,7 @@ namespace NathalieInwentaryzacje.Lib.Bll.Managers
                         }
                     }
 
-                    var ca = new SvnCommitArgs {LogMessage = "Synchronizacja obiektów inwentaryzacji"};
+                    var ca = new SvnCommitArgs { LogMessage = "Synchronizacja obiektów inwentaryzacji" };
 
                     if (changedFiles.Any())
                         client.Commit(Paths.MainDirPath, ca);
