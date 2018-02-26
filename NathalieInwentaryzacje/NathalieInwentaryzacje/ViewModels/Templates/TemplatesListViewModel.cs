@@ -9,14 +9,11 @@ namespace NathalieInwentaryzacje.ViewModels.Templates
     {
         private readonly ITemplatesManager _templatesManager = IoC.Get<ITemplatesManager>();
 
-        protected override void OnActivate()
-        {
-            LoadData();
-        }
-
         public override void LoadData()
         {
             Context = _templatesManager.GetTemplates(true);
+            var mainScreen = ParentScreen as MainViewModel;
+            mainScreen?.UpdateStatus();
         }
 
         public void NewTemplate()

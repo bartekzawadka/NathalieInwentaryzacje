@@ -77,7 +77,7 @@ namespace NathalieInwentaryzacje.ViewModels.Records
         {
             var selectedItems = Items.Where(x => x.IsSelected).ToList();
 
-            _reportManager.GenerateReports(selectedItems, Context.ReportsSaveDir);
+            _reportManager.GenerateReports(Context.RecordDate, selectedItems, Context.ReportsSaveDir);
             Process.Start(Context.ReportsSaveDir);
 
             TryClose();

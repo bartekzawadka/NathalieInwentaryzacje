@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -21,34 +22,56 @@ namespace NathalieInwentaryzacje.Lib.Bll.Managers
         {
         }
 
-        public IEnumerable<RecordListInfo> GetRecords()
+        public Task<IEnumerable<RecordListInfo>> GetRecords()
         {
-            var dirs = Directory.GetDirectories(Paths.RecordsPath);
-            var records = new List<RecordListInfo>();
-
-            Parallel.ForEach(dirs, s =>
+            return Task<IEnumerable<RecordListInfo>>.Factory.StartNew(() =>
             {
-                var recordXmlPath = Path.Combine(s, "record.xml");
-                var recordInfo = new RecordListInfo();
+                var dirs = Directory.GetDirectories(Paths.RecordsPath);
+                var records = new List<RecordListInfo>();
 
-                var record = XmlFileSerializer.Deserialize<Record>(recordXmlPath);
-                var recordItems = record.Entries.Select(recordEntry => new RecordListItemInfo
+                foreach (var s in dirs)
                 {
-                    DisplayName = recordEntry.DisplayName,
-                    FilePath = recordEntry.FilePath,
-                    TemplateId = recordEntry.TemplateId,
-                    IsFilledIn = recordEntry.IsFilledIn,
-                    RecordDate = record.RecordDate
-                })
-                    .ToList();
+                    var recordXmlPath = Path.Combine(s, "record.xml");
+                    var recordInfo = new RecordListInfo();
 
-                recordInfo.RecordDate = record.RecordDate;
-                recordInfo.RecordsInfo = recordItems;
+                    var record = XmlFileSerializer.Deserialize<Record>(recordXmlPath);
+//                    var dateText = s.Substring(s.LastIndexOf("\\", StringComparison.Ordinal)+1);
+//                    if (!DateTime.TryParseExact(dateText, "yyyy-MM-dd", null, DateTimeStyles.None, out var dt))
+//                    {
+//                        throw new InvalidCastException("Nieprawidłowa nazwa katalogu '" + dateText +
+//                                                       "' - niepoprawny format daty");
+//                    }
+//
+//                    var files = Directory.GetFiles(s, "*.xlsx");
 
-                records.Add(recordInfo);
+                    foreach (var recordEntry in record.Entries)
+                    {
+//                        UpdateRecordFile(dt, Path.GetFileName(recordEntry),
+//                            Path.Combine(recordEntry));
+                        UpdateRecordFile(record.RecordDate, recordEntry.FilePath,
+                            Path.Combine(s, recordEntry.FilePath));
+                    }
+
+                    record = XmlFileSerializer.Deserialize<Record>(recordXmlPath);
+
+                    var recordItems = record.Entries.Select(recordEntry => new RecordListItemInfo
+                        {
+                            DisplayName = recordEntry.DisplayName,
+                            FilePath = recordEntry.FilePath,
+                            TemplateId = recordEntry.TemplateId,
+                            IsFilledIn = recordEntry.IsFilledIn,
+                            RecordDate = record.RecordDate
+                        })
+                        .ToList();
+
+                    recordInfo.RecordDate = record.RecordDate;
+                    recordInfo.RecordsInfo = recordItems;
+
+                    records.Add(recordInfo);
+                }
+
+                return records;
             });
-
-            return records;
         }
 
         public void CreateRecord(NewRecordInfo recordInfo)
@@ -182,7 +205,7 @@ namespace NathalieInwentaryzacje.Lib.Bll.Managers
             var totalRows = ws.Dimension.End.Row;
             const int startRow = 2;
 
-            foreach (var firstRowCell in ws.Cells[1,1,1,totalCols])
+            foreach (var firstRowCell in ws.Cells[1, 1, 1, totalCols])
             {
                 dt.Columns.Add(firstRowCell.Text);
             }
@@ -216,7 +239,7 @@ namespace NathalieInwentaryzacje.Lib.Bll.Managers
                 }
 
                 var sheet = package.Workbook.Worksheets[1];
-                if(sheet.Dimension.Rows>1 && sheet.Cells[2, 1]?.Value != null)
+                if (sheet.Dimension.Rows > 1 && sheet.Cells[2, 1]?.Value != null)
                 {
                     hasBeenUpdated = true;
                 }

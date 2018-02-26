@@ -41,7 +41,7 @@ namespace NathalieInwentaryzacje.ViewModels.Records
             Context.RecordTypes = _templatesManager.GetTemplates().Where(x=>x.IsEnabled).Select(x=>new NewRecordTypeInfo
             {
                 TemplateInfo= x,
-                IsSelected = false
+                IsSelected = true
             }).ToList();
         }
     }

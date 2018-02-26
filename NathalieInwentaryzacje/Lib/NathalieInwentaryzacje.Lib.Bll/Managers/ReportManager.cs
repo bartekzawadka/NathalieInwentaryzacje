@@ -23,7 +23,7 @@ namespace NathalieInwentaryzacje.Lib.Bll.Managers
             _recordsManager = new RecordsManager(pathInfos);
         }
 
-        public void GenerateReports(IEnumerable<GenerateReportEntryInfo> reportEntryInfos, string saveDir, int numberOfItemsPerPage = 40)
+        public void GenerateReports(DateTime recordDate, IEnumerable<GenerateReportEntryInfo> reportEntryInfos, string saveDir, int numberOfItemsPerPage = 40)
         {
             if (!Directory.Exists(saveDir))
                 throw new DirectoryNotFoundException("Nie można odnaleźć folderu '" + saveDir + "'");
@@ -37,7 +37,8 @@ namespace NathalieInwentaryzacje.Lib.Bll.Managers
                     generateReportEntryInfo.RecordListInfo.RecordDate.ToRecordDateString(),
                     generateReportEntryInfo.RecordListInfo.DisplayName?.ToUpper(), dt), numberOfItemsPerPage);
 
-                var fileName = Path.GetFileNameWithoutExtension(generateReportEntryInfo.RecordListInfo.FilePath) +
+                var fileName = Path.GetFileNameWithoutExtension(generateReportEntryInfo.RecordListInfo.FilePath) + "_" +
+                               recordDate.ToRecordDateString() +
                                ".pdf";
                 var path = Path.Combine(saveDir, fileName);
                 File.Delete(path);
@@ -133,7 +134,7 @@ namespace NathalieInwentaryzacje.Lib.Bll.Managers
 
                 var preSumValue = new PdfPCell(new Phrase(transferedValue.ToString("C"), fontBold))
                 {
-                    HorizontalAlignment = 1,
+                    HorizontalAlignment = 2,
                     VerticalAlignment = 5
                 };
                 table.AddCell(preSumValue);
@@ -204,7 +205,7 @@ namespace NathalieInwentaryzacje.Lib.Bll.Managers
 
             var summaryValueCell = new PdfPCell(new Phrase(sum.ToString("C"), fontBold))
             {
-                HorizontalAlignment = 1,
+                HorizontalAlignment = 2,
                 VerticalAlignment = 5
             };
 

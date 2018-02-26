@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Caliburn.Micro;
 using NathalieInwentaryzacje.Lib.Contracts.Dto;
@@ -9,23 +10,36 @@ namespace NathalieInwentaryzacje.ViewModels.Records
 {
     public class RecordsListViewModel : ListScreen<RecordListInfo>
     { 
-        protected override void OnActivate()
+        public override async void LoadData()
         {
-            LoadData();
-        }
+            var ctrl = await ShowProgress("Ładowanie", "Trwa ładowanie inwentaryzacji. Proszę czekać...", true);
+            ctrl.SetIndeterminate();
 
-        public override void LoadData()
-        {
-            var records = IoC.Get<IRecordsManager>().GetRecords();
+            IEnumerable<RecordListInfo> records = null;
 
-            var context = new ObservableCollection<RecordListInfo>();
-
-            foreach (var record in records)
+            try
             {
-                context.Add(record);
+                records = await IoC.Get<IRecordsManager>().GetRecords();
+            }
+            finally
+            {
+                var context = new ObservableCollection<RecordListInfo>();
+                if (records != null)
+                {
+
+                    foreach (var record in records)
+                    {
+                        context.Add(record);
+                    }
+
+                    Context = context;
+                }
+
+                await ctrl.CloseAsync();
             }
 
-            Context = context;
+            var mainScreen = ParentScreen as MainViewModel;
+            mainScreen?.UpdateStatus();
         }
 
         public void NewRecord()

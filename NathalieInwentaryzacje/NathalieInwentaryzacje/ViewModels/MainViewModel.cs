@@ -75,18 +75,17 @@ namespace NathalieInwentaryzacje.ViewModels
         {
             SyncStatus = Enumerations.GetEnumDescription(Lib.Contracts.Enums.SyncStatus.Unknown);
             SyncStatusBackground = Brushes.Transparent;
-            SyncStatusForeground = Brushes.DarkGray;
-            ShowRecords();
+            SyncStatusForeground = Brushes.Gray;
         }
 
         public void ShowRecords()
         {
-            MainContent = new RecordsListViewModel();
+            MainContent = new RecordsListViewModel{ParentScreen = this};
         }
 
         public void ShowTemplates()
         {
-            MainContent = new TemplatesListViewModel();
+            MainContent = new TemplatesListViewModel {ParentScreen = this};
         }
 
         public void ShowSettings()
@@ -117,6 +116,11 @@ namespace NathalieInwentaryzacje.ViewModels
             await Synchronize();
         }
 
+        protected override void OnViewLoaded(object view)
+        {
+            ShowRecords();
+        }
+
         protected override async void OnDeactivate(bool close)
         {
             await Synchronize();
@@ -129,7 +133,7 @@ namespace NathalieInwentaryzacje.ViewModels
             return UpdateStatus();
         }
 
-        private SyncStatus UpdateStatus()
+        public SyncStatus UpdateStatus()
         {
             var sm = IoC.Get<ISyncManager>();
             var status = sm.GetStatus();
@@ -147,7 +151,7 @@ namespace NathalieInwentaryzacje.ViewModels
                     SyncStatusBackground = Brushes.DarkRed;
                     break;
                 case Lib.Contracts.Enums.SyncStatus.Unknown:
-                    SyncStatusForeground = Brushes.DarkGray;
+                    SyncStatusForeground = Brushes.Gray;
                     SyncStatusBackground = Brushes.Transparent;
                     break;
                 case Lib.Contracts.Enums.SyncStatus.UpToDate:
