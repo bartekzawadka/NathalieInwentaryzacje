@@ -97,9 +97,13 @@ namespace NathalieInwentaryzacje.Lib.Bll.Managers
                 {
                     widths[i] = 1f;
                 }
-                else if (i == 1)
+                else if (i == 1 || i == 2)
                 {
-                    widths[i] = 5f;
+                    widths[i] = 4f;
+                }
+                else if (i == 3 || i == 4)
+                {
+                    widths[i] = 2f;
                 }
                 else
                 {
