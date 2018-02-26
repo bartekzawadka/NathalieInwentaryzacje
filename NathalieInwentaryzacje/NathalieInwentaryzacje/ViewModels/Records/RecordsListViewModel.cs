@@ -44,7 +44,7 @@ namespace NathalieInwentaryzacje.ViewModels.Records
 
         public void NewRecord()
         {
-            if (ShowDialog(new NewRecordViewModel()) == true)
+            if (ShowDialog(new RecordViewModel()) == true)
             {
                 LoadData();
             }
@@ -57,6 +57,12 @@ namespace NathalieInwentaryzacje.ViewModels.Records
                 RecordDate = context.RecordDate,
                 RecordsInfo = context.RecordsInfo
             }));
+        }
+
+        public void AddRecordEntries(RecordListInfo context)
+        {
+            ShowDialog(new RecordViewModel(context));
+            LoadData();
         }
 
         public override void SelectedContextItemDoubleClick(object context)

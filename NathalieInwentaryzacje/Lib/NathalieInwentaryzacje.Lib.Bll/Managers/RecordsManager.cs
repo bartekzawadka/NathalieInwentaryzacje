@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -18,6 +17,8 @@ namespace NathalieInwentaryzacje.Lib.Bll.Managers
 {
     public class RecordsManager : ManagerBase, IRecordsManager
     {
+        private readonly ITemplatesManager _templatesManager = new TemplatesManager(Paths);
+
         public RecordsManager(DataLocationInfo pathInfos) : base(pathInfos)
         {
         }
@@ -29,25 +30,17 @@ namespace NathalieInwentaryzacje.Lib.Bll.Managers
                 var dirs = Directory.GetDirectories(Paths.RecordsPath);
                 var records = new List<RecordListInfo>();
 
+                var availableTemplatesCount = _templatesManager.GetTemplates().Count();
+
                 foreach (var s in dirs)
                 {
                     var recordXmlPath = Path.Combine(s, "record.xml");
                     var recordInfo = new RecordListInfo();
 
                     var record = XmlFileSerializer.Deserialize<Record>(recordXmlPath);
-//                    var dateText = s.Substring(s.LastIndexOf("\\", StringComparison.Ordinal)+1);
-//                    if (!DateTime.TryParseExact(dateText, "yyyy-MM-dd", null, DateTimeStyles.None, out var dt))
-//                    {
-//                        throw new InvalidCastException("Nieprawidłowa nazwa katalogu '" + dateText +
-//                                                       "' - niepoprawny format daty");
-//                    }
-//
-//                    var files = Directory.GetFiles(s, "*.xlsx");
 
                     foreach (var recordEntry in record.Entries)
                     {
-//                        UpdateRecordFile(dt, Path.GetFileName(recordEntry),
-//                            Path.Combine(recordEntry));
                         UpdateRecordFile(record.RecordDate, recordEntry.FilePath,
                             Path.Combine(s, recordEntry.FilePath));
                     }
@@ -66,6 +59,8 @@ namespace NathalieInwentaryzacje.Lib.Bll.Managers
 
                     recordInfo.RecordDate = record.RecordDate;
                     recordInfo.RecordsInfo = recordItems;
+                    recordInfo.CanAddEntries = recordItems.Count < availableTemplatesCount;
+                    recordInfo.RecordId = record.RecordId;
 
                     records.Add(recordInfo);
                 }
@@ -74,7 +69,7 @@ namespace NathalieInwentaryzacje.Lib.Bll.Managers
             });
         }
 
-        public void CreateRecord(NewRecordInfo recordInfo)
+        public void CreateOrUpdateRecord(RecordInfo recordInfo)
         {
             if (recordInfo == null)
             {
@@ -92,39 +87,74 @@ namespace NathalieInwentaryzacje.Lib.Bll.Managers
             }
 
             var recordsPath = Path.Combine(Paths.RecordsPath, recordInfo.RecordsDate.ToRecordDateString());
-            if (Directory.Exists(recordsPath))
-            {
-                throw new Exception("Inwentaryzacje na dzień " + recordInfo.RecordsDate.ToRecordDateString() +
-                                    " już istnieją! Proszę wybrać inną datę lub zmodyfikować istniejące zestawienia");
-            }
+            var recordInfoFilePath = Path.Combine(recordsPath, "record.xml");
+
+            var templates = recordInfo.RecordTypes.Where(x => x.IsSelected).Select(x => x.TemplateInfo);
 
             try
             {
-                Directory.CreateDirectory(recordsPath);
-
-                var templates = recordInfo.RecordTypes.Where(x => x.IsSelected).Select(x => x.TemplateInfo);
-
-                var record = new Record();
-                var entries = new List<RecordEntry>();
-
-                foreach (var templateInfo in templates)
+                if (string.IsNullOrEmpty(recordInfo.Id))
                 {
-                    var templateFullPath = Path.Combine(Paths.TemplatesPath, templateInfo.TemplateFilePath);
-                    File.Copy(templateFullPath, Path.Combine(recordsPath, templateInfo.TemplateFilePath));
-
-                    entries.Add(new RecordEntry
+                    if (Directory.Exists(recordsPath))
                     {
-                        DisplayName = templateInfo.Name,
-                        FilePath = templateInfo.TemplateFilePath,
-                        TemplateId = templateInfo.Id
-                    });
+                        throw new Exception("Inwentaryzacje na dzień " + recordInfo.RecordsDate.ToRecordDateString() +
+                                            " już istnieją! Proszę wybrać inną datę lub zmodyfikować istniejące zestawienia");
+                    }
+
+                    Directory.CreateDirectory(recordsPath);
+
+                    var record = new Record();
+                    var entries = new List<RecordEntry>();
+
+                    foreach (var templateInfo in templates)
+                    {
+                        var templateFullPath = Path.Combine(Paths.TemplatesPath, templateInfo.TemplateFilePath);
+                        File.Copy(templateFullPath, Path.Combine(recordsPath, templateInfo.TemplateFilePath));
+
+                        entries.Add(new RecordEntry
+                        {
+                            DisplayName = templateInfo.Name,
+                            FilePath = templateInfo.TemplateFilePath,
+                            TemplateId = templateInfo.Id
+                        });
+                    }
+
+                    record.Entries = entries.ToArray();
+                    record.RecordId = Guid.NewGuid().ToString();
+                    record.RecordDate = recordInfo.RecordsDate.Value;
+
+                    XmlFileSerializer.Serialize(record, recordInfoFilePath);
                 }
+                else
+                {
+                    var record = XmlFileSerializer.Deserialize<Record>(recordInfoFilePath);
 
-                record.Entries = entries.ToArray();
-                record.RecordId = Guid.NewGuid().ToString();
-                record.RecordDate = recordInfo.RecordsDate.Value;
+                    var existingIds = record.Entries.Select(x => x.TemplateId).ToList();
 
-                XmlFileSerializer.Serialize(record, Path.Combine(recordsPath, "record.xml"));
+                    var entriesToAdd = new List<RecordEntry>();
+
+                    foreach (var templateInfo in templates)
+                    {
+                        if (!existingIds.Contains(templateInfo.Id))
+                        {
+                            var templateFullPath = Path.Combine(Paths.TemplatesPath, templateInfo.TemplateFilePath);
+                            File.Copy(templateFullPath, Path.Combine(recordsPath, templateInfo.TemplateFilePath));
+
+                            entriesToAdd.Add(new RecordEntry
+                            {
+                                DisplayName = templateInfo.Name,
+                                FilePath = templateInfo.TemplateFilePath,
+                                TemplateId = templateInfo.Id
+                            });
+                        }
+                    }
+
+                    var entries = record.Entries.ToList();
+                    entries.AddRange(entriesToAdd);
+                    record.Entries = entries.ToArray();
+
+                    XmlFileSerializer.Serialize(record, recordInfoFilePath);
+                }
             }
             catch
             {

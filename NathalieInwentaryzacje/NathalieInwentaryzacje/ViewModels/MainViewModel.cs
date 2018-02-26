@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 using Caliburn.Micro;
@@ -95,13 +96,21 @@ namespace NathalieInwentaryzacje.ViewModels
         public async void ShowSynchronize()
         {
             var controller = await ShowProgress("Synchronizacja", "Trwa synchronizacja inwentaryzacji i szablonów. Proszę czekać...");
-            controller.SetIndeterminate();
-            var result = await Synchronize();
-
-            await controller.CloseAsync();
-            if (result == Lib.Contracts.Enums.SyncStatus.UpToDate)
+            try
             {
-                await ShowMessage("Zsynchronizowano", "Dane aplikacji zostały pomyślnie zsynchronizowane z repozytorium plików");
+                controller.SetIndeterminate();
+                var result = await Synchronize();
+
+                await controller.CloseAsync();
+                if (result == Lib.Contracts.Enums.SyncStatus.UpToDate)
+                {
+                    await ShowMessage("Zsynchronizowano",
+                        "Dane aplikacji zostały pomyślnie zsynchronizowane z repozytorium plików");
+                }
+            }
+            catch (Exception)
+            {
+                await controller.CloseAsync();
             }
         }
 

@@ -130,7 +130,7 @@
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\Main\ErrorViewModel.cs" />
     <Compile Include="ViewModels\Records\GenerateReportViewModel.cs" />
-    <Compile Include="ViewModels\Records\NewRecordViewModel.cs" />
+    <Compile Include="ViewModels\Records\RecordViewModel.cs" />
     <Compile Include="ViewModels\Records\RecordsListViewModel.cs" />
     <Compile Include="ViewModels\Settings\SettingsViewModel.cs" />
     <Compile Include="ViewModels\Templates\TemplatesListViewModel.cs" />
@@ -185,7 +185,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Records\NewRecordView.xaml">
+    <Page Include="Views\Records\RecordView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -14,5 +14,9 @@ namespace NathalieInwentaryzacje.Lib.Contracts.Dto
         public IEnumerable<RecordListItemInfo> RecordsInfo { get; set; }
 
         public bool CanGenerateReport => RecordsInfo?.Any(x => x.IsFilledIn) ?? false;
+
+        public string RecordId { get; set; }
+
+        public bool CanAddEntries { get; set; }
     }
 }

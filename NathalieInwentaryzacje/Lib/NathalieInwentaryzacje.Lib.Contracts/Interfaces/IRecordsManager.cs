@@ -9,7 +9,7 @@ namespace NathalieInwentaryzacje.Lib.Contracts.Interfaces
     {
         Task<IEnumerable<RecordListInfo>> GetRecords();
 
-        void CreateRecord(NewRecordInfo recordInfo);
+        void CreateOrUpdateRecord(RecordInfo recordInfo);
 
         void OpenRecordFileEdit(DateTime recordDate, string fileName);
     }
