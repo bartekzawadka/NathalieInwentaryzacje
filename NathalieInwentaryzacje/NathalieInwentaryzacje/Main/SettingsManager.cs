@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using NathalieInwentaryzacje.Lib.Contracts.Dto.Settings;
 using NathalieInwentaryzacje.Properties;
 
@@ -36,17 +37,13 @@ namespace NathalieInwentaryzacje.Main
                 TemplatesDirName = Settings.Default.TemplatesDirName
             };
 
-            if (string.IsNullOrEmpty(Settings.Default.MainDataPath))
-                dli.MainDirPath = Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "Data");
-            else if (!Path.IsPathRooted(Settings.Default.MainDataPath))
-            {
-                dli.MainDirPath = Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory,
-                    Settings.Default.MainDataPath);
-            }
-            else
-            {
-                dli.MainDirPath = Settings.Default.MainDataPath;
-            }
+            var mainDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+                "NathalieInwentaryzacje");
+
+            if (!Directory.Exists(mainDir))
+                Directory.CreateDirectory(mainDir);
+
+            dli.MainDirPath = mainDir;
 
             return dli;
         }

@@ -114,14 +114,9 @@ namespace NathalieInwentaryzacje.ViewModels
             try
             {
                 controller.SetIndeterminate();
-                var result = await Synchronize();
+                await Synchronize();
 
                 await controller.CloseAsync();
-                if (result == Lib.Contracts.Enums.SyncStatus.UpToDate)
-                {
-                    await ShowMessage("Zsynchronizowano",
-                        "Dane aplikacji zostały pomyślnie zsynchronizowane z repozytorium plików");
-                }
             }
             catch (Exception)
             {

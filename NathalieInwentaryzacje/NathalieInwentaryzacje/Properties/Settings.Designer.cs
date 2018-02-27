@@ -73,15 +73,6 @@ namespace NathalieInwentaryzacje.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data")]
-        public string MainDataPath {
-            get {
-                return ((string)(this["MainDataPath"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Inwentaryzacje")]
         public string RecordsDirName {
             get {
