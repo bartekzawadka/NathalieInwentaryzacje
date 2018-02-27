@@ -27,6 +27,9 @@ namespace NathalieInwentaryzacje.Lib.Bll.Managers
         {
             return Task<IEnumerable<RecordListInfo>>.Factory.StartNew(() =>
             {
+                if (!Directory.Exists(Paths.RecordsPath))
+                    return null;
+
                 var dirs = Directory.GetDirectories(Paths.RecordsPath);
                 var records = new List<RecordListInfo>();
 

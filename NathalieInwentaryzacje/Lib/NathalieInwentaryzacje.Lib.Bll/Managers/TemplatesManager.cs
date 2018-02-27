@@ -19,6 +19,11 @@ namespace NathalieInwentaryzacje.Lib.Bll.Managers
 
         public IEnumerable<TemplateInfo> GetTemplates(bool includeDisabled = false)
         {
+            if (!Directory.Exists(Paths.TemplatesPath))
+            {
+                return null;
+            }
+
             var files = Directory.GetFiles(Paths.TemplatesPath, "*.xml");
 
             var templates = new List<TemplateInfo>();
