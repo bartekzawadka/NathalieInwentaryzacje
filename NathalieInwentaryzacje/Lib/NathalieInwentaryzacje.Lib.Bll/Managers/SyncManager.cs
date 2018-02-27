@@ -47,13 +47,27 @@ namespace NathalieInwentaryzacje.Lib.Bll.Managers
             {
                 ExecuteSvnClient(client =>
                 {
-                    if (!Directory.Exists(Paths.MainDirPath) ||
-                        !Directory.Exists(Path.Combine(Paths.MainDirPath, ".svn")))
+                    try
                     {
-                        client.CheckOut(new SvnUriTarget(new Uri(SettingsInfo.RepoAddress)), Paths.MainDirPath);
-                    }
+                        if (!Directory.Exists(Paths.MainDirPath) ||
+                            !Directory.Exists(Path.Combine(Paths.MainDirPath, ".svn")))
+                        {
+                            client.CheckOut(new SvnUriTarget(new Uri(SettingsInfo.RepoAddress)), Paths.MainDirPath);
+                        }
 
-                    client.Update(Paths.MainDirPath);
+                        client.Update(Paths.MainDirPath);
+                    }
+                    catch (SvnRepositoryIOException ex)
+                    {
+                        if (ex.InnerException != null &&
+                            ex.InnerException.GetType() == typeof(SvnAuthenticationException))
+                        {
+                            throw new Exception(
+                                "Dane logowania do repozytorium plików są nieprawidłowe. Proszę sprawdzić ustawienia");
+                        }
+
+                        throw;
+                    }
 
                     if (!Directory.Exists(Paths.RecordsPath))
                         Directory.CreateDirectory(Paths.RecordsPath);
