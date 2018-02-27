@@ -12,7 +12,7 @@ namespace NathalieInwentaryzacje.Lib.Bll.Managers
 {
     public class SyncManager : ManagerBase, ISyncManager
     {
-        private SettingsInfo SettingsInfo { get; }
+        private SettingsInfo SettingsInfo { get; set; }
 
         public SyncManager(SettingsInfo settings, DataLocationInfo paths) : base(paths)
         {
@@ -39,6 +39,11 @@ namespace NathalieInwentaryzacje.Lib.Bll.Managers
                     return SyncStatus.NotConnected;
                 }
             });
+        }
+
+        public void UpdateSettings(SettingsInfo settings)
+        {
+            SettingsInfo = settings;
         }
 
         public Task Synchronize()

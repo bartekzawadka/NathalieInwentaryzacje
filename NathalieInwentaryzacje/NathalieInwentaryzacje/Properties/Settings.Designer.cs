@@ -37,30 +37,6 @@ namespace NathalieInwentaryzacje.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("nathalie")]
-        public string RepoUser {
-            get {
-                return ((string)(this["RepoUser"]));
-            }
-            set {
-                this["RepoUser"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Tymoteusz2017")]
-        public string RepoPassword {
-            get {
-                return ((string)(this["RepoPassword"]));
-            }
-            set {
-                this["RepoPassword"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("40")]
         public int NumberOfReportRecords {
             get {
@@ -86,6 +62,30 @@ namespace NathalieInwentaryzacje.Properties {
         public string TemplatesDirName {
             get {
                 return ((string)(this["TemplatesDirName"]));
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("user")]
+        public string RepoUser {
+            get {
+                return ((string)(this["RepoUser"]));
+            }
+            set {
+                this["RepoUser"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string RepoPassword {
+            get {
+                return ((string)(this["RepoPassword"]));
+            }
+            set {
+                this["RepoPassword"] = value;
             }
         }
     }

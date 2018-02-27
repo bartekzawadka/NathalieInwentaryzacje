@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using NathalieInwentaryzacje.Lib.Contracts.Dto.Settings;
 using NathalieInwentaryzacje.Lib.Contracts.Enums;
 
 namespace NathalieInwentaryzacje.Lib.Contracts.Interfaces
@@ -8,5 +9,7 @@ namespace NathalieInwentaryzacje.Lib.Contracts.Interfaces
         Task Synchronize();
 
         SyncStatus GetStatus();
+
+        void UpdateSettings(SettingsInfo settings);
     }
 }
