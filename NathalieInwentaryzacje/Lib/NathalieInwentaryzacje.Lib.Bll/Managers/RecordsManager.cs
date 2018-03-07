@@ -72,6 +72,16 @@ namespace NathalieInwentaryzacje.Lib.Bll.Managers
             });
         }
 
+        public void DeleteRecord(RecordListInfo info)
+        {
+            var path = Path.Combine(Paths.RecordsPath, info.RecordDate.ToRecordDateString());
+
+            if (!Directory.Exists(path))
+                throw new Exception("Inwentaryzacja na dzień " + info.RecordDate.ToRecordDateString() +
+                                    " nie została odnaleziona");
+            Directory.Delete(path, true);
+        } 
+
         public void CreateOrUpdateRecord(RecordInfo recordInfo)
         {
             if (recordInfo == null)
