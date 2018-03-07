@@ -31,10 +31,12 @@
                                         <ColumnDefinition Width="*"></ColumnDefinition>
                                         <ColumnDefinition Width="Auto"></ColumnDefinition>
                                         <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                        <ColumnDefinition Width="Auto"></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
                                     <TextBlock Text="{Binding Path=RecordTitle, Converter={StaticResource ToUpperConverter}}" VerticalAlignment="Center"></TextBlock>
-                                    <controls:NButton IsEnabled="{Binding CanAddEntries, UpdateSourceTrigger=PropertyChanged}" cal:Message.Attach="[Event Click] = [Action AddRecordEntries($dataContext)]"  Grid.Column="1" Text="Dodaj pozycje" Icon="AddMultiple"></controls:NButton>
-                                    <controls:NButton IsEnabled="{Binding CanGenerateReport, UpdateSourceTrigger=PropertyChanged}" cal:Message.Attach="[Event Click] = [Action GenerateReport($dataContext)]"  Grid.Column="2" Text="Generuj raport" Icon="PagePdf"></controls:NButton>
+                                    <controls:NButton IsEnabled="{Binding CanAddEntries, UpdateSourceTrigger=PropertyChanged}" cal:Message.Attach="[Event Click] = [Action AddRecordEntries($dataContext)]"  Grid.Column="2" Text="Dodaj pozycje" Icon="AddMultiple"></controls:NButton>
+                                    <controls:NButton IsEnabled="{Binding CanGenerateReport, UpdateSourceTrigger=PropertyChanged}" cal:Message.Attach="[Event Click] = [Action GenerateReport($dataContext)]"  Grid.Column="1" Text="Generuj raport" Icon="PagePdf"></controls:NButton>
+                                    <controls:NButton cal:Message.Attach="[Event Click] = [Action DeleteRecord($dataContext)]"  Grid.Column="3" Text="Usuń inwentaryzację" Icon="Delete"></controls:NButton>
                                 </Grid>
                             </DataTemplate>
                         </GroupBox.HeaderTemplate>

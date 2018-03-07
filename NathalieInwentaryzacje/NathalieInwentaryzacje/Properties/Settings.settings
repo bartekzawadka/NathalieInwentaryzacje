@@ -20,5 +20,8 @@
     <Setting Name="RepoPassword" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="RecordDeletePin" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">0801</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

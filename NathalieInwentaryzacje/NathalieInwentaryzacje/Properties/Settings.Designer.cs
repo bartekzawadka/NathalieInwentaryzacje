@@ -88,5 +88,14 @@ namespace NathalieInwentaryzacje.Properties {
                 this["RepoPassword"] = value;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0801")]
+        public string RecordDeletePin {
+            get {
+                return ((string)(this["RecordDeletePin"]));
+            }
+        }
     }
 }

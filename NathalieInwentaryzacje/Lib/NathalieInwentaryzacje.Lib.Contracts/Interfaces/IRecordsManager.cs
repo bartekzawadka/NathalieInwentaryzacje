@@ -11,6 +11,8 @@ namespace NathalieInwentaryzacje.Lib.Contracts.Interfaces
 
         void CreateOrUpdateRecord(RecordInfo recordInfo);
 
+        void DeleteRecord(RecordListInfo info);
+
         void OpenRecordFileEdit(DateTime recordDate, string fileName);
     }
 }
