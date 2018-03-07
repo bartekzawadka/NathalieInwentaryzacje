@@ -1,5 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Caliburn.Micro;
+using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using NathalieInwentaryzacje.Main;
 
@@ -19,13 +21,22 @@ namespace NathalieInwentaryzacje.ViewModels.Common
 
         public Task<MessageDialogResult> ShowMessage(string title, string message, bool showOnParentScreen = false)
         {
-            var screen = this;
-            if (showOnParentScreen)
-                screen = ParentScreen;
-            var view = WindowManager.GetWindowForModel(screen);
+            var view = GetWindowThisOrParent(showOnParentScreen);
             return view.ShowMessageAsync(title, message);
         }
 
+        public Task<MessageDialogResult> ShowConfirmation(string title, string message,
+            string affirmativeButtonText = "Tak", string negativeButtonText = "Nie", bool showOnParentScreen = false)
+        {
+            var view = GetWindowThisOrParent(showOnParentScreen);
+            return view.ShowMessageAsync(title, message, MessageDialogStyle.AffirmativeAndNegative,
+                new MetroDialogSettings
+                {
+                    AffirmativeButtonText = affirmativeButtonText,
+                    NegativeButtonText = negativeButtonText,
+                    DefaultButtonFocus = MessageDialogResult.Affirmative
+                });
+        }
 
         public bool? ShowDialog(ScreenBase viewModel)
         {
@@ -34,16 +45,26 @@ namespace NathalieInwentaryzacje.ViewModels.Common
 
         public Task<ProgressDialogController> ShowProgress(string title, string message, bool showOnParentScreen = false)
         {
-            var screen = this;
-            if (showOnParentScreen)
-                screen = ParentScreen;
-            var view = WindowManager.GetWindowForModel(screen);
+            var view = GetWindowThisOrParent(showOnParentScreen);
             return view.ShowProgressAsync(title, message);
         }
 
         public virtual void SelectedContextItemDoubleClick(object context)
         {
 
+        }
+
+        private MetroWindow GetWindowThisOrParent(bool useParent = false)
+        {
+            var screen = this;
+            if (useParent)
+                screen = ParentScreen;
+            var view = WindowManager.GetWindowForModel(screen);
+
+            if (view == null)
+                throw new Exception("Nie odnaleziono okna dla wybranego modelu");
+
+            return view;
         }
     }
 }
