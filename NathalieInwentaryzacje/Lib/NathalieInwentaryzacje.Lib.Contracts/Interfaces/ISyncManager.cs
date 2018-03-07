@@ -6,7 +6,7 @@ namespace NathalieInwentaryzacje.Lib.Contracts.Interfaces
 {
     public interface ISyncManager
     {
-        Task Synchronize();
+        Task Synchronize(bool update = true);
 
         SyncStatus GetStatus();
 

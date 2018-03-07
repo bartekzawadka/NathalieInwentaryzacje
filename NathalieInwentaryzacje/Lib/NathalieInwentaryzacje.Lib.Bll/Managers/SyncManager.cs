@@ -46,7 +46,7 @@ namespace NathalieInwentaryzacje.Lib.Bll.Managers
             SettingsInfo = settings;
         }
 
-        public Task Synchronize()
+        public Task Synchronize(bool update = true)
         {
             return Task.Factory.StartNew(() =>
             {
@@ -60,7 +60,8 @@ namespace NathalieInwentaryzacje.Lib.Bll.Managers
                             client.CheckOut(new SvnUriTarget(new Uri(SettingsInfo.RepoAddress)), Paths.MainDirPath);
                         }
 
-                        client.Update(Paths.MainDirPath);
+                        if (update)
+                            client.Update(Paths.MainDirPath);
                     }
                     catch (SvnRepositoryIOException ex)
                     {

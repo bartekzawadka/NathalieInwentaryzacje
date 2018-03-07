@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 using Caliburn.Micro;
+using MahApps.Metro.Controls.Dialogs;
 using NathalieInwentaryzacje.Common.Utils;
 using NathalieInwentaryzacje.Lib.Contracts.Dto;
 using NathalieInwentaryzacje.Lib.Contracts.Enums;
@@ -95,12 +96,12 @@ namespace NathalieInwentaryzacje.ViewModels
 
         public void ShowRecords()
         {
-            MainContent = new RecordsListViewModel{ParentScreen = this};
+            MainContent = new RecordsListViewModel { ParentScreen = this };
         }
 
         public void ShowTemplates()
         {
-            MainContent = new TemplatesListViewModel {ParentScreen = this};
+            MainContent = new TemplatesListViewModel { ParentScreen = this };
         }
 
         public void ShowSettings()
@@ -114,7 +115,7 @@ namespace NathalieInwentaryzacje.ViewModels
             try
             {
                 controller.SetIndeterminate();
-                await Synchronize();
+                await Synchronize(false);
 
                 await controller.CloseAsync();
             }
@@ -131,7 +132,25 @@ namespace NathalieInwentaryzacje.ViewModels
 
         protected override async void OnActivate()
         {
-            await Synchronize();
+            await Synchronize(true);
+        }
+
+        public override async void CanClose(Action<bool> callback)
+        {
+            var sm = IoC.Get<ISyncManager>();
+            var status = sm.GetStatus();
+
+            if (status == Lib.Contracts.Enums.SyncStatus.Modified)
+            {
+                var result = await ShowConfirmation("Synchronizacja",
+                    "Istnieją niezsynchronizowane zmiany. Czy chcesz zsynchronizować?");
+                if (result == MessageDialogResult.Affirmative)
+                {
+                    await Synchronize(false);
+                }
+            }
+
+            callback(true);
         }
 
         protected override void OnViewLoaded(object view)
@@ -139,10 +158,10 @@ namespace NathalieInwentaryzacje.ViewModels
             ShowRecords();
         }
 
-        private async Task<SyncStatus> Synchronize()
+        private async Task<SyncStatus> Synchronize(bool update)
         {
             var sm = IoC.Get<ISyncManager>();
-            await sm.Synchronize();
+            await sm.Synchronize(update);
             return UpdateStatus();
         }
 
