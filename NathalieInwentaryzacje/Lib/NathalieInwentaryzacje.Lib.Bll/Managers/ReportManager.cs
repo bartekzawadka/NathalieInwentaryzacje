@@ -95,7 +95,7 @@ namespace NathalieInwentaryzacje.Lib.Bll.Managers
             {
                 if (i == 0)
                 {
-                    widths[i] = 1f;
+                    widths[i] = 1.2f;
                 }
                 else if (i == 1 || i == 2)
                 {
