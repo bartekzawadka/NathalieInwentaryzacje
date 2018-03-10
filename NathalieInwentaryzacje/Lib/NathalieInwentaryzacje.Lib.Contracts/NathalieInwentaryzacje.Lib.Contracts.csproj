@@ -45,6 +45,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dto\Appendix\Appendix.cs" />
+    <Compile Include="Dto\Appendix\AppendixDataSet.cs" />
+    <Compile Include="Dto\Appendix\AppendixDataSetEntry.cs" />
     <Compile Include="Dto\GenerateReportsInfo.cs" />
     <Compile Include="Dto\RecordInfo.cs" />
     <Compile Include="Dto\RecordTypeInfo.cs" />
@@ -54,9 +57,9 @@
     <Compile Include="Dto\Records\RecordEntry.cs" />
     <Compile Include="Dto\Reports\BaseReportInfo.cs" />
     <Compile Include="Dto\Reports\GenerateReportEntryInfo.cs" />
-    <Compile Include="Dto\Reports\RecordAnnex\RecordAppendixInfo.cs" />
-    <Compile Include="Dto\Reports\RecordAnnex\RecordAppendixReportRowInfo.cs" />
-    <Compile Include="Dto\Reports\RecordAnnex\RecordAppendixSubSet.cs" />
+    <Compile Include="Dto\Reports\RecordAppendix\RecordAppendixInfo.cs" />
+    <Compile Include="Dto\Reports\RecordAppendix\RecordAppendixReportRowInfo.cs" />
+    <Compile Include="Dto\Reports\RecordAppendix\RecordAppendixSubSet.cs" />
     <Compile Include="Dto\Reports\RecordEntryReportInfo.cs" />
     <Compile Include="Dto\Reports\RecordSummary\RecordsTotalsInfo.cs" />
     <Compile Include="Dto\Reports\RecordSummary\RecordSummaryInfo.cs" />

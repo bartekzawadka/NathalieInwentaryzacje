@@ -96,6 +96,16 @@ namespace NathalieInwentaryzacje.ViewModels.Records
             }
         }
 
+        public void RecordSummary(RecordListInfo context)
+        {
+
+        }
+
+        public void RecordAppendix(RecordListInfo context)
+        {
+
+        }
+
         public override void SelectedContextItemDoubleClick(object context)
         {
             if (!(context is RecordListItemInfo model))

@@ -163,10 +163,12 @@
     <Compile Include="Main\Interfaces\IMain.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\Main\ErrorViewModel.cs" />
+    <Compile Include="ViewModels\Records\AppendixViewModel.cs" />
     <Compile Include="ViewModels\Records\GenerateReportViewModel.cs" />
     <Compile Include="ViewModels\Records\RecordViewModel.cs" />
     <Compile Include="ViewModels\Records\RecordsListViewModel.cs" />
     <Compile Include="ViewModels\Settings\SettingsViewModel.cs" />
+    <Compile Include="ViewModels\Templates\AppendixTemplateViewModel.cs" />
     <Compile Include="ViewModels\Templates\TemplatesListViewModel.cs" />
     <Compile Include="ViewModels\Templates\TemplateViewModel.cs" />
     <Compile Include="Views\Controls\MainMenuButton.xaml.cs">
@@ -219,6 +221,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Records\AppendixView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Records\GenerateReportView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -232,6 +238,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Settings\SettingsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Templates\AppendixTemplateView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

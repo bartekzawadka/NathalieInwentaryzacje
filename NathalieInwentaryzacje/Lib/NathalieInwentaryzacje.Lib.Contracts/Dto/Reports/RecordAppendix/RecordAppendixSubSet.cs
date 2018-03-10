@@ -1,14 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
-namespace NathalieInwentaryzacje.Lib.Contracts.Dto.Reports.RecordAnnex
+namespace NathalieInwentaryzacje.Lib.Contracts.Dto.Reports.RecordAppendix
 {
     public class RecordAppendixSubSet
     {
+        [Required(ErrorMessage = "Nazwa wyświetlana zestawienia jest wymagana")]
         public string Title { get; set; }
 
-        public List<RecordAppendixReportRowInfo> Rows { get; set; }
+        public ObservableCollection<RecordAppendixReportRowInfo> Rows { get; set; }
 
         public decimal Sum
         {

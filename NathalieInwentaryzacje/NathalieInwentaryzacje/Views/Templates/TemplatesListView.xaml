@@ -11,10 +11,17 @@
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <StackPanel Orientation="Horizontal" Margin="5,7">
+        <Grid Margin="5,7">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
             <controls:NButton x:Name="NewTemplate" Text="Nowy szablon" IsAccented="True" Icon="Add"></controls:NButton>
-            <controls:NButton x:Name="RefreshList" Text="Odśwież" IsAccented="False" Icon="Refresh"></controls:NButton>
-        </StackPanel>
+            <controls:NButton Grid.Column="1" x:Name="OpenAppendix" Text="Szablon załącznika" IsAccented="False" Icon="PaperclipRotated"></controls:NButton>
+            <controls:NButton Grid.Column="3" x:Name="RefreshList" Text="Odśwież" IsAccented="False" Icon="Refresh"></controls:NButton>
+        </Grid>
 
         <controls:NDataGrid Grid.Row="1" AutoGenerateColumns="False" AlternatingRowBackground="AntiqueWhite" ItemsSource="{Binding Context, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" SelectedItem="{Binding SelectedContextItem, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" CanUserAddRows="False" CanUserDeleteRows="False">
             <DataGrid.Columns>

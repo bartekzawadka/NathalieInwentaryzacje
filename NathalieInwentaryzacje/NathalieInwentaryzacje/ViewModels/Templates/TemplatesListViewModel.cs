@@ -39,5 +39,10 @@ namespace NathalieInwentaryzacje.ViewModels.Templates
                 LoadData();
             }
         }
+
+        public void OpenAppendix()
+        {
+            ShowDialog(new AppendixTemplateViewModel());
+        }
     }
 }

@@ -9,7 +9,7 @@ using NathalieInwentaryzacje.Common.Utils.Extensions;
 using NathalieInwentaryzacje.Lib.Bll.Reporting;
 using NathalieInwentaryzacje.Lib.Bll.Reporting.Builders;
 using NathalieInwentaryzacje.Lib.Contracts.Dto.Reports;
-using NathalieInwentaryzacje.Lib.Contracts.Dto.Reports.RecordAnnex;
+using NathalieInwentaryzacje.Lib.Contracts.Dto.Reports.RecordAppendix;
 using NathalieInwentaryzacje.Lib.Contracts.Dto.Reports.RecordSummary;
 using NathalieInwentaryzacje.Lib.Contracts.Dto.Settings;
 using NathalieInwentaryzacje.Lib.Contracts.Interfaces;

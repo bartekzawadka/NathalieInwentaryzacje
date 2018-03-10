@@ -5,6 +5,8 @@ using System.Linq;
 using NathalieInwentaryzacje.Lib.Bll.Mappers;
 using NathalieInwentaryzacje.Lib.Bll.Serializers;
 using NathalieInwentaryzacje.Lib.Contracts.Dto;
+using NathalieInwentaryzacje.Lib.Contracts.Dto.Appendix;
+using NathalieInwentaryzacje.Lib.Contracts.Dto.Reports.RecordAppendix;
 using NathalieInwentaryzacje.Lib.Contracts.Dto.Settings;
 using NathalieInwentaryzacje.Lib.Contracts.Dto.Templates;
 using NathalieInwentaryzacje.Lib.Contracts.Interfaces;
@@ -30,6 +32,8 @@ namespace NathalieInwentaryzacje.Lib.Bll.Managers
 
             foreach (var file in files)
             {
+                if(file.Contains("Appendix.xml"))
+                    continue;
                 var template = XmlFileSerializer.Deserialize<Template>(file);
                 if (!includeDisabled && !template.IsEnabled)
                     continue;
@@ -72,6 +76,28 @@ namespace NathalieInwentaryzacje.Lib.Bll.Managers
             }
 
             XmlFileSerializer.Serialize(TemplateMapper.ToTemplate(t), path);
+        }
+
+        public RecordAppendixInfo GetRecordAppendixTemplate()
+        {
+            var path = Path.Combine(Paths.TemplatesPath, "Appendix.xml");
+
+            if (!File.Exists(path))
+            {
+                XmlFileSerializer.Serialize(TemplateMapper.AppendixInfoToAppendixFile(new RecordAppendixInfo()), path);
+            }
+
+            return TemplateMapper.AppendixFileToAppendixInfo(XmlFileSerializer.Deserialize<Appendix>(path));
+        }
+
+        public void SaveRecordAppendixTemplate(RecordAppendixInfo appendix)
+        {
+            if (appendix == null)
+                return;
+
+            var path = Path.Combine(Paths.TemplatesPath, "Appendix.xml");
+
+            XmlFileSerializer.Serialize(TemplateMapper.AppendixInfoToAppendixFile(appendix), path);
         }
     }
 }
