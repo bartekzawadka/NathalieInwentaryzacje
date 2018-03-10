@@ -4,12 +4,12 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{11955706-F032-434D-AFAE-481D1C80D8C7}</ProjectGuid>
+    <ProjectGuid>{B86B7FB1-277F-401E-AF4B-EA53C6C62F9D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Bll</RootNamespace>
-    <AssemblyName>Bll</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <RootNamespace>BllTests</RootNamespace>
+    <AssemblyName>BllTests</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">15.0</VisualStudioVersion>
@@ -48,9 +48,8 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ReportTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RecordsManagerTests.cs" />
-    <Compile Include="TemplatesManagerTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -7,7 +7,10 @@ using iTextSharp.text;
 using iTextSharp.text.pdf;
 using NathalieInwentaryzacje.Common.Utils.Extensions;
 using NathalieInwentaryzacje.Lib.Bll.Reporting;
+using NathalieInwentaryzacje.Lib.Bll.Reporting.Builders;
 using NathalieInwentaryzacje.Lib.Contracts.Dto.Reports;
+using NathalieInwentaryzacje.Lib.Contracts.Dto.Reports.RecordAnnex;
+using NathalieInwentaryzacje.Lib.Contracts.Dto.Reports.RecordSummary;
 using NathalieInwentaryzacje.Lib.Contracts.Dto.Settings;
 using NathalieInwentaryzacje.Lib.Contracts.Interfaces;
 
@@ -34,7 +37,7 @@ namespace NathalieInwentaryzacje.Lib.Bll.Managers
                     generateReportEntryInfo.RecordListInfo.FilePath);
 
                 var buff = BuildReport(new RecordEntryReportInfo(
-                    generateReportEntryInfo.RecordListInfo.RecordDate.ToRecordDateString(),
+                    generateReportEntryInfo.RecordListInfo.RecordDate,
                     generateReportEntryInfo.RecordListInfo.DisplayName?.ToUpper(), dt), numberOfItemsPerPage);
 
                 var fileName = Path.GetFileNameWithoutExtension(generateReportEntryInfo.RecordListInfo.FilePath) + "_" +
@@ -85,6 +88,18 @@ namespace NathalieInwentaryzacje.Lib.Bll.Managers
             }
 
             return data;
+        }
+
+        public static byte[] BuildRecordAnnexReport(RecordAppendixInfo rai)
+        {
+            var builder = new RecordAppendixReportBuilder();
+            return builder.BuildReport(rai, true);
+        }
+
+        public static byte[] BuildRecordSummaryReport(RecordSummaryInfo rai)
+        {
+            var builder = new RecordSummaryReportBuilder();
+            return builder.BuildReport(rai, false);
         }
 
         private static int BuildDataPage(DataColumnCollection columns, List<DataRow> rows, Document document, int rowCount, bool addPreviousSummaryRow, ref double transferedValue)
@@ -223,7 +238,7 @@ namespace NathalieInwentaryzacje.Lib.Bll.Managers
             return rowCount;
         }
 
-        private static void CreateHeader(string title, string date, Document doc)
+        private static void CreateHeader(string title, DateTime date, Document doc)
         {
             var table = new PdfPTable(2)
             {
@@ -242,7 +257,7 @@ namespace NathalieInwentaryzacje.Lib.Bll.Managers
             };
             table.AddCell(para1);
 
-            var para2 = new PdfPCell(new Phrase("Stan na dzień: " + date, font))
+            var para2 = new PdfPCell(new Phrase("Stan na dzień: " + date.ToRecordDateString(), font))
             {
                 HorizontalAlignment = 2,
                 BorderWidth = 0

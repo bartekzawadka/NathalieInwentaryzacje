@@ -52,8 +52,15 @@
     <Compile Include="Dto\RecordListItemInfo.cs" />
     <Compile Include="Dto\Records\Record.cs" />
     <Compile Include="Dto\Records\RecordEntry.cs" />
+    <Compile Include="Dto\Reports\BaseReportInfo.cs" />
     <Compile Include="Dto\Reports\GenerateReportEntryInfo.cs" />
+    <Compile Include="Dto\Reports\RecordAnnex\RecordAppendixInfo.cs" />
+    <Compile Include="Dto\Reports\RecordAnnex\RecordAppendixReportRowInfo.cs" />
+    <Compile Include="Dto\Reports\RecordAnnex\RecordAppendixSubSet.cs" />
     <Compile Include="Dto\Reports\RecordEntryReportInfo.cs" />
+    <Compile Include="Dto\Reports\RecordSummary\RecordsTotalsInfo.cs" />
+    <Compile Include="Dto\Reports\RecordSummary\RecordSummaryInfo.cs" />
+    <Compile Include="Dto\Reports\RecordSummary\RecordTotalRowInfo.cs" />
     <Compile Include="Dto\Settings\DataLocationInfo.cs" />
     <Compile Include="Dto\Settings\SettingsInfo.cs" />
     <Compile Include="Dto\TemplateInfo.cs" />

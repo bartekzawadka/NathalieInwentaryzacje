@@ -1,16 +1,15 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 
 namespace NathalieInwentaryzacje.Lib.Contracts.Dto.Reports
 {
-    public class RecordEntryReportInfo
+    public class RecordEntryReportInfo : BaseReportInfo
     {
-        public string RecordDate { get; }
-
         public string RecordDisplayName { get; }
 
         public DataTable RecordEntryTable { get; }
 
-        public RecordEntryReportInfo(string recordDate, string recordDisplayName, DataTable recordEntryTable)
+        public RecordEntryReportInfo(DateTime recordDate, string recordDisplayName, DataTable recordEntryTable)
         {
             RecordDate = recordDate;
             RecordDisplayName = recordDisplayName;
