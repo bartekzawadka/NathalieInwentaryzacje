@@ -56,11 +56,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Managers\AppendixManager.cs" />
     <Compile Include="Managers\ManagerBase.cs" />
     <Compile Include="Managers\RecordsManager.cs" />
     <Compile Include="Managers\ReportManager.cs" />
+    <Compile Include="Managers\SummaryManager.cs" />
     <Compile Include="Managers\SyncManager.cs" />
     <Compile Include="Managers\TemplatesManager.cs" />
+    <Compile Include="Mappers\AppendixMapper.cs" />
+    <Compile Include="Mappers\SummaryMapper.cs" />
     <Compile Include="Mappers\TemplateMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reporting\Builders\RecordAppendixReportBuilder.cs" />

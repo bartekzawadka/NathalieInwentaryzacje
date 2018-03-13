@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace NathalieInwentaryzacje.Lib.Contracts.Dto.Reports.RecordSummary
+namespace NathalieInwentaryzacje.Lib.Contracts.Dto.RecordSummary
 {
     public class RecordsTotalsInfo
     {

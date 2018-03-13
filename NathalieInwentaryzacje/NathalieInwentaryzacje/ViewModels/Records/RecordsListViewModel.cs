@@ -5,14 +5,17 @@ using Caliburn.Micro;
 using MahApps.Metro.Controls.Dialogs;
 using NathalieInwentaryzacje.Common.Utils.Extensions;
 using NathalieInwentaryzacje.Lib.Contracts.Dto;
+using NathalieInwentaryzacje.Lib.Contracts.Dto.Reports;
+using NathalieInwentaryzacje.Lib.Contracts.Enums;
 using NathalieInwentaryzacje.Lib.Contracts.Interfaces;
 using NathalieInwentaryzacje.ViewModels.Additional;
+using NathalieInwentaryzacje.ViewModels.Appendix;
 using NathalieInwentaryzacje.ViewModels.Common;
 
 namespace NathalieInwentaryzacje.ViewModels.Records
 {
     public class RecordsListViewModel : ListScreen<RecordListInfo>
-    { 
+    {
         public override async void LoadData()
         {
             var ctrl = await ShowProgress("Ładowanie", "Trwa ładowanie inwentaryzacji. Proszę czekać...", true);
@@ -58,7 +61,12 @@ namespace NathalieInwentaryzacje.ViewModels.Records
             ShowDialog(new GenerateReportViewModel(new GenerateReportsInfo
             {
                 RecordDate = context.RecordDate,
-                RecordsInfo = context.RecordsInfo
+                RecordsInfo = context.RecordsInfo,
+                OtherReportsInfo = new List<OtherReportItemInfo>
+                {
+                    new OtherReportItemInfo(OtherReportType.Appendix),
+                    new OtherReportItemInfo(OtherReportType.Summary)
+                }
             }));
         }
 
@@ -96,14 +104,16 @@ namespace NathalieInwentaryzacje.ViewModels.Records
             }
         }
 
-        public void RecordSummary(RecordListInfo context)
-        {
-
-        }
-
         public void RecordAppendix(RecordListInfo context)
         {
+            ShowDialog(new AppendixViewModel(context.RecordDate));
+            UpdateStatus();
+        }
 
+        public void RecordSummary(RecordListInfo context)
+        {
+            ShowDialog(new RecordSummaryViewModel(context.RecordDate));
+            UpdateStatus();
         }
 
         public override void SelectedContextItemDoubleClick(object context)
@@ -113,6 +123,12 @@ namespace NathalieInwentaryzacje.ViewModels.Records
 
             IoC.Get<IRecordsManager>().OpenRecordFileEdit(model.RecordDate, model.FilePath);
             LoadData();
+        }
+
+        private void UpdateStatus()
+        {
+            var mainScreen = ParentScreen as MainViewModel;
+            mainScreen?.UpdateStatus();
         }
     }
 }

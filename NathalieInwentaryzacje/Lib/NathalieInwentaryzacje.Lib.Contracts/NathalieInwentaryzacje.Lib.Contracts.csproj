@@ -57,20 +57,26 @@
     <Compile Include="Dto\Records\RecordEntry.cs" />
     <Compile Include="Dto\Reports\BaseReportInfo.cs" />
     <Compile Include="Dto\Reports\GenerateReportEntryInfo.cs" />
-    <Compile Include="Dto\Reports\RecordAppendix\RecordAppendixInfo.cs" />
-    <Compile Include="Dto\Reports\RecordAppendix\RecordAppendixReportRowInfo.cs" />
-    <Compile Include="Dto\Reports\RecordAppendix\RecordAppendixSubSet.cs" />
+    <Compile Include="Dto\RecordAppendix\RecordAppendixInfo.cs" />
+    <Compile Include="Dto\RecordAppendix\RecordAppendixReportRowInfo.cs" />
+    <Compile Include="Dto\RecordAppendix\RecordAppendixSubSet.cs" />
+    <Compile Include="Dto\Reports\OtherReportItemInfo.cs" />
     <Compile Include="Dto\Reports\RecordEntryReportInfo.cs" />
-    <Compile Include="Dto\Reports\RecordSummary\RecordsTotalsInfo.cs" />
-    <Compile Include="Dto\Reports\RecordSummary\RecordSummaryInfo.cs" />
-    <Compile Include="Dto\Reports\RecordSummary\RecordTotalRowInfo.cs" />
+    <Compile Include="Dto\RecordSummary\RecordsTotalsInfo.cs" />
+    <Compile Include="Dto\RecordSummary\RecordSummaryInfo.cs" />
+    <Compile Include="Dto\RecordSummary\RecordTotalRowInfo.cs" />
     <Compile Include="Dto\Settings\DataLocationInfo.cs" />
     <Compile Include="Dto\Settings\SettingsInfo.cs" />
+    <Compile Include="Dto\Summary\Summary.cs" />
+    <Compile Include="Dto\Summary\SummaryEntry.cs" />
     <Compile Include="Dto\TemplateInfo.cs" />
     <Compile Include="Dto\Templates\Template.cs" />
+    <Compile Include="Enums\OtherReportType.cs" />
     <Compile Include="Enums\SyncStatus.cs" />
+    <Compile Include="Interfaces\IAppendixManager.cs" />
     <Compile Include="Interfaces\IRecordsManager.cs" />
     <Compile Include="Interfaces\IReportManager.cs" />
+    <Compile Include="Interfaces\ISummaryManager.cs" />
     <Compile Include="Interfaces\ISyncManager.cs" />
     <Compile Include="Interfaces\ITemplatesManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -81,5 +87,6 @@
       <Name>NathalieInwentaryzacje.Common.Utils</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

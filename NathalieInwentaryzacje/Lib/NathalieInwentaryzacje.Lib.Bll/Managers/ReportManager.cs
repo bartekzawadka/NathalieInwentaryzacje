@@ -8,9 +8,9 @@ using iTextSharp.text.pdf;
 using NathalieInwentaryzacje.Common.Utils.Extensions;
 using NathalieInwentaryzacje.Lib.Bll.Reporting;
 using NathalieInwentaryzacje.Lib.Bll.Reporting.Builders;
+using NathalieInwentaryzacje.Lib.Contracts.Dto.RecordAppendix;
+using NathalieInwentaryzacje.Lib.Contracts.Dto.RecordSummary;
 using NathalieInwentaryzacje.Lib.Contracts.Dto.Reports;
-using NathalieInwentaryzacje.Lib.Contracts.Dto.Reports.RecordAppendix;
-using NathalieInwentaryzacje.Lib.Contracts.Dto.Reports.RecordSummary;
 using NathalieInwentaryzacje.Lib.Contracts.Dto.Settings;
 using NathalieInwentaryzacje.Lib.Contracts.Interfaces;
 
@@ -53,6 +53,26 @@ namespace NathalieInwentaryzacje.Lib.Bll.Managers
             }
         }
 
+        public void GenerateSummary(RecordSummaryInfo rai, string saveDir)
+        {
+            GenerateTypedReport<RecordSummaryReportBuilder, RecordSummaryInfo>(rai, saveDir, "Raport zbiorczy.pdf");
+        }
+
+        public void GenerateAppendix(RecordAppendixInfo rai, string saveDir)
+        {
+            GenerateTypedReport<RecordAppendixReportBuilder, RecordAppendixInfo>(rai, saveDir,
+                "Załącznik" + rai.AppendixNumber + ".pdf");
+        }
+
+        private void GenerateTypedReport<T1, T2>(T2 info, string saveDir, string fileName) where T1 : TypedReportBuilder<T2>, new() where T2 : BaseReportInfo
+        {
+            var buff = new T1().BuildReport(info, false);
+            using (var fs = File.Open(Path.Combine(saveDir, fileName), FileMode.OpenOrCreate, FileAccess.Write))
+            {
+                fs.Write(buff, 0, buff.Length);
+            }
+        }
+
         private static byte[] BuildReport(RecordEntryReportInfo reportInfo, int numberOfItemsPerPage = 40)
         {
             byte[] data;
@@ -88,18 +108,6 @@ namespace NathalieInwentaryzacje.Lib.Bll.Managers
             }
 
             return data;
-        }
-
-        public static byte[] BuildRecordAnnexReport(RecordAppendixInfo rai)
-        {
-            var builder = new RecordAppendixReportBuilder();
-            return builder.BuildReport(rai, true);
-        }
-
-        public static byte[] BuildRecordSummaryReport(RecordSummaryInfo rai)
-        {
-            var builder = new RecordSummaryReportBuilder();
-            return builder.BuildReport(rai, false);
         }
 
         private static int BuildDataPage(DataColumnCollection columns, List<DataRow> rows, Document document, int rowCount, bool addPreviousSummaryRow, ref double transferedValue)

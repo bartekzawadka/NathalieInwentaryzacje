@@ -4,14 +4,17 @@ using System.Data;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using NathalieInwentaryzacje.Common.Utils.Extensions;
 using NathalieInwentaryzacje.Lib.Bll.Serializers;
 using NathalieInwentaryzacje.Lib.Contracts.Dto;
 using NathalieInwentaryzacje.Lib.Contracts.Dto.Records;
+using NathalieInwentaryzacje.Lib.Contracts.Dto.RecordSummary;
 using NathalieInwentaryzacje.Lib.Contracts.Dto.Settings;
 using NathalieInwentaryzacje.Lib.Contracts.Interfaces;
 using OfficeOpenXml;
+using Org.BouncyCastle.Cms;
 
 namespace NathalieInwentaryzacje.Lib.Bll.Managers
 {
@@ -207,8 +210,36 @@ namespace NathalieInwentaryzacje.Lib.Bll.Managers
             UpdateRecordFile(recordDate, fileName, path);
         }
 
+        internal List<RecordTotalRowInfo> GetRecordSums(DateTime recordDate)
+        {
+            var recordFilePath = Path.Combine(Paths.RecordsPath, recordDate.ToRecordDateString(), "record.xml");
+            var record = XmlFileSerializer.Deserialize<Record>(recordFilePath);
 
-        public DataTable RecordToDataTable(DateTime recordDate, string fileName)
+            var info = new List<RecordTotalRowInfo>();
+
+            foreach (var recordEntry in record.Entries)
+            {
+                var dt = RecordToDataTable(recordDate, recordEntry.FilePath);
+                var sum = 0m;
+                foreach (DataRow row in dt.Rows)
+                {
+                    if (decimal.TryParse(row[dt.Columns.Count - 1].ToString().Replace("zł", "").Trim(), out var val))
+                    {
+                        sum += val;
+                    }
+                }
+
+                info.Add(new RecordTotalRowInfo
+                {
+                    Name = recordEntry.DisplayName,
+                    Value = sum
+                });
+            }
+
+            return info;
+        }
+
+        internal DataTable RecordToDataTable(DateTime recordDate, string fileName)
         {
             if (string.IsNullOrEmpty(fileName))
                 throw new ArgumentNullException(nameof(fileName), "Nazwa pliku inwentaryzacji nie może być pusta");

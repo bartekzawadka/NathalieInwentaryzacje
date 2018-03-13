@@ -2,7 +2,7 @@
 using iTextSharp.text.pdf;
 using LiczbyNaSlowaNET;
 using NathalieInwentaryzacje.Common.Utils.Extensions;
-using NathalieInwentaryzacje.Lib.Contracts.Dto.Reports.RecordSummary;
+using NathalieInwentaryzacje.Lib.Contracts.Dto.RecordSummary;
 
 namespace NathalieInwentaryzacje.Lib.Bll.Reporting.Builders
 {

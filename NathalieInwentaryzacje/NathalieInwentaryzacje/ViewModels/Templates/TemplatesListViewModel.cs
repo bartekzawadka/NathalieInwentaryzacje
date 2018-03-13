@@ -1,6 +1,7 @@
 ﻿using Caliburn.Micro;
 using NathalieInwentaryzacje.Lib.Contracts.Dto;
 using NathalieInwentaryzacje.Lib.Contracts.Interfaces;
+using NathalieInwentaryzacje.ViewModels.Appendix;
 using NathalieInwentaryzacje.ViewModels.Common;
 
 namespace NathalieInwentaryzacje.ViewModels.Templates
@@ -42,7 +43,7 @@ namespace NathalieInwentaryzacje.ViewModels.Templates
 
         public void OpenAppendix()
         {
-            ShowDialog(new AppendixTemplateViewModel());
+            ShowDialog(new AppendixViewModel(null));
         }
     }
 }

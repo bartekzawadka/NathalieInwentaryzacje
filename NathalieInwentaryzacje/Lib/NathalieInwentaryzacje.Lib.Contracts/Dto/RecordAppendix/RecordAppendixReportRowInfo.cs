@@ -1,4 +1,4 @@
-﻿namespace NathalieInwentaryzacje.Lib.Contracts.Dto.Reports.RecordAppendix
+﻿namespace NathalieInwentaryzacje.Lib.Contracts.Dto.RecordAppendix
 {
     public class RecordAppendixReportRowInfo
     {

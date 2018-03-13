@@ -4,16 +4,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-        xmlns:dialogs="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
-        xmlns:local="clr-namespace:NathalieInwentaryzacje.Views.Records"
         xmlns:controls1="clr-namespace:NathalieInwentaryzacje.Views.Controls"
         xmlns:cal="http://www.caliburnproject.org"
         mc:Ignorable="d" SizeToContent="WidthAndHeight" Style="{StaticResource NWindow}"
-                      WindowStartupLocation="CenterScreen" MinWidth="600" MinHeight="300" Width="600" Height="300"
+                      WindowStartupLocation="CenterScreen" MinWidth="600" MinHeight="500" Width="600" Height="500"
         Title="Generuj raporty">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
@@ -60,7 +59,22 @@
             </Grid>
         </GroupBox>
 
-        <Grid Grid.Row="2" VerticalAlignment="Center">
+        <GroupBox Header="Wybierz pozostałe raporty" Grid.Row="2" Margin="5" >
+            <Grid>
+                <ListBox ItemsSource="{Binding OtherReports, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <CheckBox IsChecked="{Binding IsSelected, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" cal:Message.Attach="[Event Checked] = [Action UpdateItems()]; [Event Unchecked] = [Action UpdateItems()]"></CheckBox>
+                                <Label Content="{Binding Title, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ToUpperConverter}}"></Label>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
+        </GroupBox>
+
+        <Grid Grid.Row="3" VerticalAlignment="Center">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"></ColumnDefinition>
                 <ColumnDefinition Width="Auto"></ColumnDefinition>

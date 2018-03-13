@@ -6,6 +6,7 @@
     <converters:ToUpperConverter x:Key="ToUpperConverter"></converters:ToUpperConverter>
     <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"></converters:BooleanToVisibilityConverter>
     <converters:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter"></converters:InverseBooleanToVisibilityConverter>
+    <converters:CurrencyConverter x:Key="CurrencyConverter"></converters:CurrencyConverter>
 
     <Style x:Key="NWindow" TargetType="Controls:MetroWindow">
         <Setter Property="Icon" Value="pack://application:,,,/NathalieInwentaryzacje;component/Resources/Img/logo.ico"></Setter>

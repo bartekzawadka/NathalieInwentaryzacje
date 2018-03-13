@@ -33,6 +33,8 @@ namespace NathalieInwentaryzacje.Main
             builder.RegisterInstance(new RecordsManager(paths)).As<IRecordsManager>();
             builder.RegisterInstance(new TemplatesManager(paths)).As<ITemplatesManager>();
             builder.RegisterInstance(new ReportManager(paths)).As<IReportManager>();
+            builder.RegisterInstance(new AppendixManager(paths)).As<IAppendixManager>();
+            builder.RegisterInstance(new SummaryManager(paths)).As<ISummaryManager>();
             builder.RegisterInstance(new SyncManager(SettingsManager.GetSettings(), paths)).As<ISyncManager>();
         }
 

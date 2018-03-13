@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
-namespace NathalieInwentaryzacje.Lib.Contracts.Dto.Reports.RecordAppendix
+namespace NathalieInwentaryzacje.Lib.Contracts.Dto.RecordAppendix
 {
     public class RecordAppendixSubSet
     {
